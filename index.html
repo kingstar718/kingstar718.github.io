@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/你好/">你好</a>
+      <a class="article-title" href="/2018/11/11/你好/">hexo+github部署个人博客</a>
     </h1>
   
 
@@ -84,11 +84,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><ol>
+<li>下载GitHub</li>
+<li>下载node.js<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2>1.github安装:<br>1)执行安装程序一路next就行<br>2)安装完后，打开Git Bash<br>3)执行命令<br>git config –global user.name “用户名”<br>git config –global user.email “你的邮箱”<br>2.node安装<br>3.hexo安装<br>npm install hexo -g<h2 id="三、github上的准备工作和hexo的配置修改"><a href="#三、github上的准备工作和hexo的配置修改" class="headerlink" title="三、github上的准备工作和hexo的配置修改"></a>三、github上的准备工作和hexo的配置修改</h2>1.Github账户注册和新建项目<br>1)配置ssh kyes ：<br>1.1)打开 git bash ，输入 ssh-keygen -t rsa -C “邮箱”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:\Users\Administrator.ssh）。<br>1.2)登录Github，点击头像下的settings，点击 SSH and GPG keys ，点击 New SSH key，将id_rsa.pub文件里的内容复制上去。title可以随意填或不填。<br>2)项目必须要遵守格式：账户名.github.io（账户名这里不能写错啦，否则hexo部署完访问会404）<br>3)需要勾选Initialize this repository with a README<br>2.hexo的初始化和配置文件修改<br>1)建立一个空文件夹 例如：F://blog<br>2)在空文件夹下执行命令 ：hexo -init<br>3)执行完成修改_config.yml文件<br>deploy:<br>type: git<br>repo: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:用户名/用户名.github.io.git<br>branch: master<br><strong>注意:每行的:后面必须要有空格(奇坑)</strong><h2 id="四、部署顺序执行下面的命令"><a href="#四、部署顺序执行下面的命令" class="headerlink" title="四、部署顺序执行下面的命令"></a>四、部署顺序执行下面的命令</h2>hexo clean<br>hexo generate<br>hexo deploy   </li>
+</ol>
+<p>写博文:hexo new “标题”<br>自动生成md文件,默认放在source的_posts文件夹下</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/你好/" data-id="cjod1do710001xoucr2blkg3u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/你好/" data-id="cjod1qcrr000238uc96iss791" class="article-share-link">Share</a>
       
       
     </footer>
@@ -124,7 +129,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/你好啊hexo/" data-id="cjod1do7l0003xoucodhdi45k" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/你好啊hexo/" data-id="cjod1qcrt000338ucyd8r25rk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -160,7 +165,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/newblog/" data-id="cjod1do750002xoucdyd5gblr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/newblog/" data-id="cjod1qcri000038uc0p53589b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -205,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/11/11/hello-world/" data-id="cjod1do6w0000xoucp2u62hud" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/11/11/hello-world/" data-id="cjod1qcrp000138ucdb31avp5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -246,7 +251,7 @@
       <ul>
         
           <li>
-            <a href="/2018/11/11/你好/">你好</a>
+            <a href="/2018/11/11/你好/">hexo+github部署个人博客</a>
           </li>
         
           <li>
