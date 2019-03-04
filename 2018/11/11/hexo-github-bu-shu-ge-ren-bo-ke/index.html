@@ -5,8 +5,10 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="你好啊hexo, kingstar718&#39;s blog">
-    <meta name="description" content="你好啊hexo | kingstar718&#39;s blog">
+    <meta name="keywords" content="hexo+github部署个人博客, kingstar718&#39;s blog">
+    <meta name="description" content="一、准备工作
+下载GitHub
+下载node.js二、安装1.github安装:1)执行安装程序一路next就行2)安装完后，打开Git Bash3)执行命令git config –global user.name “用户名”git con">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -14,7 +16,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>你好啊hexo | kingstar718&#39;s blog</title>
+    <title>hexo+github部署个人博客 | kingstar718&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -249,13 +251,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        你好啊hexo
+                        hexo+github部署个人博客
                     </div>
                 </div>
             </div>
@@ -284,7 +286,13 @@
         <hr>
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><ol>
+<li>下载GitHub</li>
+<li>下载node.js<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2>1.github安装:<br>1)执行安装程序一路next就行<br>2)安装完后，打开Git Bash<br>3)执行命令<br>git config –global user.name “用户名”<br>git config –global user.email “你的邮箱”<br>2.node安装<br>3.hexo安装<br>npm install hexo -g<h2 id="三、github上的准备工作和hexo的配置修改"><a href="#三、github上的准备工作和hexo的配置修改" class="headerlink" title="三、github上的准备工作和hexo的配置修改"></a>三、github上的准备工作和hexo的配置修改</h2>1.Github账户注册和新建项目<br>1)配置ssh kyes ：<br>1.1)打开 git bash ，输入 ssh-keygen -t rsa -C “邮箱”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:\Users\Administrator.ssh）。<br>1.2)登录Github，点击头像下的settings，点击 SSH and GPG keys ，点击 New SSH key，将id_rsa.pub文件里的内容复制上去。title可以随意填或不填。<br>2)项目必须要遵守格式：账户名.github.io（账户名这里不能写错啦，否则hexo部署完访问会404）<br>3)需要勾选Initialize this repository with a README<br>2.hexo的初始化和配置文件修改<br>1)建立一个空文件夹 例如：F://blog<br>2)在空文件夹下执行命令 ：hexo -init<br>3)执行完成修改_config.yml文件<br>deploy:<br>type: git<br>repo: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:用户名/用户名.github.io.git<br>branch: master<br><strong>注意:每行的:后面必须要有空格(奇坑)</strong><h2 id="四、部署顺序执行下面的命令"><a href="#四、部署顺序执行下面的命令" class="headerlink" title="四、部署顺序执行下面的命令"></a>四、部署顺序执行下面的命令</h2>hexo clean<br>hexo generate<br>hexo deploy</li>
+</ol>
+<p>写博文:hexo new “标题”<br>自动生成md文件,默认放在source的_posts文件夹下</p>
+<h2 id="五、加载主题"><a href="#五、加载主题" class="headerlink" title="五、加载主题"></a>五、加载主题</h2><p>git clone <a href="https://github.com/blinkfox/hexo-theme-matery.git" target="_blank" rel="noopener">https://github.com/blinkfox/hexo-theme-matery.git</a><br>将下载下来的主题解压并放入theme文件夹<br>切换主题:修改 Hexo 根目录下的_config.yml的theme的值：theme: hexo-theme-matery</p>
+
             </div>
             <hr>
 
@@ -422,7 +430,7 @@
                     <span class="reprint-tip">转载请注明: </span>
                     <a href="http://kingstar718.github.io" class="b-link-green">kingstar718's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/kingstar718.github.io/2018/11/11/ni-hao-a-hexo/" class="b-link-green">你好啊hexo</a>
+                    <a href="/kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/" class="b-link-green">hexo+github部署个人博客</a>
                 </p>
             </div>
         </div>
@@ -442,7 +450,7 @@
     <div class="row article-row">
         
         <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">上一篇</div>
+            <div class="article-badge left-badge text-color">本篇</div>
             <div class="card">
                 <a href="/kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/">
                     <div class="card-image">
@@ -458,9 +466,9 @@
 下载GitHub
 下载node.js二、安装1.github安装:1)执行安装程序一路next就行2)安装完后，打开Git Bash3)执行命令git config –global user.name “用户名”git con</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-11-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-11-11
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-user fa-fw"></i>
@@ -469,6 +477,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -477,13 +486,13 @@
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">下一篇</div>
             <div class="card">
-                <a href="/kingstar718.github.io/2018/11/11/newblog/">
+                <a href="/kingstar718.github.io/2018/11/11/ni-hao-a-hexo/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="newblog">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="你好啊hexo">
                         
-                        <span class="card-title">newblog</span>
+                        <span class="card-title">你好啊hexo</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
