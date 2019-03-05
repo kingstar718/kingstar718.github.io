@@ -357,12 +357,14 @@
 <p><strong>区别</strong>：加到静态方法上是给Class类上锁，加到非static静态方法是给对象上锁。</p>
 <p><strong>死锁</strong>：不同的线程都在等待根本不可能被释放的锁，从而导致所有的任务都无法继续完成。只要互相等待对方释放锁就有可能出现死锁。</p>
 <h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p><strong>作用</strong>：是变量在多个线程间可见。<br><img src="/images/thread1.png" alt=""><br>其实强制从公共堆栈中取得变量的值，而不是从线程私有数据栈中取得变量的值。使用volatile关键字，强制从公共内存中读取变量的值volatile缺点：不支持原子性。<br><img src="/images/thread2.png" alt=""><br><strong>synchronized与volatile比较</strong>：</p>
-<pre><code> 1. volatile是线程同步的轻量级实现，性能比synchronized要好。
- 2. volatile只能修饰变量，synchronized可以修饰方法以及代码块；
- 3. 多线程访问volatile不会发生阻塞，而synchronized会发生阻塞；
- 4. volatile能保证数据的可见性，但不能保证原子性；synchronized可以保证原子性，也可以间接保证可见性。因为它会将私有内存而公共内存中数据做同步。
- 5. volatile解决的是变量在多个线程之间的**可见性**；而synchronized解决的是多个线程之间访问资源的同步性。
-</code></pre><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全包含<strong>原子性</strong>和<strong>可见性</strong>两个方面，Java的同步机制都是围绕这两个方面来确保线程的安全。volatile的使用场合主要是在多个线程总可以感知到实例变量被更改了，并且可以获得最新的值使用，也就是用多线程读取共享变量时可以获得最新值使用。volatile提示线程每次从共享内存中读取变量，而不是从私有内存中读取，这样就保证了同部数据的可见性。</p>
+<ol>
+<li>volatile是线程同步的轻量级实现，性能比synchronized要好。</li>
+<li>volatile只能修饰变量，synchronized可以修饰方法以及代码块；</li>
+<li>多线程访问volatile不会发生阻塞，而synchronized会发生阻塞；</li>
+<li>volatile能保证数据的可见性，但不能保证原子性；synchronized可以保证原子性，也可以间接保证可见性。因为它会将私有内存而公共内存中数据做同步。</li>
+<li>volatile解决的是变量在多个线程之间的<strong>可见性</strong>；而synchronized解决的是多个线程之间访问资源的同步性。</li>
+</ol>
+<h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全包含<strong>原子性</strong>和<strong>可见性</strong>两个方面，Java的同步机制都是围绕这两个方面来确保线程的安全。volatile的使用场合主要是在多个线程总可以感知到实例变量被更改了，并且可以获得最新的值使用，也就是用多线程读取共享变量时可以获得最新值使用。volatile提示线程每次从共享内存中读取变量，而不是从私有内存中读取，这样就保证了同部数据的可见性。</p>
 <p><strong>注意</strong>：如果修改实例变量中的数据，比如i++，也就是i=i+1，这样的操作并不是一个原子操作，也就是非线程安全的。i++操作步骤分解如下：</p>
 <ol>
 <li>从内存中取出i的值</li>
@@ -371,10 +373,13 @@
 </ol>
 <p>假如在第二步中另外的线程也修改了i的值，就会出现脏数据，解决办法就是使用synchronize关键字。即volatile本身并不处理数据的原子性，而是强制对数据的读写及时影响到主内存中。</p>
 <p><strong>变量在内存中的工作过程</strong>：</p>
-<pre><code> 1. read和load阶段：从主存复制变量到当前线程工作内存；
- 2. use和assign阶段：执行代码，改变共享变量值；
- 3. store和write阶段：用工作内存数据刷新主存对应变量的值。  
-</code></pre><p><img src="/images/thread3.png" alt=""></p>
+<ol>
+<li>read和load阶段：从主存复制变量到当前线程工作内存；<ol start="2">
+<li>use和assign阶段：执行代码，改变共享变量值；</li>
+<li>store和write阶段：用工作内存数据刷新主存对应变量的值。<br><img src="/images/thread3.png" alt=""></li>
+</ol>
+</li>
+</ol>
 <p><strong>线程非安全问题</strong>：</p>
 <p>多线程环境中，use和assign是多次出现的，但这一操作并不是原子性，也就是在read和load之后，如果主内存count变量发生修改之后，线程工作内存中的值由于已经加载，不会产生对应变化，也就是私有内存和公共内存中的变量不同步，所以计算出的结果会和预期不一样。即非线程安全问题。</p>
 <p><strong>volatile不保证原子性的原理</strong>：</p>
