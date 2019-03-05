@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title>多线程技术初步</title>
+      <link href="/kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
+      <url>/kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</url>
+      
+        <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>非线程安全</strong>：在多个线程中对同一个对象中的实例变量进行并发访问时产生，产生的后果就是脏读，也就是取到的数据其实是被更改过的；</p><p><strong>线程安全</strong>：获得的实例变量的值都是经过同步处理的，不会出现脏读现象。</p><p><strong>方法内的变量为线程安全</strong>：因为方法内部的变量是默认私有的。</p><p>实例变量非线程安全。 </p><h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p><strong>synchronized</strong>：取得的都是对象锁，而不是把一段代码或者方法当作锁；哪个线程先执行带有synchronized关键字的方法，哪个线程就持有该方法所属对象的锁Lock，如果其他线程同时访问该对象，就只能呈等待状态。</p><p>调用关键字synchronized声明的方法一定是排队运行的，并且，只有需要共享资源的读写访问才需要同步化，不是共享资源，就没有同步化的必要。</p><p>A线程先持有Object对象的Lock锁，B线程可以以异步的方式调用Object对象中的非synchronized方法；</p><p>A线程先持有Object对象的Lock锁，B线程如果要调用Object对象中的synchronized类型的方法则需要等待，也就是同步；</p><p>synchronized拥有锁重入的功劳，当一个线程得到对象锁时，再次请求该对象锁时是可以再次获得该对象锁的。</p><p>证明了在一个synchronized方法/块的内部调用本地类的其他synchronized方法时，是永远可以得到对象锁的。</p><p><strong>脏读</strong>：在读取实例变量时，此值已经被其他线程改过了。当存在父子类继承关系时，子类是完全可以通过“可重入锁”调用父类的同步方法的。</p><p><strong>可重入锁</strong>：自己可以再次获取自己内部的锁； </p><p><strong>同步不具有继承性</strong>：子类继承父类的synchronized方法时，如果没有加入该关键字，是没有同步效果的，必须加入该关键字。</p><p><strong>(1)synchronized同步方法</strong>：</p><ol><li><p>对其他synchronized同步方法或synchronized(this)同步代码块调用呈阻塞状态。</p></li><li><p>同一时间只有一个线程可以执行synchronized同步方法中的代码。</p></li></ol><p><strong>(2)synchronized(this)同步代码块</strong></p><ol><li><p>对其他synchronized同步方法或synchronized(this)同步代码块调用呈阻塞状态。</p></li><li><p>同一时间只有一个线程可以执行synchronized同步方法中的代码。</p></li></ol><p>Java支持“任意对象”作为“对象监视器”来实现同步功能。这个“任意对象”大多数是实例变量及方法参数，使用格式为synchronized(非this对象)</p><p><strong>(3)synchronized(非this对象)</strong></p><ol><li><p>在多个线程持有“对象监视器”为同一对象的情况下，同一时间只有只有一个线程可以执行synchronized(非this对象x)同步代码块中的代码。</p></li><li><p>当持有同一个对象的前提下，同一时间只有一个线程可以执行synchronized(非this对象x)同步代码块中的代码。</p></li></ol><p><strong>锁非this对象优点</strong>:如果在一个类里有很多synchronized方法，只是虽然能实现同步，但会受到阻塞，所以影响运行效率；如果使用同步代码块锁非this对象，则synchronized(非this)代码块中的程序与同步方法是异步的，不与其他锁this同步方法争抢this锁，可以大大提高运行效率。</p><p>同步代码块放在非同步synchronized方法中进行声明，并不能保证调用方法的线程的执行同步/顺序性，也就是线程调用方法的顺序是无序的，虽然在同步中执行的顺序是同步的，这样极容易出现“脏读”问题。</p><p><strong>结论</strong>：<br>1.多个线程同时调用synchronized（x）{}同步代码块时呈同步效果；<br>2.当其他线程执行x对象中synchronized同步方法时呈同步效果；<br>3.当其他线程执行x对象方法里不加synchronized关键字的方法时，还是异步。</p><p><strong>注意</strong>：</p><ol><li>如果其他线程调用不加synchronized关键字的方法时，还是异步调用。</li><li>所有线程调用的都是同一对象的方法，多对象为异步。关键字synchronized还可以应用在static静态方法上，是对当前的*.class文件对应的Class类进行持锁。</li></ol><p><strong>区别</strong>：加到静态方法上是给Class类上锁，加到非static静态方法是给对象上锁。</p><p><strong>死锁</strong>：不同的线程都在等待根本不可能被释放的锁，从而导致所有的任务都无法继续完成。只要互相等待对方释放锁就有可能出现死锁。</p><h2 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h2><p><strong>作用</strong>：是变量在多个线程间可见。<br><img src="/images/thread1.png" alt=""><br>其实强制从公共堆栈中取得变量的值，而不是从线程私有数据栈中取得变量的值。使用volatile关键字，强制从公共内存中读取变量的值volatile缺点：不支持原子性。<br><img src="/images/thread2.png" alt=""><br><strong>synchronized与volatile比较</strong>：</p><pre><code> 1. volatile是线程同步的轻量级实现，性能比synchronized要好。 2. volatile只能修饰变量，synchronized可以修饰方法以及代码块； 3. 多线程访问volatile不会发生阻塞，而synchronized会发生阻塞； 4. volatile能保证数据的可见性，但不能保证原子性；synchronized可以保证原子性，也可以间接保证可见性。因为它会将私有内存而公共内存中数据做同步。 5. volatile解决的是变量在多个线程之间的**可见性**；而synchronized解决的是多个线程之间访问资源的同步性。</code></pre><h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p>线程安全包含<strong>原子性</strong>和<strong>可见性</strong>两个方面，Java的同步机制都是围绕这两个方面来确保线程的安全。volatile的使用场合主要是在多个线程总可以感知到实例变量被更改了，并且可以获得最新的值使用，也就是用多线程读取共享变量时可以获得最新值使用。volatile提示线程每次从共享内存中读取变量，而不是从私有内存中读取，这样就保证了同部数据的可见性。</p><p><strong>注意</strong>：如果修改实例变量中的数据，比如i++，也就是i=i+1，这样的操作并不是一个原子操作，也就是非线程安全的。i++操作步骤分解如下：</p><ol><li>从内存中取出i的值</li><li>计算i的值</li><li>将i的值写到内存中</li></ol><p>假如在第二步中另外的线程也修改了i的值，就会出现脏数据，解决办法就是使用synchronize关键字。即volatile本身并不处理数据的原子性，而是强制对数据的读写及时影响到主内存中。</p><p><strong>变量在内存中的工作过程</strong>：</p><pre><code> 1. read和load阶段：从主存复制变量到当前线程工作内存； 2. use和assign阶段：执行代码，改变共享变量值； 3. store和write阶段：用工作内存数据刷新主存对应变量的值。  </code></pre><p><img src="/images/thread3.png" alt=""></p><p><strong>线程非安全问题</strong>：</p><p>多线程环境中，use和assign是多次出现的，但这一操作并不是原子性，也就是在read和load之后，如果主内存count变量发生修改之后，线程工作内存中的值由于已经加载，不会产生对应变化，也就是私有内存和公共内存中的变量不同步，所以计算出的结果会和预期不一样。即非线程安全问题。</p><p><strong>volatile不保证原子性的原理</strong>：</p><p>对于volatile修饰的变量，JVM虚拟机只是保证从主内存加载到线程内存的值是最新的，例如线程1和2在进行read和load的操作中，发现主内存中count的值都是5，那么都会加载这个最新值。</p><p>即——volatile关键字解决的是变量读时的可见性问题，但无法保证原子性，对于多个线程访问同一个实例变量韩式需要加锁同步。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 多线程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 多线程 </tag>
+            
+            <tag> synchronized </tag>
+            
+            <tag> volatile </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>hexo+github部署个人博客</title>
       <link href="/kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/"/>
       <url>/kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/</url>
