@@ -5,9 +5,9 @@
   <subtitle>kingstar718</subtitle>
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
-  <link href="http://kingstar718.github.io/"/>
+  <link href="http://blog.wujinxing.top/"/>
   <updated>2019-03-05T03:41:49.557Z</updated>
-  <id>http://kingstar718.github.io/</id>
+  <id>http://blog.wujinxing.top/</id>
   
   <author>
     <name>kingstar718</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>多线程技术初步</title>
-    <link href="http://kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
-    <id>http://kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</id>
+    <link href="http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
+    <id>http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</id>
     <published>2019-03-05T03:09:28.000Z</published>
     <updated>2019-03-05T03:41:49.557Z</updated>
     
@@ -35,21 +35,21 @@
     
     </summary>
     
-      <category term="多线程" scheme="http://kingstar718.github.io/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <category term="多线程" scheme="http://blog.wujinxing.top/categories/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
     
-      <category term="多线程" scheme="http://kingstar718.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <category term="多线程" scheme="http://blog.wujinxing.top/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
-      <category term="synchronized" scheme="http://kingstar718.github.io/tags/synchronized/"/>
+      <category term="synchronized" scheme="http://blog.wujinxing.top/tags/synchronized/"/>
     
-      <category term="volatile" scheme="http://kingstar718.github.io/tags/volatile/"/>
+      <category term="volatile" scheme="http://blog.wujinxing.top/tags/volatile/"/>
     
   </entry>
   
   <entry>
     <title>hexo+github部署个人博客</title>
-    <link href="http://kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/"/>
-    <id>http://kingstar718.github.io/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/</id>
+    <link href="http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/"/>
+    <id>http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/</id>
     <published>2018-11-11T14:16:51.000Z</published>
     <updated>2019-03-05T02:33:23.921Z</updated>
     
@@ -67,19 +67,19 @@
     
     </summary>
     
-      <category term="Course" scheme="http://kingstar718.github.io/categories/Course/"/>
+      <category term="Course" scheme="http://blog.wujinxing.top/categories/Course/"/>
     
     
-      <category term="hexo" scheme="http://kingstar718.github.io/tags/hexo/"/>
+      <category term="hexo" scheme="http://blog.wujinxing.top/tags/hexo/"/>
     
-      <category term="blog" scheme="http://kingstar718.github.io/tags/blog/"/>
+      <category term="blog" scheme="http://blog.wujinxing.top/tags/blog/"/>
     
   </entry>
   
   <entry>
     <title>你好啊hexo</title>
-    <link href="http://kingstar718.github.io/2018/11/11/ni-hao-a-hexo/"/>
-    <id>http://kingstar718.github.io/2018/11/11/ni-hao-a-hexo/</id>
+    <link href="http://blog.wujinxing.top/2018/11/11/ni-hao-a-hexo/"/>
+    <id>http://blog.wujinxing.top/2018/11/11/ni-hao-a-hexo/</id>
     <published>2018-11-11T14:10:48.000Z</published>
     <updated>2018-11-11T14:10:48.737Z</updated>
     
@@ -92,8 +92,8 @@
   
   <entry>
     <title>newblog</title>
-    <link href="http://kingstar718.github.io/2018/11/11/newblog/"/>
-    <id>http://kingstar718.github.io/2018/11/11/newblog/</id>
+    <link href="http://blog.wujinxing.top/2018/11/11/newblog/"/>
+    <id>http://blog.wujinxing.top/2018/11/11/newblog/</id>
     <published>2018-11-11T13:57:34.000Z</published>
     <updated>2018-11-11T13:57:35.029Z</updated>
     
@@ -106,8 +106,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://kingstar718.github.io/2018/11/11/hello-world/"/>
-    <id>http://kingstar718.github.io/2018/11/11/hello-world/</id>
+    <link href="http://blog.wujinxing.top/2018/11/11/hello-world/"/>
+    <id>http://blog.wujinxing.top/2018/11/11/hello-world/</id>
     <published>2018-11-11T13:48:45.651Z</published>
     <updated>2018-11-11T13:48:45.652Z</updated>
     
