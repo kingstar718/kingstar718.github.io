@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-03-05T03:41:49.557Z</updated>
+  <updated>2019-03-20T06:46:33.250Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python数组初始化固定长度、求和、简单文本处理</title>
+    <link href="http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/"/>
+    <id>http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/</id>
+    <published>2019-03-20T06:45:28.000Z</published>
+    <updated>2019-03-20T06:46:33.250Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h2 id=&quot;1-Python初始化指定长度的数组&quot;&gt;&lt;a href=&quot;#1-Python初始化指定长度的数组&quot; class=&quot;headerlink&quot; title=&quot;1.Python初始化指定长度的数组&quot;&gt;&lt;/a&gt;1.Python初始化指定长度的数组&lt;/h2&gt;&lt;h3
+        
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://blog.wujinxing.top/categories/Python/"/>
+    
+    
+      <category term="Python" scheme="http://blog.wujinxing.top/tags/Python/"/>
+    
+      <category term="sum()" scheme="http://blog.wujinxing.top/tags/sum/"/>
+    
+  </entry>
   
   <entry>
     <title>多线程技术初步</title>

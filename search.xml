@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title>Python数组初始化固定长度、求和、简单文本处理</title>
+      <link href="/kingstar718.github.io/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/"/>
+      <url>/kingstar718.github.io/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-Python初始化指定长度的数组"><a href="#1-Python初始化指定长度的数组" class="headerlink" title="1.Python初始化指定长度的数组"></a>1.Python初始化指定长度的数组</h2><h3 id="1-1初始化一维数组"><a href="#1-1初始化一维数组" class="headerlink" title="1.1初始化一维数组"></a>1.1初始化一维数组</h3><p><strong>方法1：</strong></p><pre class=" language-Python"><code class="language-Python"># 0为数组内初始数据，10位数据长度list = [0]*10  # 结果：[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</code></pre><p><strong>方法2：</strong></p><pre class=" language-Python"><code class="language-Python">list2 = [0 for i in range(10)]# 结果：[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]</code></pre><h3 id="1-2初始化二维数组"><a href="#1-2初始化二维数组" class="headerlink" title="1.2初始化二维数组"></a>1.2初始化二维数组</h3><p><strong>区别：</strong></p><blockquote><p>二维情形就不同，因为初始化指定长度的二维list时，我们需要把空序列list()复制n次。如果采用方式一，则对list进行浅拷贝，每一个list调用append等方法时，所有list都会同步调用；而方式二这种python风格的数组comprehension表达式方式，则生成了n个相互独立的list对象，此时每行的list之间互不影响。显然，我们应该使用方式二来进行二维list的指定行数的初始化。<br><strong>方法1：</strong><br><code>`</code>Python<br>a = [list()] * 5<br>a[0].append(1)</p></blockquote><h1 id="结果：-1-1-1-1-1"><a href="#结果：-1-1-1-1-1" class="headerlink" title="结果：[[1], [1], [1], [1], [1]]"></a>结果：[[1], [1], [1], [1], [1]]</h1><pre><code>**方法2：**```Pythona = [list() for i in range(5)]a[0].append(1)# 结果：[[1], [], [], [], []]</code></pre><h2 id="2-sum-函数"><a href="#2-sum-函数" class="headerlink" title="2.sum()函数"></a>2.sum()函数</h2><h3 id="2-1-一维数组"><a href="#2-1-一维数组" class="headerlink" title="2.1 一维数组"></a>2.1 一维数组</h3><p>数组求和时，可使用numpy的sum()函数，但需要注意的是：</p><ol><li>普通数组无法直接使用，即<code>list.sum()</code>会出错；</li><li>将数组转化为np数组，即<code>nplist.sum()</code>可以</li><li><p>或使用<code>np.sum(list)</code>求和，适用于不想将数组改为np数组的情况。</p><h3 id="2-3-二维数组"><a href="#2-3-二维数组" class="headerlink" title="2.3 二维数组"></a>2.3 二维数组</h3></li><li><p><code>np.sum(list)</code>将数组中所有元素求和并返回单个数值；</p></li><li><code>nplist.sum(axis=0)</code>对数组的每列求和，返回一个一维数组；</li><li><code>nplist.sum(axis=1)</code>对每行求和，返回一个一维数组，如果需要保留格式，使用<code>nplist = np.mat(nplist)</code>即可使用上述的axis=0/1返回二维数组。</li></ol><p><strong>注意：</strong> 文中的nplist指的是np数组</p><h2 id="3-文本处理小结"><a href="#3-文本处理小结" class="headerlink" title="3.文本处理小结"></a>3.文本处理小结</h2><h3 id="3-1-打开文本文件并使之成为Python对象："><a href="#3-1-打开文本文件并使之成为Python对象：" class="headerlink" title="3.1 打开文本文件并使之成为Python对象："></a>3.1 打开文本文件并使之成为Python对象：</h3><pre class=" language-Python"><code class="language-Python">file = open(filepath,...)  # 还有些其他参数</code></pre><p>其中读取文件的方式有三种，分别是read()、readline()、readlines()三种，其特性如下：</p><ol><li><strong>read()</strong> ：读取整个文件，把整个文件的内容赋值给一个字符串。</li><li><strong>readline()</strong> ：每次读取一行，把这一行赋值给一个字符串，返回。</li><li><strong>readlines()</strong> ：把文件都放到内存中(如果文件比内存大，则用不了；速率很高)；之后把整个文件作为一个list返回。<br>replace()<h3 id="3-2-replace"><a href="#3-2-replace" class="headerlink" title="3.2 replace()"></a>3.2 replace()</h3><pre class=" language-Python"><code class="language-Python">str.replace(old, new[, max])</code></pre><strong>参数含义</strong></li><li><strong>old</strong> ：将被替换的子字符串；</li><li><strong>new</strong> ：新字符串，用于替换old子字符串；</li><li><p><strong>max</strong> ：可选字符串, 替换不超过max次。<br><strong>注意：</strong><br>用replace()的时，因为readlines返回是列表的形式，但replace()的参数只能是字符串的形式，所以需要用str进行转换，否则将替换失败。</p><h3 id="3-3-正则表达式匹配"><a href="#3-3-正则表达式匹配" class="headerlink" title="3.3 正则表达式匹配"></a>3.3 正则表达式匹配</h3><pre class=" language-Python"><code class="language-Python">pattern= re.compile(r'&,X,H,TD_Z')match= re.match(pattern, str, flags=0)</code></pre><p>re匹配字符串的方法有四种，分别是<code>match</code>、<code>search</code>、<code>findall</code>、<code>finditer</code>。其特性如下：</p></li><li><p><strong>match()</strong> ：匹配<code>string</code>开头，成功返回<code>Match object</code>, 失败返回<code>None</code>，只匹配一个。</p></li><li><strong>search()</strong> ：在<code>string</code>中进行搜索，成功返回<code>Match object</code>, 失败返回None, 只匹配一个。</li><li><strong>findall()</strong> ：在<code>string</code>中查找所有匹配成功的组, 即用括号括起来的部分。返回<code>list</code>对象，每个<code>list item</code>是由每个匹配的所有组组成的<code>list</code>。</li><li><strong>finditer()</strong> ：在<code>string</code>中查找所有匹配成功的字符串, 返回<code>iterator</code>，每个<code>item</code>是一个<code>Match object</code>。</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+            <tag> sum() </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>多线程技术初步</title>
       <link href="/kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
       <url>/kingstar718.github.io/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</url>
