@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-03-20T06:52:16.792Z</updated>
+  <updated>2019-07-06T13:31:33.053Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -21,17 +21,68 @@
     <link href="http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/"/>
     <id>http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/</id>
     <published>2019-03-20T06:45:28.000Z</published>
-    <updated>2019-03-20T06:52:16.792Z</updated>
+    <updated>2019-07-06T13:31:33.053Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;1-Python初始化指定长度的数组&quot;&gt;&lt;a href=&quot;#1-Python初始化指定长度的数组&quot; class=&quot;headerlink&quot; title=&quot;1.Python初始化指定长度的数组&quot;&gt;&lt;/a&gt;1.Python初始化指定长度的数组&lt;/h2&gt;&lt;h3
-        
-      
+      &lt;h2 id=&quot;1-Python初始化指定长度的数组&quot;&gt;&lt;a href=&quot;#1-Python初始化指定长度的数组&quot; class=&quot;headerlink&quot; title=&quot;1.Python初始化指定长度的数组&quot;&gt;&lt;/a&gt;1.Python初始化指定长度的数组&lt;/h2&gt;&lt;h3 id=&quot;1-1初始化一维数组&quot;&gt;&lt;a href=&quot;#1-1初始化一维数组&quot; class=&quot;headerlink&quot; title=&quot;1.1初始化一维数组&quot;&gt;&lt;/a&gt;1.1初始化一维数组&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;方法1：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;# 0为数组内初始数据，10位数据长度
+list = [0]*10  
+# 结果：[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;方法2：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;list2 = [0 for i in range(10)]
+# 结果：[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;1-2初始化二维数组&quot;&gt;&lt;a href=&quot;#1-2初始化二维数组&quot; class=&quot;headerlink&quot; title=&quot;1.2初始化二维数组&quot;&gt;&lt;/a&gt;1.2初始化二维数组&lt;/h3&gt;&lt;p&gt;&lt;strong&gt;区别：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;二维情形就不同，因为初始化指定长度的二维list时，我们需要把空序列list()复制n次。如果采用方式一，则对list进行浅拷贝，每一个list调用append等方法时，所有list都会同步调用；而方式二这种python风格的数组comprehension表达式方式，则生成了n个相互独立的list对象，此时每行的list之间互不影响。显然，我们应该使用方式二来进行二维list的指定行数的初始化。   &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;方法1：&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;a = [list()] * 5
+a[0].append(1)
+# 结果：[[1], [1], [1], [1], [1]]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;方法2：&lt;/strong&gt;   &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;a = [list() for i in range(5)]
+a[0].append(1)
+# 结果：[[1], [], [], [], []]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;2-sum-函数&quot;&gt;&lt;a href=&quot;#2-sum-函数&quot; class=&quot;headerlink&quot; title=&quot;2.sum()函数&quot;&gt;&lt;/a&gt;2.sum()函数&lt;/h2&gt;&lt;h3 id=&quot;2-1-一维数组&quot;&gt;&lt;a href=&quot;#2-1-一维数组&quot; class=&quot;headerlink&quot; title=&quot;2.1 一维数组&quot;&gt;&lt;/a&gt;2.1 一维数组&lt;/h3&gt;&lt;p&gt;数组求和时，可使用numpy的sum()函数，但需要注意的是：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;普通数组无法直接使用，即&lt;code&gt;list.sum()&lt;/code&gt;会出错；&lt;/li&gt;
+&lt;li&gt;将数组转化为np数组，即&lt;code&gt;nplist.sum()&lt;/code&gt;可以&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;或使用&lt;code&gt;np.sum(list)&lt;/code&gt;求和，适用于不想将数组改为np数组的情况。&lt;/p&gt;
+&lt;h3 id=&quot;2-3-二维数组&quot;&gt;&lt;a href=&quot;#2-3-二维数组&quot; class=&quot;headerlink&quot; title=&quot;2.3 二维数组&quot;&gt;&lt;/a&gt;2.3 二维数组&lt;/h3&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;np.sum(list)&lt;/code&gt;将数组中所有元素求和并返回单个数值；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nplist.sum(axis=0)&lt;/code&gt;对数组的每列求和，返回一个一维数组；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;nplist.sum(axis=1)&lt;/code&gt;对每行求和，返回一个一维数组，如果需要保留格式，使用&lt;code&gt;nplist = np.mat(nplist)&lt;/code&gt;即可使用上述的axis=0/1返回二维数组。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 文中的nplist指的是np数组&lt;/p&gt;
+&lt;h2 id=&quot;3-文本处理小结&quot;&gt;&lt;a href=&quot;#3-文本处理小结&quot; class=&quot;headerlink&quot; title=&quot;3.文本处理小结&quot;&gt;&lt;/a&gt;3.文本处理小结&lt;/h2&gt;&lt;h3 id=&quot;3-1-打开文本文件并使之成为Python对象：&quot;&gt;&lt;a href=&quot;#3-1-打开文本文件并使之成为Python对象：&quot; class=&quot;headerlink&quot; title=&quot;3.1 打开文本文件并使之成为Python对象：&quot;&gt;&lt;/a&gt;3.1 打开文本文件并使之成为Python对象：&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;file = open(filepath,...)  # 还有些其他参数
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其中读取文件的方式有三种，分别是read()、readline()、readlines()三种，其特性如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;read()&lt;/strong&gt; ：读取整个文件，把整个文件的内容赋值给一个字符串。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;readline()&lt;/strong&gt; ：每次读取一行，把这一行赋值给一个字符串，返回。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;readlines()&lt;/strong&gt; ：把文件都放到内存中(如果文件比内存大，则用不了；速率很高)；之后把整个文件作为一个list返回。&lt;br&gt;replace()&lt;h3 id=&quot;3-2-replace&quot;&gt;&lt;a href=&quot;#3-2-replace&quot; class=&quot;headerlink&quot; title=&quot;3.2 replace()&quot;&gt;&lt;/a&gt;3.2 replace()&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;str.replace(old, new[, max])
+&lt;/code&gt;&lt;/pre&gt;
+&lt;strong&gt;参数含义&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;old&lt;/strong&gt; ：将被替换的子字符串；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;new&lt;/strong&gt; ：新字符串，用于替换old子字符串；&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;max&lt;/strong&gt; ：可选字符串, 替换不超过max次。&lt;br&gt;&lt;strong&gt;注意：&lt;/strong&gt;&lt;br&gt;用replace()的时，因为readlines返回是列表的形式，但replace()的参数只能是字符串的形式，所以需要用str进行转换，否则将替换失败。&lt;/p&gt;
+&lt;h3 id=&quot;3-3-正则表达式匹配&quot;&gt;&lt;a href=&quot;#3-3-正则表达式匹配&quot; class=&quot;headerlink&quot; title=&quot;3.3 正则表达式匹配&quot;&gt;&lt;/a&gt;3.3 正则表达式匹配&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;Python&quot;&gt;pattern= re.compile(r&amp;#39;&amp;amp;,X,H,TD_Z&amp;#39;)
+match= re.match(pattern, str, flags=0)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;re匹配字符串的方法有四种，分别是&lt;code&gt;match&lt;/code&gt;、&lt;code&gt;search&lt;/code&gt;、&lt;code&gt;findall&lt;/code&gt;、&lt;code&gt;finditer&lt;/code&gt;。其特性如下：&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;match()&lt;/strong&gt; ：匹配&lt;code&gt;string&lt;/code&gt;开头，成功返回&lt;code&gt;Match object&lt;/code&gt;, 失败返回&lt;code&gt;None&lt;/code&gt;，只匹配一个。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;search()&lt;/strong&gt; ：在&lt;code&gt;string&lt;/code&gt;中进行搜索，成功返回&lt;code&gt;Match object&lt;/code&gt;, 失败返回None, 只匹配一个。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;findall()&lt;/strong&gt; ：在&lt;code&gt;string&lt;/code&gt;中查找所有匹配成功的组, 即用括号括起来的部分。返回&lt;code&gt;list&lt;/code&gt;对象，每个&lt;code&gt;list item&lt;/code&gt;是由每个匹配的所有组组成的&lt;code&gt;list&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;finditer()&lt;/strong&gt; ：在&lt;code&gt;string&lt;/code&gt;中查找所有匹配成功的字符串, 返回&lt;code&gt;iterator&lt;/code&gt;，每个&lt;code&gt;item&lt;/code&gt;是一个&lt;code&gt;Match object&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
@@ -49,17 +100,84 @@
     <link href="http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
     <id>http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</id>
     <published>2019-03-05T03:09:28.000Z</published>
-    <updated>2019-03-05T03:41:49.557Z</updated>
+    <updated>2019-07-06T13:31:57.180Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot;
-        
-      
+      &lt;h2 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;非线程安全&lt;/strong&gt;：在多个线程中对同一个对象中的实例变量进行并发访问时产生，产生的后果就是脏读，也就是取到的数据其实是被更改过的；&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;线程安全&lt;/strong&gt;：获得的实例变量的值都是经过同步处理的，不会出现脏读现象。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法内的变量为线程安全&lt;/strong&gt;：因为方法内部的变量是默认私有的。&lt;/p&gt;
+&lt;p&gt;实例变量非线程安全。 &lt;/p&gt;
+&lt;h2 id=&quot;synchronized&quot;&gt;&lt;a href=&quot;#synchronized&quot; class=&quot;headerlink&quot; title=&quot;synchronized&quot;&gt;&lt;/a&gt;synchronized&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;synchronized&lt;/strong&gt;：取得的都是对象锁，而不是把一段代码或者方法当作锁；哪个线程先执行带有synchronized关键字的方法，哪个线程就持有该方法所属对象的锁Lock，如果其他线程同时访问该对象，就只能呈等待状态。&lt;/p&gt;
+&lt;p&gt;调用关键字synchronized声明的方法一定是排队运行的，并且，只有需要共享资源的读写访问才需要同步化，不是共享资源，就没有同步化的必要。&lt;/p&gt;
+&lt;p&gt;A线程先持有Object对象的Lock锁，B线程可以以异步的方式调用Object对象中的非synchronized方法；&lt;/p&gt;
+&lt;p&gt;A线程先持有Object对象的Lock锁，B线程如果要调用Object对象中的synchronized类型的方法则需要等待，也就是同步；&lt;/p&gt;
+&lt;p&gt;synchronized拥有锁重入的功劳，当一个线程得到对象锁时，再次请求该对象锁时是可以再次获得该对象锁的。&lt;/p&gt;
+&lt;p&gt;证明了在一个synchronized方法/块的内部调用本地类的其他synchronized方法时，是永远可以得到对象锁的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;脏读&lt;/strong&gt;：在读取实例变量时，此值已经被其他线程改过了。当存在父子类继承关系时，子类是完全可以通过“可重入锁”调用父类的同步方法的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;可重入锁&lt;/strong&gt;：自己可以再次获取自己内部的锁； &lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;同步不具有继承性&lt;/strong&gt;：子类继承父类的synchronized方法时，如果没有加入该关键字，是没有同步效果的，必须加入该关键字。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(1)synchronized同步方法&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;对其他synchronized同步方法或synchronized(this)同步代码块调用呈阻塞状态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;同一时间只有一个线程可以执行synchronized同步方法中的代码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;(2)synchronized(this)同步代码块&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;对其他synchronized同步方法或synchronized(this)同步代码块调用呈阻塞状态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;同一时间只有一个线程可以执行synchronized同步方法中的代码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Java支持“任意对象”作为“对象监视器”来实现同步功能。这个“任意对象”大多数是实例变量及方法参数，使用格式为synchronized(非this对象)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;(3)synchronized(非this对象)&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;在多个线程持有“对象监视器”为同一对象的情况下，同一时间只有只有一个线程可以执行synchronized(非this对象x)同步代码块中的代码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;当持有同一个对象的前提下，同一时间只有一个线程可以执行synchronized(非this对象x)同步代码块中的代码。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;锁非this对象优点&lt;/strong&gt;:如果在一个类里有很多synchronized方法，只是虽然能实现同步，但会受到阻塞，所以影响运行效率；如果使用同步代码块锁非this对象，则synchronized(非this)代码块中的程序与同步方法是异步的，不与其他锁this同步方法争抢this锁，可以大大提高运行效率。&lt;/p&gt;
+&lt;p&gt;同步代码块放在非同步synchronized方法中进行声明，并不能保证调用方法的线程的执行同步/顺序性，也就是线程调用方法的顺序是无序的，虽然在同步中执行的顺序是同步的，这样极容易出现“脏读”问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;结论&lt;/strong&gt;：&lt;br&gt;1.多个线程同时调用synchronized（x）{}同步代码块时呈同步效果；&lt;br&gt;2.当其他线程执行x对象中synchronized同步方法时呈同步效果；&lt;br&gt;3.当其他线程执行x对象方法里不加synchronized关键字的方法时，还是异步。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;如果其他线程调用不加synchronized关键字的方法时，还是异步调用。&lt;/li&gt;
+&lt;li&gt;所有线程调用的都是同一对象的方法，多对象为异步。关键字synchronized还可以应用在static静态方法上，是对当前的*.class文件对应的Class类进行持锁。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;区别&lt;/strong&gt;：加到静态方法上是给Class类上锁，加到非static静态方法是给对象上锁。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;死锁&lt;/strong&gt;：不同的线程都在等待根本不可能被释放的锁，从而导致所有的任务都无法继续完成。只要互相等待对方释放锁就有可能出现死锁。&lt;/p&gt;
+&lt;h2 id=&quot;volatile&quot;&gt;&lt;a href=&quot;#volatile&quot; class=&quot;headerlink&quot; title=&quot;volatile&quot;&gt;&lt;/a&gt;volatile&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;作用&lt;/strong&gt;：是变量在多个线程间可见。&lt;br&gt;&lt;img src=&quot;/images/thread1.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;其实强制从公共堆栈中取得变量的值，而不是从线程私有数据栈中取得变量的值。使用volatile关键字，强制从公共内存中读取变量的值volatile缺点：不支持原子性。&lt;br&gt;&lt;img src=&quot;/images/thread2.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;strong&gt;synchronized与volatile比较&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;volatile是线程同步的轻量级实现，性能比synchronized要好。&lt;/li&gt;
+&lt;li&gt;volatile只能修饰变量，synchronized可以修饰方法以及代码块；&lt;/li&gt;
+&lt;li&gt;多线程访问volatile不会发生阻塞，而synchronized会发生阻塞；&lt;/li&gt;
+&lt;li&gt;volatile能保证数据的可见性，但不能保证原子性；synchronized可以保证原子性，也可以间接保证可见性。因为它会将私有内存而公共内存中数据做同步。&lt;/li&gt;
+&lt;li&gt;volatile解决的是变量在多个线程之间的&lt;strong&gt;可见性&lt;/strong&gt;；而synchronized解决的是多个线程之间访问资源的同步性。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;线程安全&quot;&gt;&lt;a href=&quot;#线程安全&quot; class=&quot;headerlink&quot; title=&quot;线程安全&quot;&gt;&lt;/a&gt;线程安全&lt;/h2&gt;&lt;p&gt;线程安全包含&lt;strong&gt;原子性&lt;/strong&gt;和&lt;strong&gt;可见性&lt;/strong&gt;两个方面，Java的同步机制都是围绕这两个方面来确保线程的安全。volatile的使用场合主要是在多个线程总可以感知到实例变量被更改了，并且可以获得最新的值使用，也就是用多线程读取共享变量时可以获得最新值使用。volatile提示线程每次从共享内存中读取变量，而不是从私有内存中读取，这样就保证了同部数据的可见性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：如果修改实例变量中的数据，比如i++，也就是i=i+1，这样的操作并不是一个原子操作，也就是非线程安全的。i++操作步骤分解如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从内存中取出i的值&lt;/li&gt;
+&lt;li&gt;计算i的值&lt;/li&gt;
+&lt;li&gt;将i的值写到内存中&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;假如在第二步中另外的线程也修改了i的值，就会出现脏数据，解决办法就是使用synchronize关键字。即volatile本身并不处理数据的原子性，而是强制对数据的读写及时影响到主内存中。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;变量在内存中的工作过程&lt;/strong&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;read和load阶段：从主存复制变量到当前线程工作内存；&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;use和assign阶段：执行代码，改变共享变量值；&lt;/li&gt;
+&lt;li&gt;store和write阶段：用工作内存数据刷新主存对应变量的值。&lt;br&gt;&lt;img src=&quot;/images/thread3.png&quot; alt=&quot;&quot;&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;线程非安全问题&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;多线程环境中，use和assign是多次出现的，但这一操作并不是原子性，也就是在read和load之后，如果主内存count变量发生修改之后，线程工作内存中的值由于已经加载，不会产生对应变化，也就是私有内存和公共内存中的变量不同步，所以计算出的结果会和预期不一样。即非线程安全问题。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;volatile不保证原子性的原理&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;对于volatile修饰的变量，JVM虚拟机只是保证从主内存加载到线程内存的值是最新的，例如线程1和2在进行read和load的操作中，发现主内存中count的值都是5，那么都会加载这个最新值。&lt;/p&gt;
+&lt;p&gt;即——volatile关键字解决的是变量读时的可见性问题，但无法保证原子性，对于多个线程访问同一个实例变量韩式需要加锁同步。&lt;/p&gt;
     
     </summary>
     
@@ -79,19 +197,16 @@
     <link href="http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/"/>
     <id>http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/</id>
     <published>2018-11-11T14:16:51.000Z</published>
-    <updated>2019-03-05T02:33:23.921Z</updated>
+    <updated>2019-07-06T13:31:44.240Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;h2 id=&quot;一、准备工作&quot;&gt;&lt;a href=&quot;#一、准备工作&quot; class=&quot;headerlink&quot; title=&quot;一、准备工作&quot;&gt;&lt;/a&gt;一、准备工作&lt;/h2&gt;&lt;ol&gt;
+      &lt;h2 id=&quot;一、准备工作&quot;&gt;&lt;a href=&quot;#一、准备工作&quot; class=&quot;headerlink&quot; title=&quot;一、准备工作&quot;&gt;&lt;/a&gt;一、准备工作&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;下载GitHub&lt;/li&gt;
-&lt;li&gt;下载node.js&lt;h2 id=&quot;二、安装&quot;&gt;&lt;a
-        
-      
+&lt;li&gt;下载node.js&lt;h2 id=&quot;二、安装&quot;&gt;&lt;a href=&quot;#二、安装&quot; class=&quot;headerlink&quot; title=&quot;二、安装&quot;&gt;&lt;/a&gt;二、安装&lt;/h2&gt;1.github安装:&lt;br&gt;1)执行安装程序一路next就行&lt;br&gt;2)安装完后，打开Git Bash&lt;br&gt;3)执行命令&lt;br&gt;git config –global user.name “用户名”&lt;br&gt;git config –global user.email “你的邮箱”&lt;br&gt;2.node安装&lt;br&gt;3.hexo安装&lt;br&gt;npm install hexo -g&lt;h2 id=&quot;三、github上的准备工作和hexo的配置修改&quot;&gt;&lt;a href=&quot;#三、github上的准备工作和hexo的配置修改&quot; class=&quot;headerlink&quot; title=&quot;三、github上的准备工作和hexo的配置修改&quot;&gt;&lt;/a&gt;三、github上的准备工作和hexo的配置修改&lt;/h2&gt;1.Github账户注册和新建项目&lt;br&gt;1)配置ssh kyes ：&lt;br&gt;1.1)打开 git bash ，输入 ssh-keygen -t rsa -C “邮箱”，连续三个回车，生成密钥，最后得到了两个文件：id_rsa和id_rsa.pub（默认存储路径是：C:\Users\Administrator.ssh）。&lt;br&gt;1.2)登录Github，点击头像下的settings，点击 SSH and GPG keys ，点击 New SSH key，将id_rsa.pub文件里的内容复制上去。title可以随意填或不填。&lt;br&gt;2)项目必须要遵守格式：账户名.github.io（账户名这里不能写错啦，否则hexo部署完访问会404）&lt;br&gt;3)需要勾选Initialize this repository with a README&lt;br&gt;2.hexo的初始化和配置文件修改&lt;br&gt;1)建立一个空文件夹 例如：F://blog&lt;br&gt;2)在空文件夹下执行命令 ：hexo -init&lt;br&gt;3)执行完成修改_config.yml文件&lt;br&gt;deploy:&lt;br&gt;type: git&lt;br&gt;repo: &lt;a href=&quot;mailto:git@github.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;git@github.com&lt;/a&gt;:用户名/用户名.github.io.git&lt;br&gt;branch: master&lt;br&gt;&lt;strong&gt;注意:每行的:后面必须要有空格(奇坑)&lt;/strong&gt;&lt;h2 id=&quot;四、部署顺序执行下面的命令&quot;&gt;&lt;a href=&quot;#四、部署顺序执行下面的命令&quot; class=&quot;headerlink&quot; title=&quot;四、部署顺序执行下面的命令&quot;&gt;&lt;/a&gt;四、部署顺序执行下面的命令&lt;/h2&gt;hexo clean&lt;br&gt;hexo generate&lt;br&gt;hexo deploy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;写博文:hexo new “标题”&lt;br&gt;自动生成md文件,默认放在source的_posts文件夹下&lt;/p&gt;
+&lt;h2 id=&quot;五、加载主题&quot;&gt;&lt;a href=&quot;#五、加载主题&quot; class=&quot;headerlink&quot; title=&quot;五、加载主题&quot;&gt;&lt;/a&gt;五、加载主题&lt;/h2&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/blinkfox/hexo-theme-matery.git&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.com/blinkfox/hexo-theme-matery.git&lt;/a&gt;&lt;br&gt;将下载下来的主题解压并放入theme文件夹&lt;br&gt;切换主题:修改 Hexo 根目录下的_config.yml的theme的值：theme: hexo-theme-matery&lt;/p&gt;
     
     </summary>
     
@@ -109,9 +224,17 @@
     <link href="http://blog.wujinxing.top/2018/11/11/ni-hao-a-hexo/"/>
     <id>http://blog.wujinxing.top/2018/11/11/ni-hao-a-hexo/</id>
     <published>2018-11-11T14:10:48.000Z</published>
-    <updated>2018-11-11T14:10:48.737Z</updated>
+    <updated>2019-07-06T13:31:53.500Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a
+        
+      
     
     </summary>
     
@@ -123,9 +246,17 @@
     <link href="http://blog.wujinxing.top/2018/11/11/newblog/"/>
     <id>http://blog.wujinxing.top/2018/11/11/newblog/</id>
     <published>2018-11-11T13:57:34.000Z</published>
-    <updated>2018-11-11T13:57:35.029Z</updated>
+    <updated>2019-07-06T13:31:48.157Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;a
+        
+      
     
     </summary>
     
@@ -137,17 +268,23 @@
     <link href="http://blog.wujinxing.top/2018/11/11/hello-world/"/>
     <id>http://blog.wujinxing.top/2018/11/11/hello-world/</id>
     <published>2018-11-11T13:48:45.651Z</published>
-    <updated>2018-11-11T13:48:45.652Z</updated>
+    <updated>2019-07-06T13:31:40.594Z</updated>
     
     <summary type="html">
     
-      
-      
-        
-        
-          &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a
-        
-      
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ hexo new &amp;quot;My New Post&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ hexo server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ hexo generate
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;$ hexo deploy
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
