@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/kingstar718.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/kingstar718.github.io/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kingstar718.github.io/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kingstar718.github.io/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kingstar718.github.io/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/kingstar718.github.io/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/kingstar718.github.io/atom.xml" title="kingstar718's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="kingstar718&#39;s blog">
+<meta property="og:url" content="http://blog.wujinxing.top/about/index.html">
+<meta property="og:site_name" content="kingstar718&#39;s blog">
+<meta property="og:description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T12:32:23.437Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kingstar718&#39;s blog">
+<meta name="twitter:description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kingstar718.github.io/',
+    scheme: 'Muse',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wujinxing.top/about/">
+
+
+
+
+
+  <title>前端笔记 | kingstar718's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?391c58f8d37853833d78725118c31834";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/kingstar718.github.io/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kingstar718.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kingstar718's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">kingstar718</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kingstar718.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kingstar718.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kingstar718.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kingstar718.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kingstar718.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wujinxing.top/kingstar718.github.io/2019/07/08/qian-duan-bi-ji/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kingstar718">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kingstar718.github.io/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kingstar718's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">前端笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-07-08T15:12:58+08:00">2019-07-08</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/kingstar718.github.io/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="HTML笔记"><a href="#HTML笔记" class="headerlink" title="HTML笔记"></a><strong>HTML笔记</strong></h2><h3 id="一丶常用标签"><a href="#一丶常用标签" class="headerlink" title="一丶常用标签"></a>一丶常用标签</h3><p>​    1.标题标签：<code>&lt;h1&gt;...&lt;/h1&gt;~&lt;h6&gt;...&lt;/h6&gt;</code><br>​    2.div标签：<code>&lt;div&gt;...&lt;/div&gt;</code>，相当于一个容器,可以把一些独立的逻辑部分(如网页中独立的栏目版块)划分出来<br>​    3.段落标签：<code>&lt;p&gt;...&lt;/p&gt;</code><br>​    4.无序列表： <code>&lt;ul&gt;</code><br><code>&lt;li&gt;...&lt;/li&gt;</code><br><code>&lt;li&gt;...&lt;/li&gt;</code><br><code>​                &lt;/ul&gt;</code><br>​    5.图片标签：<code>&lt;img alt=&quot;&quot; src=&quot;&quot; title=&quot;&quot;/&gt;</code><br>​        alt:图片无法显示时显示的描述性文字<br>​        src:图片的地址<br>​        (了解)title:鼠标放在图片上时显示的描述性文字<br>​    6.超链接：<code>&lt;a href=&quot;&quot; target=&quot;&quot;&gt;&lt;/a&gt;</code><br>​        href:指向一个链接地址<br>​        target:目标窗口<br>​        值为”_self”时在向当前窗口(默认)打开新的网页<br>​        值为”_blank”时在新的窗口打开<br>​    7.内联框架(了解)：<code>&lt;iframe src=&quot;&quot; name=&quot;&quot;&gt;&lt;/iframe&gt;</code><br>​             src:一个网页的地址<br>​         name: iframe的名字，当a标签的target属性值为iframe的name时，超链接的目标页面会在iframe中打开<br>​    8.<code>&lt;strong&gt;</code>和<code>&lt;em&gt;</code>标签<br>​         两者在强调的语气上有区别:<br>​         <code>&lt;em&gt;</code> 表示强调，<code>&lt;strong&gt;</code> 表示更强烈的强调。<br>​         并且在浏览器中<code>&lt;em&gt;</code> 默认用 斜体 表示，<code>&lt;strong&gt;</code> 用 粗体 表示。<br>​    9.<code>&lt;span&gt;</code>标签<br>​        <code>&lt;span&gt;</code>标签是没有语义的，它的作用就是为了设置单独的样式用的。有了它就可以对某段文字里的几个字单独设置样式了。<br><a id="more"></a></p>
+<h3 id="二丶转义字符"><a href="#二丶转义字符" class="headerlink" title="二丶转义字符"></a>二丶转义字符</h3><p>​    空格:<code>&amp;nbsp</code>;<br>​    大于号:<code>&amp;gt</code>;<br>​    小于号:<code>&amp;lt</code>;<br>​    &amp;符号:<code>&amp;amp</code>;<br>​    圆圈C符号:<code>&amp;copy</code>;</p>
+<h3 id="三丶表格和表单"><a href="#三丶表格和表单" class="headerlink" title="三丶表格和表单"></a>三丶表格和表单</h3><p>​    1.使用<code>&lt;table&gt;&lt;/table&gt;</code>创建表格</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>table</span> <span class="token attr-name">border</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>1<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>   --border表示表格边线
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>             --tr表示每一行
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>    --th表示标题
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>th</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>th</span><span class="token punctuation">></span></span>    
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>tr</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>     --td表示每一行的单元格
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>td</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>td</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>tr</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>table</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>注:跨列合并单元格用 colspan 属性  跨行合并单元格用 rowspan 属性<br>2.表单中常用标签<br>    表单标签：<code>&lt;form action=&quot;&quot;&gt;..&lt;/form&gt;</code><br>    文本输入框：<code>&lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;</code><br>    密码输入框：<code>&lt;input type=&quot;password&quot; name=&quot;pwd&quot;/&gt;</code><br>    单选框：<code>&lt;input type=&quot;radio&quot; name=&quot;gender&quot; value=&quot;提交的值&quot;/&gt;</code><br>    多选框：<code>&lt;input type=&quot;checkbox&quot; name=&quot;&quot; value=&quot;提交的值&quot; checked=&quot;checked&quot;/&gt;</code><br>    下拉列表：<br>        <code>&lt;select name=&quot;&quot;&gt;
+        &lt;option value=&quot;&quot;&gt;没有value属性时提交的值&lt;/option&gt;
+    &lt;/select&gt;</code><br>    重置按钮：<code>&lt;input type=&quot;reset&quot;&gt;</code><br>    提交按钮：<code>&lt;input type=&quot;submit&quot; value=&quot;修改的按钮的值&quot;&gt;</code></p>
+<h2 id="CSS笔记"><a href="#CSS笔记" class="headerlink" title="CSS笔记"></a><strong>CSS笔记</strong></h2><h3 id="一丶CSS简介"><a href="#一丶CSS简介" class="headerlink" title="一丶CSS简介"></a>一丶CSS简介</h3><p>​    CSS全称为“层叠样式表 (Cascading Style Sheets)”，它主要是用于定义HTML内容在浏览器内的显示样式，如文字大小、颜色、字体等。</p>
+<h3 id="二丶CSS的代码语法"><a href="#二丶CSS的代码语法" class="headerlink" title="二丶CSS的代码语法"></a>二丶CSS的代码语法</h3><p>​    1.CSS样式由选择符(选择器)和声明组成，而声明又由属性和值组成:p{color:blue}</p>
+<p>​    2.CSS的样式:<br>​        ①写在标签的style属性中：<code>&lt;p style=“font-size: 30px”&gt;字体大小用px表示&lt;/p&gt;</code><br>​        ②写在style标签中(style标签一般写在head标签与title标签之间)：<br>​              <code>&lt;style type=&quot;text/css&quot;&gt;
+​        p{
+​        color: blue;
+​        }
+​              &lt;/style&gt;</code><br>​        ③引入外部CSS文件：<br>​            <code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; ref=&quot;style.css&quot;&gt;</code><br>​    3.选择器的分类:<br>​        ①标签选择器：如上图的p<br>​        ②类选择器：.class{..}<br>​        ③ID选择器：#id{..}<br>​    4.CSS中也有注释语句：用<code>/*注释语句*/</code>标明</p>
+<h3 id="三丶CSS中的颜色"><a href="#三丶CSS中的颜色" class="headerlink" title="三丶CSS中的颜色"></a>三丶CSS中的颜色</h3><p>​    CSS中的颜色用RGB颜色：红色(red)、绿色(green)、蓝色(blue)——光学三原色表示。<br>​    RGB中每种颜色都用两位十六进制数表示，0表示没有光，F表示最强的光，并按红、绿、蓝的顺序排列，前面再加上#号。<br>​    例如：#000000黑色；#FFFFFF 白色；#FF0000红色；<br>​          #00FF00绿色；#0000FF蓝色等等。</p>
+<h2 id="JavaScript笔记"><a href="#JavaScript笔记" class="headerlink" title="JavaScript笔记"></a><strong>JavaScript笔记</strong></h2><h3 id="一丶基本语法"><a href="#一丶基本语法" class="headerlink" title="一丶基本语法"></a>一丶基本语法</h3><p>​    1.编写位置<br>​        ① 编写到HTML中<code>&lt;script&gt;</code>标签中。</p>
+<pre><code>    &lt;script type=&quot;text/javascript&quot;&gt;
+                ...
+    &lt;/script&gt;
+</code></pre><p>​        ②写在外部的.js文件中。然后通过script标签引入。<br>    <script type="text/javascript" src="script.js"></script></p>
+<p>​    2.变量<br>​        ①变量的声明<br>​            [1]变量声明时不需要指定类型，可以为其赋值任何类型的数据。<br>​            [2]JavaScript严格<strong>区分大小写</strong>，Num和num是完全不同的两个变量。<br>​    3.函数<br>​        ①函数声明<br>​            [1]使用function关键字<br>​            [2]不需要指定形参类型<br>​            [3]不需要指定返回值            </p>
+<pre class=" language-javascript"><code class="language-javascript">        <span class="token keyword">function</span> <span class="token function">sum</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> n <span class="token operator">+</span> m<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+</code></pre>
+<p>​        ②函数调用<br>​            调用JavaScript函数时系统不检查传入参数的个数和类型。<br>​        ③函数也是对象<br>​            在JavaScript中，函数也作为一种数据类型存在，而且是引用数据类型，函数名就是指向其内存空间地址的引用。            </p>
+<pre class=" language-javascript"><code class="language-javascript">        <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> b <span class="token operator">=</span> a<span class="token punctuation">;</span>
+        a<span class="token punctuation">.</span>fname <span class="token operator">=</span> <span class="token string">"tom"</span><span class="token punctuation">;</span>
+        <span class="token function">alert</span><span class="token punctuation">(</span>b<span class="token punctuation">.</span>fname<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//结果为tom</span>
+</code></pre>
+<p>​        ④函数的执行<br>​           函数名 + ()。            </p>
+<pre class=" language-javascript"><code class="language-javascript">        <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//结果为2    </span>
+</code></pre>
+<p>​    4.对象<br>​        ①对象的创建<br>​          第一种，使用new Object()创建<br>​            <code>var obj = new Object();</code><br>​          第二种，使用{}创建<br>​            <code>var obj = {};</code><br>​        ②为对象添加属性<br>​              第一种，通过 对象.属性名 = “属性值” 添加</p>
+<pre class=" language-javascript"><code class="language-javascript">        obj<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"zhangsan"</span><span class="token punctuation">;</span>
+            obj<span class="token punctuation">.</span>age <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+            obj<span class="token punctuation">.</span>sum <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> a<span class="token operator">+</span>b<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+</code></pre>
+<p>​              第二种，使用{}创建对象时，直接向对象中添加属性</p>
+<pre class=" language-javascript"><code class="language-javascript">        <span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"name"</span> <span class="token punctuation">:</span> <span class="token string">"zhangsan"</span><span class="token punctuation">,</span>
+                     <span class="token string">"age"</span> <span class="token punctuation">:</span> <span class="token number">21</span><span class="token punctuation">,</span>
+                     <span class="token string">"sum"</span> <span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> a<span class="token operator">+</span>b<span class="token punctuation">;</span><span class="token punctuation">}</span>
+                      <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>​    5.this关键字<br>​    在JavaScript函数中，this关键字指向的是调用当前函数的对象。    </p>
+<pre class=" language-javascript"><code class="language-javascript">    <span class="token keyword">var</span> obj01 <span class="token operator">=</span> <span class="token punctuation">{</span>
+            name <span class="token punctuation">:</span> <span class="token string">"obj01 name"</span><span class="token punctuation">,</span>
+            getName <span class="token punctuation">:</span> showName
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> obj02 <span class="token operator">=</span> <span class="token punctuation">{</span>
+            name <span class="token punctuation">:</span> <span class="token string">"obj02 name"</span><span class="token punctuation">,</span>
+            getName <span class="token punctuation">:</span> showName
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">function</span> <span class="token function">showName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">alert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        obj01<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//结果为 obj01 name</span>
+        obj02<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//结果为 obj02 name</span>
+</code></pre>
+<h3 id="二丶事件驱动"><a href="#二丶事件驱动" class="headerlink" title="二丶事件驱动"></a>二丶事件驱动</h3><p>​    1.事件–用户的操作，当操作发生时js如何给用户反馈需要自定义事件的响应函数<br>​        ①用户事件：用户操作，例如单击、鼠标移入、鼠标移出等。<br>​        ②系统事件：由系统触发的事件，例如文档加载完成。<br>​    2.自定义事件响应函数<br>​        ①从文档对象模型中获取控件对象[借助DOM API实现]<br>​        ②声明一个事件响应函数<br>​        ③将事件响应函数的引用赋值给控件对象的事件属性<br>​          例如：<code>window.onload = function(){}</code><br>​    3.取消控件默认行为<br>​        ①默认行为<br>​            [1]超链接跳转页面<br>​            [2]submit按钮提交表单<br>​        ②取消方式：<code>return false</code></p>
+<h3 id="三丶嵌入方式"><a href="#三丶嵌入方式" class="headerlink" title="三丶嵌入方式"></a>三丶嵌入方式</h3><p>​    1.浏览器加载顺序<br>​        ①按从上到下的顺序加载<br>​        ②遇到script标签先执行脚本程序，执行完成后再继续加载<br>​    2.嵌入HTML标签的事件属性中<br>​        <code>&lt;button onclick=&quot;alert(&#39;hello&#39;);&quot;&gt;点我&lt;/button&gt;</code><br>​            结构与行为耦合，不推荐使用<br>​    3.嵌入head标签内        </p>
+<pre class=" language-javascript"><code class="language-javascript">    <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+        <span class="token keyword">var</span> btnEle <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"btn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        btnEle<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>body<span class="token operator">></span>
+        <span class="token operator">&lt;</span>button id<span class="token operator">=</span><span class="token string">"btn"</span><span class="token operator">></span>点我<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+</code></pre>
+<p>​        无法获取body标签中的节点<br>​    4.嵌入body标签后面<br>​        可以获取节点，但是不符合常规习惯<br>​    5.window对象<br>​        代表当前浏览器窗口<br>​    6.onload事件<br>​         将整个文档加载完成后触发<br>​    7.使用<code>window.onload</code>完美解决问题    </p>
+<pre class=" language-javascript"><code class="language-javascript">    <span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+        window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> btnEle <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"btn"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            btnEle<span class="token punctuation">.</span>onclick <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"hello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>head<span class="token operator">></span>
+    <span class="token operator">&lt;</span>body<span class="token operator">></span>
+        <span class="token operator">&lt;</span>button id<span class="token operator">=</span><span class="token string">"btn"</span><span class="token operator">></span>点我<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">/</span>body<span class="token operator">></span>
+</code></pre>
+<h3 id="四丶DOM"><a href="#四丶DOM" class="headerlink" title="四丶DOM"></a>四丶DOM</h3><pre><code>#### 1.document对象
+</code></pre><p>window对象的一个属性，代表当前HTML文档，包含了整个文档的树形结构。<br>获取document对象的本质方法是：window.document，而“window.”可以省略。</p>
+<pre><code>#### 2.DOM树
+</code></pre><p>父元素：直接包含当前元素的元素就是当前元素的父元素<br>子元素：当前元素直接包含的元素就是当前元素的子元素<br>祖先元素：直接或间接包含当前元素的所有元素都是当前元素的祖先元素<br>后代元素：当前元素直接或间接包含的元素就是当前元素的后代元素<br>兄弟元素：有相同父元素的元素是兄弟元素</p>
+<h4 id="3-节点"><a href="#3-节点" class="headerlink" title="3.节点"></a>3.节点</h4><p>3.1 HTML文档中每个成分都是一个节点，HTML文档是由DOM节点构成的集合。<br>3.2 节点的分类<br>    ①文档节点(Document)：DOM标准将整个HTML文档的相关信息封装后得到的对象。<br>    ②元素节点(Element)：DOM标准将HTML标签的相关信息封装后得到的对象。<br>    ③属性节点(Attribute)：DOM标准将HTML标签属性的相关信息封装后得到的对象。<br>    ④文本节点(Text)：DOM标准将HTML文本的相关信息封装后得到的对象。<br>3.3 节点的属性<br>    ①nodeName: 代表当前节点的名字，只读属性。如果给定节点是一个文本节点，nodeName 属性将返回内容为 #text 的字符串。<br>    ②nodeType：返回一个整数, 这个数值代表着给定节点的类型，只读属性。                    1 – 元素节点    2 – 属性节点    3 – 文本节点<br>    ③nodeValue：返回给定节点的当前值(字符串)，可读写的属性。<br>        1) 元素节点，返回值是 null<br>        2) 属性节点: 返回值是这个属性的值<br>        3) 文本节点: 返回值是这个文本节点的内容</p>
+<h4 id="4-DOM查询API"><a href="#4-DOM查询API" class="headerlink" title="4.DOM查询API"></a>4.DOM查询API</h4><p>①元素查询</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>API</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>在整个文档范围内查询元素节点</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>根据id值查询</td>
+<td>document.getElementById(“id值”)</td>
+<td>一个具体的元素节点</td>
+</tr>
+<tr>
+<td>根据标签名查询</td>
+<td>document.getElementsByTagName(“标签名”)</td>
+<td>元素节点数组</td>
+</tr>
+<tr>
+<td>根据name属性值查询</td>
+<td>document.getElementsByName(“name值”)</td>
+<td>元素节点数组</td>
+</tr>
+<tr>
+<td>在具体元素节点范围内查找子节点</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>查找全部子节点</td>
+<td>element.childNodes【W3C考虑换行，IE≤9不考虑】</td>
+<td>节点数组</td>
+</tr>
+<tr>
+<td>查找第一个子节点</td>
+<td>element.firstChild【W3C考虑换行，IE≤9不考虑】</td>
+<td>节点对象</td>
+</tr>
+<tr>
+<td>查找最后一个子节点</td>
+<td>element.lastChild【W3C考虑换行，IE≤9不考虑】</td>
+<td>节点对象</td>
+</tr>
+<tr>
+<td>查找指定标签名的子节点</td>
+<td>element.getElementsByTagName(“标签名”)</td>
+<td>元素节点数组</td>
+</tr>
+<tr>
+<td>查找指定元素节点的父节点</td>
+<td>element.parentNode</td>
+<td></td>
+</tr>
+<tr>
+<td>查找指定元素节点的兄弟节点</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>查找前一个兄弟节点</td>
+<td>node.previousSibling【W3C考虑换行，IE≤9不考虑】</td>
+<td>节点对象</td>
+</tr>
+<tr>
+<td>查找后一个兄弟节点</td>
+<td>node.nextSibling【W3C考虑换行，IE≤9不考虑】</td>
+<td>节点对象</td>
+</tr>
+</tbody>
+</table>
+<p>②属性操作<br>    [1]读取属性值<br>        元素对象.属性名<br>    [2]修改属性值<br>        元素对象.属性名=新的属性值<br>③文本操作<br>    [1]读取文本值：<code>element.firstChild.nodeValue</code><br>    [2]修改文本值：<code>element.firstChild.nodeValue=新文本值</code></p>
+<p>5.DOM增删改API</p>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document.createElement(“标签名”)</td>
+<td>创建元素节点并返回，但不会自动添加到文档中</td>
+</tr>
+<tr>
+<td>document.createTextNode(“文本值”)</td>
+<td>创建文本节点并返回，但不会自动添加到文档中</td>
+</tr>
+<tr>
+<td>element.appendChild(ele)</td>
+<td>将ele添加到element所有子节点后面</td>
+</tr>
+<tr>
+<td>parentEle.insertBefore(newEle,targetEle)</td>
+<td>将newEle插入到targetEle前面</td>
+</tr>
+<tr>
+<td>parentEle.replaceChild(newEle, oldEle)</td>
+<td>用新节点替换原有的旧子节点</td>
+</tr>
+<tr>
+<td>parentEle.removeChild(childNode)</td>
+<td>删除指定的子节点</td>
+</tr>
+<tr>
+<td>element.innerHTML</td>
+<td>读写HTML代码</td>
+</tr>
+</tbody>
+</table>
+<p>​<br>​        </p>
+<p>​<br>​    </p>
+<p>​    </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kingstar718.github.io/tags/html/" rel="tag"># html</a>
+          
+            <a href="/kingstar718.github.io/tags/css/" rel="tag"># css</a>
+          
+            <a href="/kingstar718.github.io/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kingstar718.github.io/2019/07/08/arcgis-server-bi-ji/" rel="next" title="ArcGIS Server 笔记">
+                <i class="fa fa-chevron-left"></i> ArcGIS Server 笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/kingstar718.github.io/uploads/avatar.gif" alt="kingstar718">
+            
+              <p class="site-author-name" itemprop="name">kingstar718</p>
+              <p class="site-description motion-element" itemprop="description">生如逆旅,一苇以航</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kingstar718.github.io/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kingstar718.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kingstar718.github.io/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/kingstar718.github.io/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kingstar718" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kingstar718@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTML笔记"><span class="nav-number">1.</span> <span class="nav-text">HTML笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一丶常用标签"><span class="nav-number">1.1.</span> <span class="nav-text">一丶常用标签</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二丶转义字符"><span class="nav-number">1.2.</span> <span class="nav-text">二丶转义字符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三丶表格和表单"><span class="nav-number">1.3.</span> <span class="nav-text">三丶表格和表单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS笔记"><span class="nav-number">2.</span> <span class="nav-text">CSS笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一丶CSS简介"><span class="nav-number">2.1.</span> <span class="nav-text">一丶CSS简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二丶CSS的代码语法"><span class="nav-number">2.2.</span> <span class="nav-text">二丶CSS的代码语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三丶CSS中的颜色"><span class="nav-number">2.3.</span> <span class="nav-text">三丶CSS中的颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript笔记"><span class="nav-number">3.</span> <span class="nav-text">JavaScript笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一丶基本语法"><span class="nav-number">3.1.</span> <span class="nav-text">一丶基本语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二丶事件驱动"><span class="nav-number">3.2.</span> <span class="nav-text">二丶事件驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三丶嵌入方式"><span class="nav-number">3.3.</span> <span class="nav-text">三丶嵌入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四丶DOM"><span class="nav-number">3.4.</span> <span class="nav-text">四丶DOM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-节点"><span class="nav-number">3.4.1.</span> <span class="nav-text">3.节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-DOM查询API"><span class="nav-number">3.4.2.</span> <span class="nav-text">4.DOM查询API</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kingstar718</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/kingstar718.github.io/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

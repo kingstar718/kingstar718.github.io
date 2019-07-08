@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-07-06T13:36:07.625Z</updated>
+  <updated>2019-07-08T12:28:01.087Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -15,6 +15,85 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端笔记</title>
+    <link href="http://blog.wujinxing.top/2019/07/08/qian-duan-bi-ji/"/>
+    <id>http://blog.wujinxing.top/2019/07/08/qian-duan-bi-ji/</id>
+    <published>2019-07-08T07:12:58.000Z</published>
+    <updated>2019-07-08T12:28:01.087Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;HTML笔记&quot;&gt;&lt;a href=&quot;#HTML笔记&quot; class=&quot;headerlink&quot; title=&quot;HTML笔记&quot;&gt;&lt;/a&gt;&lt;strong&gt;HTML笔记&lt;/strong&gt;&lt;/h2&gt;&lt;h3 id=&quot;一丶常用标签&quot;&gt;&lt;a href=&quot;#一丶常用标签&quot; class=&quot;headerlink&quot; title=&quot;一丶常用标签&quot;&gt;&lt;/a&gt;一丶常用标签&lt;/h3&gt;&lt;p&gt;​    1.标题标签：&lt;code&gt;&amp;lt;h1&amp;gt;...&amp;lt;/h1&amp;gt;~&amp;lt;h6&amp;gt;...&amp;lt;/h6&amp;gt;&lt;/code&gt;&lt;br&gt;​    2.div标签：&lt;code&gt;&amp;lt;div&amp;gt;...&amp;lt;/div&amp;gt;&lt;/code&gt;，相当于一个容器,可以把一些独立的逻辑部分(如网页中独立的栏目版块)划分出来&lt;br&gt;​    3.段落标签：&lt;code&gt;&amp;lt;p&amp;gt;...&amp;lt;/p&amp;gt;&lt;/code&gt;&lt;br&gt;​    4.无序列表： &lt;code&gt;&amp;lt;ul&amp;gt;&lt;/code&gt;&lt;br&gt;&lt;code&gt;&amp;lt;li&amp;gt;...&amp;lt;/li&amp;gt;&lt;/code&gt;&lt;br&gt;&lt;code&gt;&amp;lt;li&amp;gt;...&amp;lt;/li&amp;gt;&lt;/code&gt;&lt;br&gt;&lt;code&gt;​                &amp;lt;/ul&amp;gt;&lt;/code&gt;&lt;br&gt;​    5.图片标签：&lt;code&gt;&amp;lt;img alt=&amp;quot;&amp;quot; src=&amp;quot;&amp;quot; title=&amp;quot;&amp;quot;/&amp;gt;&lt;/code&gt;&lt;br&gt;​        alt:图片无法显示时显示的描述性文字&lt;br&gt;​        src:图片的地址&lt;br&gt;​        (了解)title:鼠标放在图片上时显示的描述性文字&lt;br&gt;​    6.超链接：&lt;code&gt;&amp;lt;a href=&amp;quot;&amp;quot; target=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/a&amp;gt;&lt;/code&gt;&lt;br&gt;​        href:指向一个链接地址&lt;br&gt;​        target:目标窗口&lt;br&gt;​        值为”_self”时在向当前窗口(默认)打开新的网页&lt;br&gt;​        值为”_blank”时在新的窗口打开&lt;br&gt;​    7.内联框架(了解)：&lt;code&gt;&amp;lt;iframe src=&amp;quot;&amp;quot; name=&amp;quot;&amp;quot;&amp;gt;&amp;lt;/iframe&amp;gt;&lt;/code&gt;&lt;br&gt;​             src:一个网页的地址&lt;br&gt;​         name: iframe的名字，当a标签的target属性值为iframe的name时，超链接的目标页面会在iframe中打开&lt;br&gt;​    8.&lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt;和&lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt;标签&lt;br&gt;​         两者在强调的语气上有区别:&lt;br&gt;​         &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; 表示强调，&lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt; 表示更强烈的强调。&lt;br&gt;​         并且在浏览器中&lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; 默认用 斜体 表示，&lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt; 用 粗体 表示。&lt;br&gt;​    9.&lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt;标签&lt;br&gt;​        &lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt;标签是没有语义的，它的作用就是为了设置单独的样式用的。有了它就可以对某段文字里的几个字单独设置样式了。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://blog.wujinxing.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="html" scheme="http://blog.wujinxing.top/tags/html/"/>
+    
+      <category term="css" scheme="http://blog.wujinxing.top/tags/css/"/>
+    
+      <category term="JavaScript" scheme="http://blog.wujinxing.top/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ArcGIS Server 笔记</title>
+    <link href="http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"/>
+    <id>http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/</id>
+    <published>2019-07-08T06:58:58.000Z</published>
+    <updated>2019-07-08T07:14:09.453Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;一丶创建服务&quot;&gt;&lt;a href=&quot;#一丶创建服务&quot; class=&quot;headerlink&quot; title=&quot;一丶创建服务&quot;&gt;&lt;/a&gt;&lt;strong&gt;一丶创建服务&lt;/strong&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;-&amp;gt;打开ArcMap&lt;/li&gt;
+&lt;li&gt;-&amp;gt;目录-&amp;gt;GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;添加ArcGIS Server&lt;/li&gt;
+&lt;li&gt;-&amp;gt;管理GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码) &lt;/li&gt;
+&lt;li&gt;-&amp;gt;在目录中找到创建好的服务器,新建文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务&lt;/li&gt;
+&lt;li&gt;-&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连接&lt;/li&gt;
+&lt;li&gt;-&amp;gt;将服务发布至文件夹选择刚才新建的文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;进入服务编辑器,进行相应选择-&amp;gt;发布服务&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://blog.wujinxing.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="ArcGIS Server" scheme="http://blog.wujinxing.top/tags/ArcGIS-Server/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>简评《上海堡垒》</title>
+    <link href="http://blog.wujinxing.top/2019/07/06/jian-ping-shang-hai-bao-lei/"/>
+    <id>http://blog.wujinxing.top/2019/07/06/jian-ping-shang-hai-bao-lei/</id>
+    <published>2019-07-06T14:14:10.000Z</published>
+    <updated>2019-07-06T14:17:47.086Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;​    《上海堡垒》算是江南的早期作品，描述了外星文明入侵地球，人类在另一个外星文明的帮助下，建立了城市堡垒来抵御进攻的故事。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="http://blog.wujinxing.top/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="读书笔记" scheme="http://blog.wujinxing.top/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="江南" scheme="http://blog.wujinxing.top/tags/%E6%B1%9F%E5%8D%97/"/>
+    
+      <category term="上海堡垒" scheme="http://blog.wujinxing.top/tags/%E4%B8%8A%E6%B5%B7%E5%A0%A1%E5%9E%92/"/>
+    
+  </entry>
   
   <entry>
     <title>Python数组初始化固定长度、求和、简单文本处理</title>
