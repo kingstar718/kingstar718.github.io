@@ -602,6 +602,92 @@ String goods_list_html <span class="token operator">=</span> thymeleafViewResolv
 <p>加入拦截器AccessLimit，具体实现参考access包的三个类，其中AccessInterceptor需要加注解@Service，</p>
 <p>实现之后，还需要在config中的WebConfig中将AccessInterceptor注入进来，重写WebConfig继承的WebMvcConfigurerAdapter类的addInterceptors方法，将该拦截器添加进去，这样注解就会生效。</p>
 <p>需要在哪个controller方法上进行限流，直接加注解并设置相应的参数就可以。</p>
+<h4 id="相关引用："><a href="#相关引用：" class="headerlink" title="相关引用："></a>相关引用：</h4><p><strong>开发技术</strong></p>
+<p>前端技术 ：Bootstrap + jQuery + Thymeleaf</p>
+<p>后端技术 ：SpringBoot + MyBatis + MySQL</p>
+<p>中间件技术 : Druid + Redis + RabbitMQ + Guava</p>
+<p><strong>秒杀优化方向</strong></p>
+<ol>
+<li><p>将请求尽量拦截在系统上游：传统秒杀系统之所以挂，请求都压倒了后端数据层，数据读写锁冲突严重，几乎所有请求都超时，流量虽大，下单成功的有效流量甚小，我们可以通过限流、降级等措施来最大化减少对数据库的访问，从而保护系统。</p>
+</li>
+<li><p>充分利用缓存：秒杀商品是一个典型的读多写少的应用场景，充分利用缓存将大大提高并发量</p>
+</li>
+</ol>
+<p><strong>实现技术点</strong></p>
+<ol>
+<li><strong>两次MD5加密</strong></li>
+</ol>
+<p>将用户输入的密码和固定Salt通过MD5加密生成第一次加密后的密码，再讲该密码和随机生成的Salt通过MD5进行第二次加密，最后将第二次加密后的密码和第一次的固定Salt存数据库</p>
+<p>好处：  </p>
+<ol>
+<li>第一次作用：防止用户明文密码在网络进行传输</li>
+<li><p>第二次作用：防止数据库被盗，避免通过MD5反推出密码，双重保险</p>
+</li>
+<li><p><strong>session共享</strong></p>
+</li>
+</ol>
+<p>验证用户账号密码都正确情况下，通过UUID生成唯一id作为token，再将token作为key、用户信息作为value模拟session存储到redis，同时将token存储到cookie，保存登录状态</p>
+<p>好处： 在分布式集群情况下，服务器间需要同步，定时同步各个服务器的session信息，会因为延迟到导致session不一致，使用redis把session数据集中存储起来，解决session不一致问题。</p>
+<ol start="3">
+<li><strong>JSR303自定义参数验证</strong></li>
+</ol>
+<p>使用JSR303自定义校验器，实现对用户账号、密码的验证，使得验证逻辑从业务代码中脱离出来。</p>
+<ol start="4">
+<li>全局异常统一处理</li>
+</ol>
+<p>通过拦截所有异常，对各种异常进行相应的处理，当遇到异常就逐层上抛，一直抛到最终由一个统一的、专门负责异常处理的地方处理，这有利于对异常的维护。</p>
+<ol start="5">
+<li><p><strong>页面缓存 + 对象缓存</strong></p>
+</li>
+<li><p>页面缓存：通过在手动渲染得到的html页面缓存到redis</p>
+</li>
+<li><p>对象缓存：包括对用户信息、商品信息、订单信息和token等数据进行缓存，利用缓存来减少对数据库的访问，大大加快查询速度。</p>
+</li>
+<li><p><strong>页面静态化</strong></p>
+</li>
+</ol>
+<p>对商品详情和订单详情进行页面静态化处理，页面是存在html，动态数据是通过接口从服务端获取，实现前后端分离，静态页面无需连接数据库打开速度较动态页面会有明显提高</p>
+<ol start="7">
+<li><strong>本地标记 + redis预处理 + RabbitMQ异步下单 + 客户端轮询</strong></li>
+</ol>
+<p>描述：通过三级缓冲保护，1、本地标记  2、redis预处理  3、RabbitMQ异步下单，最后才会访问数据库，这样做是为了最大力度减少对数据库的访问。</p>
+<p>实现：</p>
+<ol>
+<li>在秒杀阶段使用本地标记对用户秒杀过的商品做标记，若被标记过直接返回重复秒杀，未被标记才查询redis，通过本地标记来减少对redis的访问</li>
+<li>抢购开始前，将商品和库存数据同步到redis中，所有的抢购操作都在redis中进行处理，通过Redis预减少库存减少数据库访问</li>
+<li>为了保护系统不受高流量的冲击而导致系统崩溃的问题，使用RabbitMQ用异步队列处理下单，实际做了一层缓冲保护，做了一个窗口模型，窗口模型会实时的刷新用户秒杀的状态。</li>
+<li><p>client端用js轮询一个接口，用来获取处理状态</p>
+</li>
+<li><p><strong>解决超卖</strong></p>
+</li>
+</ol>
+<p>描述：比如某商品的库存为1，此时用户1和用户2并发购买该商品，用户1提交订单后该商品的库存被修改为0，而此时用户2并不知道的情况下提交订单，该商品的库存再次被修改为-1，这就是超卖现象</p>
+<p>实现：</p>
+<ol>
+<li>对库存更新时，先对库存判断，只有当库存大于0才能更新库存</li>
+<li>对用户id和商品id建立一个唯一索引，通过这种约束避免同一用户发同时两个请求秒杀到两件相同商品</li>
+<li><p>实现乐观锁，给商品信息表增加一个version字段，为每一条数据加上版本。每次更新的时候version+1，并且更新时候带上版本号，当提交前版本号等于更新前版本号，说明此时没有被其他线程影响到，正常更新，如果冲突了则不会进行提交更新。当库存是足够的情况下发生乐观锁冲突就进行一定次数的重试。</p>
+</li>
+<li><p><strong>使用数学公式验证码</strong></p>
+</li>
+</ol>
+<p>描述：点击秒杀前，先让用户输入数学公式验证码，验证正确才能进行秒杀。</p>
+<p>好处：</p>
+<ol>
+<li>防止恶意的机器人和爬虫 </li>
+<li>分散用户的请求</li>
+</ol>
+<p>实现：</p>
+<ol>
+<li>前端通过把商品id作为参数调用服务端创建验证码接口</li>
+<li>服务端根据前端传过来的商品id和用户id生成验证码，并将商品id+用户id作为key，生成的验证码作为value存入redis，同时将生成的验证码输入图片写入imageIO让前端展示</li>
+<li><p>将用户输入的验证码与根据商品id+用户id从redis查询到的验证码对比，相同就返回验证成功，进入秒杀；不同或从redis查询的验证码为空都返回验证失败，刷新验证码重试</p>
+</li>
+<li><p><strong>使用RateLimiter实现限流</strong></p>
+</li>
+</ol>
+<p>描述：当我们去秒杀一些商品时，此时可能会因为访问量太大而导致系统崩溃，此时要使用限流来进行限制访问量，当达到限流阀值，后续请求会被降级；降级后的处理方案可以是：返回排队页面（高峰期访问太频繁，等一会重试）、错误页等。</p>
+<p>实现：项目使用RateLimiter来实现限流，RateLimiter是guava提供的基于令牌桶算法的限流实现类，通过调整生成token的速率来限制用户频繁访问秒杀页面，从而达到防止超大流量冲垮系统。（令牌桶算法的原理是系统会以一个恒定的速度往桶里放入令牌，而如果请求需要被处理，则需要先从桶里获取一个令牌，当桶里没有令牌可取时，则拒绝服务）</p>
 
       
     </div>
@@ -801,7 +887,7 @@ String goods_list_html <span class="token operator">=</span> thymeleafViewResolv
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目概览："><span class="nav-number">1.</span> <span class="nav-text">项目概览：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发工具"><span class="nav-number">1.2.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#压测工具"><span class="nav-number">1.3.</span> <span class="nav-text">压测工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一章-项目框架搭建"><span class="nav-number">2.</span> <span class="nav-text">第一章 项目框架搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-步骤："><span class="nav-number">2.1.</span> <span class="nav-text">1.1 步骤：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二节：登陆"><span class="nav-number">3.</span> <span class="nav-text">第二节：登陆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-步骤："><span class="nav-number">3.1.</span> <span class="nav-text">2.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Login：自定义手机格式校验器-IsMobile"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Login：自定义手机格式校验器:@IsMobile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-分布式Session："><span class="nav-number">3.3.</span> <span class="nav-text">2.3 分布式Session：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三章-秒杀内容"><span class="nav-number">4.</span> <span class="nav-text">第三章 秒杀内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-步骤："><span class="nav-number">4.1.</span> <span class="nav-text">3.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-表设计："><span class="nav-number">4.2.</span> <span class="nav-text">3.2 表设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-页面设计："><span class="nav-number">4.3.</span> <span class="nav-text">3.3 页面设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-秒杀逻辑："><span class="nav-number">4.4.</span> <span class="nav-text">3.4 秒杀逻辑：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四章-JMeter压测"><span class="nav-number">5.</span> <span class="nav-text">第四章 JMeter压测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-步骤："><span class="nav-number">5.1.</span> <span class="nav-text">4.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-使用JMeter"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 使用JMeter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-JMeter自定义变量"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 JMeter自定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-使用top查看系统进程使用情况"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 使用top查看系统进程使用情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-5-SpringBoot打war包"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 SpringBoot打war包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-linux下启动jar包"><span class="nav-number">5.6.</span> <span class="nav-text">4.6 linux下启动jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-如何模拟5000用户"><span class="nav-number">5.7.</span> <span class="nav-text">4.7 如何模拟5000用户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五章-页面优化技术"><span class="nav-number">6.</span> <span class="nav-text">第五章 页面优化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-步骤："><span class="nav-number">6.1.</span> <span class="nav-text">5.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-页面缓存"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 页面缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-对象缓存"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 对象缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-商品详情静态化（restful-ajax优化）"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 商品详情静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-秒杀功能的静态化（restful-ajax优化）"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 秒杀功能的静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-6-完善库有可能变为负数的情况："><span class="nav-number">6.6.</span> <span class="nav-text">5.6 完善库有可能变为负数的情况：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-7-静态资源优化"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 静态资源优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六章-服务级秒杀优化（接口优化）"><span class="nav-number">7.</span> <span class="nav-text">第六章 服务级秒杀优化（接口优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-步骤："><span class="nav-number">7.1.</span> <span class="nav-text">6.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-超卖问题"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 超卖问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-优化思路就是减少数据库访问："><span class="nav-number">7.3.</span> <span class="nav-text">6.3 优化思路就是减少数据库访问：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-安装RabbitMQ"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 安装RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-5-Springboot集成RabbitMQ"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 Springboot集成RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-RabbitMQ的简易使用"><span class="nav-number">7.6.</span> <span class="nav-text">6.6 RabbitMQ的简易使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-7-秒杀接口优化"><span class="nav-number">7.7.</span> <span class="nav-text">6.7 秒杀接口优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-内存标记"><span class="nav-number">7.8.</span> <span class="nav-text">6.8 内存标记</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第七章-安全优化"><span class="nav-number">8.</span> <span class="nav-text">第七章 安全优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-步骤："><span class="nav-number">8.1.</span> <span class="nav-text">7.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-秒杀接口地址隐藏"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 秒杀接口地址隐藏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-数学公式验证码"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 数学公式验证码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-4-接口防刷限流"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 接口防刷限流</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目概览："><span class="nav-number">1.</span> <span class="nav-text">项目概览：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发工具"><span class="nav-number">1.2.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#压测工具"><span class="nav-number">1.3.</span> <span class="nav-text">压测工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一章-项目框架搭建"><span class="nav-number">2.</span> <span class="nav-text">第一章 项目框架搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-步骤："><span class="nav-number">2.1.</span> <span class="nav-text">1.1 步骤：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二节：登陆"><span class="nav-number">3.</span> <span class="nav-text">第二节：登陆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-步骤："><span class="nav-number">3.1.</span> <span class="nav-text">2.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Login：自定义手机格式校验器-IsMobile"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Login：自定义手机格式校验器:@IsMobile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-分布式Session："><span class="nav-number">3.3.</span> <span class="nav-text">2.3 分布式Session：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三章-秒杀内容"><span class="nav-number">4.</span> <span class="nav-text">第三章 秒杀内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-步骤："><span class="nav-number">4.1.</span> <span class="nav-text">3.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-表设计："><span class="nav-number">4.2.</span> <span class="nav-text">3.2 表设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-页面设计："><span class="nav-number">4.3.</span> <span class="nav-text">3.3 页面设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-秒杀逻辑："><span class="nav-number">4.4.</span> <span class="nav-text">3.4 秒杀逻辑：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四章-JMeter压测"><span class="nav-number">5.</span> <span class="nav-text">第四章 JMeter压测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-步骤："><span class="nav-number">5.1.</span> <span class="nav-text">4.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-使用JMeter"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 使用JMeter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-JMeter自定义变量"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 JMeter自定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-使用top查看系统进程使用情况"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 使用top查看系统进程使用情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-5-SpringBoot打war包"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 SpringBoot打war包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-linux下启动jar包"><span class="nav-number">5.6.</span> <span class="nav-text">4.6 linux下启动jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-如何模拟5000用户"><span class="nav-number">5.7.</span> <span class="nav-text">4.7 如何模拟5000用户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五章-页面优化技术"><span class="nav-number">6.</span> <span class="nav-text">第五章 页面优化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-步骤："><span class="nav-number">6.1.</span> <span class="nav-text">5.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-页面缓存"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 页面缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-对象缓存"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 对象缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-商品详情静态化（restful-ajax优化）"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 商品详情静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-秒杀功能的静态化（restful-ajax优化）"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 秒杀功能的静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-6-完善库有可能变为负数的情况："><span class="nav-number">6.6.</span> <span class="nav-text">5.6 完善库有可能变为负数的情况：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-7-静态资源优化"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 静态资源优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六章-服务级秒杀优化（接口优化）"><span class="nav-number">7.</span> <span class="nav-text">第六章 服务级秒杀优化（接口优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-步骤："><span class="nav-number">7.1.</span> <span class="nav-text">6.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-超卖问题"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 超卖问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-优化思路就是减少数据库访问："><span class="nav-number">7.3.</span> <span class="nav-text">6.3 优化思路就是减少数据库访问：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-安装RabbitMQ"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 安装RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-5-Springboot集成RabbitMQ"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 Springboot集成RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-RabbitMQ的简易使用"><span class="nav-number">7.6.</span> <span class="nav-text">6.6 RabbitMQ的简易使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-7-秒杀接口优化"><span class="nav-number">7.7.</span> <span class="nav-text">6.7 秒杀接口优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-内存标记"><span class="nav-number">7.8.</span> <span class="nav-text">6.8 内存标记</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第七章-安全优化"><span class="nav-number">8.</span> <span class="nav-text">第七章 安全优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-步骤："><span class="nav-number">8.1.</span> <span class="nav-text">7.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-秒杀接口地址隐藏"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 秒杀接口地址隐藏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-数学公式验证码"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 数学公式验证码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-4-接口防刷限流"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 接口防刷限流</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关引用："><span class="nav-number">9.</span> <span class="nav-text">相关引用：</span></a></li></ol></div>
             
 
           </div>
