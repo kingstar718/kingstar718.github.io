@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-08-13T02:24:07.124Z</updated>
+  <updated>2019-08-13T03:02:52.928Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -21,11 +21,12 @@
     <link href="http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/"/>
     <id>http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/</id>
     <published>2019-08-13T02:05:24.000Z</published>
-    <updated>2019-08-13T02:24:07.124Z</updated>
+    <updated>2019-08-13T03:02:52.928Z</updated>
     
     <summary type="html">
     
       &lt;h4 id=&quot;项目概览：&quot;&gt;&lt;a href=&quot;#项目概览：&quot; class=&quot;headerlink&quot; title=&quot;项目概览：&quot;&gt;&lt;/a&gt;项目概览：&lt;/h4&gt;&lt;h5 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h5&gt;&lt;p&gt;本系统是使用SpringBoot开发的高并发限时抢购秒杀系统，除了实现基本的登陆、查看商品列表、秒杀、下单等功能，还针对高并发访问情况实现了系统缓存、降级和限流。&lt;/p&gt;
+&lt;h5 id=&quot;项目链接&quot;&gt;&lt;a href=&quot;#项目链接&quot; class=&quot;headerlink&quot; title=&quot;项目链接&quot;&gt;&lt;/a&gt;项目链接&lt;/h5&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/kingstar718/Flash-Sale&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;github项目链接&lt;/a&gt;&lt;/p&gt;
     
     </summary>
     
