@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/kingstar718.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/kingstar718.github.io/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/kingstar718.github.io/images/apple-touch-icon-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/kingstar718.github.io/images/favicon-32x32-next.png?v=6.0.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/kingstar718.github.io/images/favicon-16x16-next.png?v=6.0.0">
+
+
+  <link rel="mask-icon" href="/kingstar718.github.io/images/logo.svg?v=6.0.0" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+  
+
+
+  <link rel="alternate" href="/kingstar718.github.io/atom.xml" title="kingstar718's blog" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+<meta property="og:type" content="website">
+<meta property="og:title" content="kingstar718&#39;s blog">
+<meta property="og:url" content="http://blog.wujinxing.top/about/index.html">
+<meta property="og:site_name" content="kingstar718&#39;s blog">
+<meta property="og:description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-08T12:32:23.437Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kingstar718&#39;s blog">
+<meta name="twitter:description" content="陆上江南  China University of Geosciences  Wuhan，Hubei  kingstar718@foxmail.com">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/kingstar718.github.io/',
+    scheme: 'Muse',
+    version: '6.0.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.wujinxing.top/about/">
+
+
+
+
+
+  <title>秒杀项目笔记 | kingstar718's blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?391c58f8d37853833d78725118c31834";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<link rel="stylesheet" href="/kingstar718.github.io/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> <div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/kingstar718.github.io/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">kingstar718's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">kingstar718</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/kingstar718.github.io/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/kingstar718.github.io/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/kingstar718.github.io/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/kingstar718.github.io/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/kingstar718.github.io/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.wujinxing.top/kingstar718.github.io/2019/08/13/miao-sha-xiang-mu-bi-ji/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="kingstar718">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/kingstar718.github.io/uploads/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kingstar718's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">秒杀项目笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-08-13T10:05:24+08:00">2019-08-13</time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/kingstar718.github.io/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="项目概览："><a href="#项目概览：" class="headerlink" title="项目概览："></a>项目概览：</h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>本系统是使用SpringBoot开发的高并发限时抢购秒杀系统，除了实现基本的登陆、查看商品列表、秒杀、下单等功能，还针对高并发访问情况实现了系统缓存、降级和限流。</p>
+<a id="more"></a>
+<h5 id="开发工具"><a href="#开发工具" class="headerlink" title="开发工具"></a>开发工具</h5><p>IDEA+SQLyog+Git+Chrome</p>
+<h5 id="压测工具"><a href="#压测工具" class="headerlink" title="压测工具"></a>压测工具</h5><p>JMeter</p>
+<h4 id="第一章-项目框架搭建"><a href="#第一章-项目框架搭建" class="headerlink" title="第一章 项目框架搭建"></a>第一章 项目框架搭建</h4><h5 id="1-1-步骤："><a href="#1-1-步骤：" class="headerlink" title="1.1 步骤："></a>1.1 步骤：</h5><ol>
+<li>SpringBoot环境搭建</li>
+<li>继承Thymeleaf， Result结果封装</li>
+<li>继承Mybatis+Druid</li>
+<li>继承Jedis+Redis安装+通用缓存Key封装</li>
+</ol>
+<h4 id="第二节：登陆"><a href="#第二节：登陆" class="headerlink" title="第二节：登陆"></a>第二节：登陆</h4><h5 id="2-1-步骤："><a href="#2-1-步骤：" class="headerlink" title="2.1 步骤："></a>2.1 步骤：</h5><ol>
+<li>数据库设计</li>
+<li>明文密码两次MD5处理</li>
+<li>JSR303参数校验+全局异常处理器</li>
+<li>分布式Session</li>
+</ol>
+<h5 id="2-2-Login：自定义手机格式校验器-IsMobile"><a href="#2-2-Login：自定义手机格式校验器-IsMobile" class="headerlink" title="2.2 Login：自定义手机格式校验器:@IsMobile"></a>2.2 Login：自定义手机格式校验器:@IsMobile</h5><ol>
+<li>定义一个@interface IsMobile，需要多个注解</li>
+<li>实现一个IsMobileValidator的注解实现类，实现ConstraintValidator&lt;IsMobile, String&gt;接口。重写initialize、isValid方法。</li>
+<li>实现类方法中的isValid，需要使用到ValidatorUtil来判断手机号是否符合。</li>
+</ol>
+<p>目前问题：bootstrap无效—target目录删除重新生成（虽然不确定是否是这样，但是经过这样之后问题确实解决了，还有的说是js引用顺序问题，排序应是jQuery、bootstrapcss、bootstrapjs。）–已解决。</p>
+<h5 id="2-3-分布式Session："><a href="#2-3-分布式Session：" class="headerlink" title="2.3 分布式Session："></a>2.3 分布式Session：</h5><ol>
+<li>用户登录成功，设置唯一独立的token和从数据库中读取的user信息一并存入redis，并将token保存到Cookie发给服务端，在跳转其他页面时，可以根据response中的token存缓存中取出用户信息。</li>
+<li>以上逻辑获取token不在controller实现（不然所有要user信息的都要重写一遍），而是全部写到一个Service中，名为UserArgumentResolver，实现HandlerMethodArgumentResolver的resolveArgument方法，该方法中从原生的webRequest中获取request、response，然后我们从中获取paramToken、cookieToken，在进行分析合成新的token，完成之后使用token从userService方法中获取user对象。</li>
+<li>将UserArgumentResolver注入到自定义的WebConfig中，实现WebMvcConfigurerAdapter类（springboot2.x已弃用），重写该类的addArgumentResolvers方法，向其中添加userArgumentResolver。</li>
+<li>那么controller的参数中直接就可以拿到user对象了。</li>
+</ol>
+<p>注意：token的有效期应该是最后一次访问+有效时间，所以要在userService的getByToken方法中延长缓存有效期，即在方法内再使用一次addCookie方法。getByToken意思是使用token在redis里拿出用户信息。该方法在UserArgumentResolver类中被调用，用于全局获取用户信息。</p>
+<h4 id="第三章-秒杀内容"><a href="#第三章-秒杀内容" class="headerlink" title="第三章 秒杀内容"></a>第三章 秒杀内容</h4><h5 id="3-1-步骤："><a href="#3-1-步骤：" class="headerlink" title="3.1 步骤："></a>3.1 步骤：</h5><ol>
+<li>数据库设计</li>
+<li>商品列表页</li>
+<li>商品详情页</li>
+<li>订单详情页</li>
+</ol>
+<h5 id="3-2-表设计："><a href="#3-2-表设计：" class="headerlink" title="3.2 表设计："></a>3.2 表设计：</h5><p>商品表、订单表、秒杀商品表、秒杀订单表（将秒杀功能从主表抽离出来，不然多个功能就从主表再加字段，不是很合适）</p>
+<h5 id="3-3-页面设计："><a href="#3-3-页面设计：" class="headerlink" title="3.3 页面设计："></a>3.3 页面设计：</h5><ol>
+<li>商品列表页</li>
+<li>商品详情页</li>
+<li>订单详情页</li>
+</ol>
+<p>问题：1.日期时区的问题。数据库更改为UTC时区，取出来的似乎是GMT时区的日期和时间。如果强行将代码的时区也改为UTC，这是取出的数据就和数据库显示的是一样的了。更改方式如下，启动类加：</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@PostConstruct</span>
+<span class="token keyword">void</span> <span class="token function">started</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    TimeZone<span class="token punctuation">.</span><span class="token function">setDefault</span><span class="token punctuation">(</span>TimeZone<span class="token punctuation">.</span><span class="token function">getTimeZone</span><span class="token punctuation">(</span><span class="token string">"UTC"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>application.properties的jdbc连接后面加：<code>&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC</code></p>
+<p>数据库更改时区方法：</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">show</span> variables <span class="token operator">like</span> <span class="token string">"%time_zone%"</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> <span class="token keyword">global</span> time_zone <span class="token operator">=</span> <span class="token string">'+8:00'</span><span class="token punctuation">;</span>
+<span class="token keyword">set</span> time_zone <span class="token operator">=</span> <span class="token string">'+8:00'</span><span class="token punctuation">;</span>
+flush <span class="token keyword">privileges</span><span class="token punctuation">;</span>
+</code></pre>
+<p>另：System.currentTimeMillis()似乎也是以GMT时区来算的。所以即使取出来的是UTC的日期时间，还是和System.currentTimeMillis()差时区。本意我们只是想让数据库表字段的显示日期和取出来的一样，结果做到了还是和系统时间比不了。</p>
+<p>最终决定：不管数据库字段的显示日期和取出来的不一样，应为要和System.currentTimeMillis()做差，所以都已GMT为准。</p>
+<h5 id="3-4-秒杀逻辑："><a href="#3-4-秒杀逻辑：" class="headerlink" title="3.4 秒杀逻辑："></a>3.4 秒杀逻辑：</h5><ol>
+<li>根据商品ID判断库存</li>
+<li>根据用户ID和商品ID判断是否已经秒杀到了（不允许重复秒杀）</li>
+<li>减库存、下订单、写入秒杀订单（事务）</li>
+</ol>
+<p>注意：在一个Service中一般只引入当前的Dao，要使用其他的，引入其他的Service而不是其他的Dao。</p>
+<p>实际来理一下相关的Dao层和Service层是怎么实现目前的秒杀逻辑的：</p>
+<ol>
+<li>Controller层调用goodsService的getGoodsVoByGoodsId(goodsId)，通过传进来的goodsId来得到goodsVo对象，再根据goodsVo对象的getGoodsStock()方法判断是否有库存。</li>
+<li>判断当前用户是否已经秒杀过了：调用orderService的getFlashSaleOrderByUserIdGoodsId(user.getId(), goodsId)，根据用户id和商品id判断秒杀订单是否存在，如果存在则表示已经秒杀到了。</li>
+<li>（事务操作）减库存、下订单、写入秒杀订单。flashSaleService的flashSale(user, good)方法。这是一个有@Transactional的Service方法。该方法中调用goodsService的reduceStock(goods)来减库存，再执行orderService的createOrder(user, goods)的方法来生成订单。createOrder也是事务方法。</li>
+</ol>
+<h4 id="第四章-JMeter压测"><a href="#第四章-JMeter压测" class="headerlink" title="第四章 JMeter压测"></a>第四章 JMeter压测</h4><h5 id="4-1-步骤："><a href="#4-1-步骤：" class="headerlink" title="4.1 步骤："></a>4.1 步骤：</h5><ol>
+<li>JMeter入门</li>
+<li>自定义变量模拟多用户</li>
+<li>JMeter命令行使用</li>
+<li>Redis压测工具redis-benchmark</li>
+</ol>
+<h5 id="4-2-使用JMeter"><a href="#4-2-使用JMeter" class="headerlink" title="4.2 使用JMeter"></a>4.2 使用JMeter</h5><ol>
+<li>打开bin目录的jmeter.bat</li>
+<li>添加线程组</li>
+<li>添加监听器–聚合报告</li>
+<li>线程组右键–添加Sampler–HTTP请求</li>
+</ol>
+<h5 id="4-3-JMeter自定义变量"><a href="#4-3-JMeter自定义变量" class="headerlink" title="4.3 JMeter自定义变量"></a>4.3 JMeter自定义变量</h5><ol>
+<li>测试计划–添加配置元件–CSV Data Set Config</li>
+<li>引用变量${}</li>
+</ol>
+<h5 id="4-4-使用top查看系统进程使用情况"><a href="#4-4-使用top查看系统进程使用情况" class="headerlink" title="4.4 使用top查看系统进程使用情况"></a>4.4 使用top查看系统进程使用情况</h5><h5 id="4-5-SpringBoot打war包"><a href="#4-5-SpringBoot打war包" class="headerlink" title="4.5 SpringBoot打war包"></a>4.5 SpringBoot打war包</h5><ol>
+<li>添加spring-boot-starter-tomcat的provided依赖</li>
+<li>添加maven-war-plugin</li>
+</ol>
+<h5 id="4-6-linux下启动jar包"><a href="#4-6-linux下启动jar包" class="headerlink" title="4.6 linux下启动jar包"></a>4.6 linux下启动jar包</h5><ol>
+<li>启动：nohup java -jar XX.jar &amp;</li>
+<li>查看nohup.out命令：tail -f nohup.out</li>
+</ol>
+<h5 id="4-7-如何模拟5000用户"><a href="#4-7-如何模拟5000用户" class="headerlink" title="4.7 如何模拟5000用户"></a>4.7 如何模拟5000用户</h5><ol>
+<li>util包的UserUtil的方法会生成5000个用户，和一个tokens.txt，包含用户id和相应的token</li>
+<li>UserUtil包调用DBUtil的相应方法连接数据库</li>
+</ol>
+<h4 id="第五章-页面优化技术"><a href="#第五章-页面优化技术" class="headerlink" title="第五章 页面优化技术"></a>第五章 页面优化技术</h4><h5 id="5-1-步骤："><a href="#5-1-步骤：" class="headerlink" title="5.1 步骤："></a>5.1 步骤：</h5><ol>
+<li>页面缓存+URL+对象缓存</li>
+<li>页面静态化，前后端分离</li>
+<li>静态资源优化</li>
+<li>CDN优化</li>
+</ol>
+<h5 id="5-2-页面缓存"><a href="#5-2-页面缓存" class="headerlink" title="5.2 页面缓存"></a>5.2 页面缓存</h5><ol>
+<li>取缓存（redis）</li>
+<li>手动渲染模板（使用下面的方式）</li>
+<li>结果输出（需要ResponseBody注解）</li>
+</ol>
+<p>SpringWebContext已在Spring5弃用，新的使用方式为：</p>
+<pre class=" language-java"><code class="language-java">WebContext springWebContext <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebContext</span><span class="token punctuation">(</span>request<span class="token punctuation">,</span>                                                                                response<span class="token punctuation">,</span>                                                                                   request<span class="token punctuation">.</span><span class="token function">getServletContext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                                             request<span class="token punctuation">.</span><span class="token function">getLocale</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> 
+                                             model<span class="token punctuation">.</span><span class="token function">asMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+String goods_list_html <span class="token operator">=</span> thymeleafViewResolver
+                            <span class="token punctuation">.</span><span class="token function">getTemplateEngine</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                            <span class="token punctuation">.</span><span class="token function">process</span><span class="token punctuation">(</span><span class="token string">"/email/VerifyCode.html"</span><span class="token punctuation">,</span> springWebContext<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+<span class="token comment" spellcheck="true">//剔除了ApplicationContext 过多的依赖，现在thymeleaf渲染不再过多依赖spring容器</span>
+</code></pre>
+<p>注意要在改动的/goods/to_list上加@ResponseBody注解</p>
+<p>完成后对/goods//to_detail/{goodsId}方法进行改写</p>
+<h5 id="5-3-对象缓存"><a href="#5-3-对象缓存" class="headerlink" title="5.3 对象缓存"></a>5.3 对象缓存</h5><p>修改UserService方法，添加redis缓存</p>
+<p>添加updatePassword方法，在更改密码后如何更新数据库及redis缓存内容</p>
+<p>自己的Service只能调自己的Dao和其他的Service，不能调其他的Dao，因为其他的Service可能写入了缓存。</p>
+<h5 id="5-4-商品详情静态化（restful-ajax优化）"><a href="#5-4-商品详情静态化（restful-ajax优化）" class="headerlink" title="5.4 商品详情静态化（restful+ajax优化）"></a>5.4 商品详情静态化（restful+ajax优化）</h5><ol>
+<li>重写GoodSController的detail方法</li>
+<li>将goods_list的跳转更改一下</li>
+</ol>
+<h5 id="5-5-秒杀功能的静态化（restful-ajax优化）"><a href="#5-5-秒杀功能的静态化（restful-ajax优化）" class="headerlink" title="5.5 秒杀功能的静态化（restful+ajax优化）"></a>5.5 秒杀功能的静态化（restful+ajax优化）</h5><h5 id="5-6-完善库有可能变为负数的情况："><a href="#5-6-完善库有可能变为负数的情况：" class="headerlink" title="5.6 完善库有可能变为负数的情况："></a>5.6 完善库有可能变为负数的情况：</h5><p>在GoodsDao的reduceStock功能的SQL语句上添加and stock_count &gt; 0确保该字段不能为负；</p>
+<p>小优化：</p>
+<p>秒杀订单生成之后，直接添加进redis缓存，因此可以修改OrderService的getFlashSaleOrderByUserIdGoodsId方法，不在直接查找数据库，而是从redis中查找</p>
+<h5 id="5-7-静态资源优化"><a href="#5-7-静态资源优化" class="headerlink" title="5.7 静态资源优化"></a>5.7 静态资源优化</h5><p>1.JS/CSS压缩，减少流量</p>
+<p>2.多个JS/CSS组合，减少连接数</p>
+<p>3.CDN就近访问</p>
+<h4 id="第六章-服务级秒杀优化（接口优化）"><a href="#第六章-服务级秒杀优化（接口优化）" class="headerlink" title="第六章 服务级秒杀优化（接口优化）"></a>第六章 服务级秒杀优化（接口优化）</h4><h5 id="6-1-步骤："><a href="#6-1-步骤：" class="headerlink" title="6.1 步骤："></a>6.1 步骤：</h5><p>1.Redis预减库存减少数据库访问</p>
+<p>2.内存标记减少redis访问</p>
+<p>3.请求先入队缓冲，异步下单，增强用户体验</p>
+<p>4.RabbitMQ安装与Springboot集成</p>
+<p>5.Nginx水平扩展</p>
+<p>6.压测</p>
+<p>（分库分表中间件-mycat）</p>
+<h5 id="6-2-超卖问题"><a href="#6-2-超卖问题" class="headerlink" title="6.2 超卖问题"></a>6.2 超卖问题</h5><ol>
+<li>数据库加唯一索引：防止用户重复购买</li>
+<li>SQL加库存数量判断：防止库存变复数</li>
+</ol>
+<h5 id="6-3-优化思路就是减少数据库访问："><a href="#6-3-优化思路就是减少数据库访问：" class="headerlink" title="6.3 优化思路就是减少数据库访问："></a>6.3 优化思路就是减少数据库访问：</h5><ol>
+<li>系统初始化，将商品库存数量加载到Redis</li>
+<li>收到请求，Redis预减库存，库存不足，直接返回，否则进入3</li>
+<li>请求入队，立即返回排队中</li>
+<li>请求出队，生成订单，减少库存</li>
+<li>客户端轮询，是否秒杀成功。</li>
+</ol>
+<h5 id="6-4-安装RabbitMQ"><a href="#6-4-安装RabbitMQ" class="headerlink" title="6.4 安装RabbitMQ"></a>6.4 安装RabbitMQ</h5><ol>
+<li>安装erlang<br>yum install ncurses-devel<br>./configure –prefix=/usr/local/erlang20 –enable-hipe –enable-threads –enable-smp-support –enable-kernel-poll –without-javac<br>make &amp;&amp; make install</li>
+</ol>
+<p>（以上安装失败）百度的安装erlang（从EPEL源安装）：</p>
+<pre class=" language-shell"><code class="language-shell"> # 启动EPEL源
+ $ sudo yum install epel-release 
+ # 安装erlang
+ $ sudo yum install erlang  
+</code></pre>
+<p>启动时遇到错误：</p>
+<p><code>Job for rabbitmq-server.service failed because the control process exited with error code. See &quot;systemctl status rabbitmq-server.service&quot; and &quot;journalctl -xe&quot; for details.</code></p>
+<p>执行 vi /etc/rabbitmq/rabbitmq-env.conf   （没有就算是新建该文件）添加NODENAME=rabbit@localhost 保存退出再启动就行。</p>
+<p>systemctl start rabbitmq-server.service #启动</p>
+<h5 id="6-5-Springboot集成RabbitMQ"><a href="#6-5-Springboot集成RabbitMQ" class="headerlink" title="6.5 Springboot集成RabbitMQ"></a>6.5 Springboot集成RabbitMQ</h5><ol>
+<li>添加依赖spring-boot-starter-amqp</li>
+<li>创建消息接受者</li>
+<li>创建消息发送者</li>
+</ol>
+<h5 id="6-6-RabbitMQ的简易使用"><a href="#6-6-RabbitMQ的简易使用" class="headerlink" title="6.6 RabbitMQ的简易使用"></a>6.6 RabbitMQ的简易使用</h5><pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MQConfig</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">final</span> String QUEUE <span class="token operator">=</span> <span class="token string">"queue"</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> Queue <span class="token function">queue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Queue</span><span class="token punctuation">(</span>QUEUE<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MQSender</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Logger log <span class="token operator">=</span> LoggerFactory<span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span>MQSender<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    AmqpTemplate amqpTemplate<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">send</span><span class="token punctuation">(</span>Object message<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        String msg <span class="token operator">=</span> RedisService<span class="token punctuation">.</span><span class="token function">beanToString</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"send message:"</span><span class="token operator">+</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        amqpTemplate<span class="token punctuation">.</span><span class="token function">convertAndSend</span><span class="token punctuation">(</span>MQConfig<span class="token punctuation">.</span>QUEUE<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MQReceiver</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> Logger log <span class="token operator">=</span> LoggerFactory<span class="token punctuation">.</span><span class="token function">getLogger</span><span class="token punctuation">(</span>MQReceiver<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@RabbitListener</span><span class="token punctuation">(</span>queues <span class="token operator">=</span> MQConfig<span class="token punctuation">.</span>QUEUE<span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">receive</span><span class="token punctuation">(</span>String message<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"receive message:"</span><span class="token operator">+</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Autowired</span>
+    MQSender mqSender<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/mq"</span><span class="token punctuation">)</span>
+    <span class="token annotation punctuation">@ResponseBody</span>
+    <span class="token keyword">public</span> Result<span class="token operator">&lt;</span>String<span class="token operator">></span> <span class="token function">mq</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        mqSender<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">"hello, mq test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Result<span class="token punctuation">.</span><span class="token function">success</span><span class="token punctuation">(</span><span class="token string">"sucess"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h5 id="6-7-秒杀接口优化"><a href="#6-7-秒杀接口优化" class="headerlink" title="6.7 秒杀接口优化"></a>6.7 秒杀接口优化</h5><p>原先的逻辑：先通过session判断用户，在根据商品ID判断是否有库存，接着根据用户ID和商品ID判断是否已经秒杀过了，都通过则进行秒杀（减库存，下订单，写入秒杀订单）。</p>
+<p>改善思路（减少数据库访问）：</p>
+<ol>
+<li>系统初始化，将商品库存数量加载到Redis<br>do_Seckill方法里，使用redisService.derc预减库存</li>
+<li>收到请求，Redis预先减库存，库存不足，直接返回，否则进入3；</li>
+<li>请求入队，立即返回排队中。<br>新建秒杀信息对象SeckillMessage，里面包含user与goodsId，将该对象交由rabbitMQ处理，该对象入队，do_Seckill直接返回Result.success(0)表示排队中。</li>
+<li>请求出队，生成订单，减少库存。<br>在MQSender中将SeckillMessage对象转换成String对象发送。<br>rabbitMQ接收到信息，在MQReceiver中处理。将接受到的Message对象转化为对象。在对象中获取userId，goodsId，根据goodsId查询是否有库存，没有直接返回。再根据userId和goodsId查询订单，是否该用户已经秒杀过了该商品，是则直接返回。条件都不成立，就进行秒杀逻辑。（减库存，下订单，写入秒杀订单）</li>
+<li>客户端轮询，是否秒杀成功。<br>轮询时是在ajax中调用result控制器方法，对应flashSaleService的getSeckillResult(user.getId(), goodsId)方法，该方法调用orderService的getFlashSaleOrderByUserIdGoodsId(userId, goodsId)方法来从redis中查询订单（之前秒杀逻辑已经将订单写入redis），效率更高。getSeckillResult方法返回orderId、-1、0。分别代表成功，失败，排队中。</li>
+</ol>
+<h5 id="6-8-内存标记"><a href="#6-8-内存标记" class="headerlink" title="6.8 内存标记"></a>6.8 内存标记</h5><p>在afterPropertiesSet方法中设定一个hashMap来存储goodsId，value为false表示初始化时商品都未经过处理。</p>
+<h4 id="第七章-安全优化"><a href="#第七章-安全优化" class="headerlink" title="第七章 安全优化"></a>第七章 安全优化</h4><h5 id="7-1-步骤："><a href="#7-1-步骤：" class="headerlink" title="7.1 步骤："></a>7.1 步骤：</h5><ol>
+<li>秒杀接口地址隐藏</li>
+<li>数学公式验证码</li>
+<li>接口限流防刷</li>
+</ol>
+<h5 id="7-2-秒杀接口地址隐藏"><a href="#7-2-秒杀接口地址隐藏" class="headerlink" title="7.2 秒杀接口地址隐藏"></a>7.2 秒杀接口地址隐藏</h5><ol>
+<li>思路：秒杀开始之前，先去请求接口获取秒杀地址<br>ajax请求获取秒杀path的接口，该接口接受goodsId这样一个PathVariable参数</li>
+<li>接口改造，带上PathVariable参数<br>秒杀接口之间必须带上相应的path才能访问。</li>
+<li>添加生成地址的接口<br>controller方法中根据user和goodsId生成对应的path；</li>
+<li>秒杀收到请求，先验证PathVariable<br>秒杀接口中收到相应的path，根据user，goodsId去验证该path是否与之前存储的相同，相同，功能才继续。</li>
+</ol>
+<p>保证了直接使用接口并不能进行秒杀。</p>
+<h5 id="7-3-数学公式验证码"><a href="#7-3-数学公式验证码" class="headerlink" title="7.3 数学公式验证码"></a>7.3 数学公式验证码</h5><ol>
+<li>思路：点击秒杀之前，先输入验证码，分散用户的请求</li>
+<li>添加生成验证码的接口</li>
+<li>在获取秒杀路径的时候，验证验证码</li>
+<li>ScriptEngine的使用</li>
+</ol>
+<h5 id="7-4-接口防刷限流"><a href="#7-4-接口防刷限流" class="headerlink" title="7.4 接口防刷限流"></a>7.4 接口防刷限流</h5><p>思路：对接口做限流</p>
+<p>加入拦截器AccessLimit，具体实现参考access包的三个类，其中AccessInterceptor需要加注解@Service，</p>
+<p>实现之后，还需要在config中的WebConfig中将AccessInterceptor注入进来，重写WebConfig继承的WebMvcConfigurerAdapter类的addInterceptors方法，将该拦截器添加进去，这样注解就会生效。</p>
+<p>需要在哪个controller方法上进行限流，直接加注解并设置相应的参数就可以。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/kingstar718.github.io/tags/springboot/" rel="tag"># springboot</a>
+          
+            <a href="/kingstar718.github.io/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/kingstar718.github.io/tags/rabbitMQ/" rel="tag"># rabbitMQ</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/kingstar718.github.io/2019/07/19/jian-ping-san-ti-3-si-shen-yong-sheng/" rel="next" title="简评《三体3：死神永生》">
+                <i class="fa fa-chevron-left"></i> 简评《三体3：死神永生》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/kingstar718.github.io/uploads/avatar.gif" alt="kingstar718">
+            
+              <p class="site-author-name" itemprop="name">kingstar718</p>
+              <p class="site-description motion-element" itemprop="description">生如逆旅,一苇以航</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/kingstar718.github.io/archives/">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/kingstar718.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/kingstar718.github.io/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/kingstar718.github.io/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/kingstar718" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:kingstar718@foxmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#项目概览："><span class="nav-number">1.</span> <span class="nav-text">项目概览：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#开发工具"><span class="nav-number">1.2.</span> <span class="nav-text">开发工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#压测工具"><span class="nav-number">1.3.</span> <span class="nav-text">压测工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一章-项目框架搭建"><span class="nav-number">2.</span> <span class="nav-text">第一章 项目框架搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-步骤："><span class="nav-number">2.1.</span> <span class="nav-text">1.1 步骤：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二节：登陆"><span class="nav-number">3.</span> <span class="nav-text">第二节：登陆</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-步骤："><span class="nav-number">3.1.</span> <span class="nav-text">2.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-Login：自定义手机格式校验器-IsMobile"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 Login：自定义手机格式校验器:@IsMobile</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-分布式Session："><span class="nav-number">3.3.</span> <span class="nav-text">2.3 分布式Session：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第三章-秒杀内容"><span class="nav-number">4.</span> <span class="nav-text">第三章 秒杀内容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-步骤："><span class="nav-number">4.1.</span> <span class="nav-text">3.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-表设计："><span class="nav-number">4.2.</span> <span class="nav-text">3.2 表设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-页面设计："><span class="nav-number">4.3.</span> <span class="nav-text">3.3 页面设计：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-秒杀逻辑："><span class="nav-number">4.4.</span> <span class="nav-text">3.4 秒杀逻辑：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第四章-JMeter压测"><span class="nav-number">5.</span> <span class="nav-text">第四章 JMeter压测</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#4-1-步骤："><span class="nav-number">5.1.</span> <span class="nav-text">4.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-2-使用JMeter"><span class="nav-number">5.2.</span> <span class="nav-text">4.2 使用JMeter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-3-JMeter自定义变量"><span class="nav-number">5.3.</span> <span class="nav-text">4.3 JMeter自定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-4-使用top查看系统进程使用情况"><span class="nav-number">5.4.</span> <span class="nav-text">4.4 使用top查看系统进程使用情况</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-5-SpringBoot打war包"><span class="nav-number">5.5.</span> <span class="nav-text">4.5 SpringBoot打war包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-6-linux下启动jar包"><span class="nav-number">5.6.</span> <span class="nav-text">4.6 linux下启动jar包</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-7-如何模拟5000用户"><span class="nav-number">5.7.</span> <span class="nav-text">4.7 如何模拟5000用户</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五章-页面优化技术"><span class="nav-number">6.</span> <span class="nav-text">第五章 页面优化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-步骤："><span class="nav-number">6.1.</span> <span class="nav-text">5.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-页面缓存"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 页面缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-3-对象缓存"><span class="nav-number">6.3.</span> <span class="nav-text">5.3 对象缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-4-商品详情静态化（restful-ajax优化）"><span class="nav-number">6.4.</span> <span class="nav-text">5.4 商品详情静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-5-秒杀功能的静态化（restful-ajax优化）"><span class="nav-number">6.5.</span> <span class="nav-text">5.5 秒杀功能的静态化（restful+ajax优化）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-6-完善库有可能变为负数的情况："><span class="nav-number">6.6.</span> <span class="nav-text">5.6 完善库有可能变为负数的情况：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-7-静态资源优化"><span class="nav-number">6.7.</span> <span class="nav-text">5.7 静态资源优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六章-服务级秒杀优化（接口优化）"><span class="nav-number">7.</span> <span class="nav-text">第六章 服务级秒杀优化（接口优化）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-步骤："><span class="nav-number">7.1.</span> <span class="nav-text">6.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-超卖问题"><span class="nav-number">7.2.</span> <span class="nav-text">6.2 超卖问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-优化思路就是减少数据库访问："><span class="nav-number">7.3.</span> <span class="nav-text">6.3 优化思路就是减少数据库访问：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-4-安装RabbitMQ"><span class="nav-number">7.4.</span> <span class="nav-text">6.4 安装RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-5-Springboot集成RabbitMQ"><span class="nav-number">7.5.</span> <span class="nav-text">6.5 Springboot集成RabbitMQ</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-6-RabbitMQ的简易使用"><span class="nav-number">7.6.</span> <span class="nav-text">6.6 RabbitMQ的简易使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-7-秒杀接口优化"><span class="nav-number">7.7.</span> <span class="nav-text">6.7 秒杀接口优化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-8-内存标记"><span class="nav-number">7.8.</span> <span class="nav-text">6.8 内存标记</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第七章-安全优化"><span class="nav-number">8.</span> <span class="nav-text">第七章 安全优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-步骤："><span class="nav-number">8.1.</span> <span class="nav-text">7.1 步骤：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-秒杀接口地址隐藏"><span class="nav-number">8.2.</span> <span class="nav-text">7.2 秒杀接口地址隐藏</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-数学公式验证码"><span class="nav-number">8.3.</span> <span class="nav-text">7.3 数学公式验证码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-4-接口防刷限流"><span class="nav-number">8.4.</span> <span class="nav-text">7.4 接口防刷限流</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kingstar718</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Muse</a> v6.0.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/utils.js?v=6.0.0"></script>
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/motion.js?v=6.0.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/scrollspy.js?v=6.0.0"></script>
+<script type="text/javascript" src="/kingstar718.github.io/js/src/post-details.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/kingstar718.github.io/js/src/bootstrap.js?v=6.0.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

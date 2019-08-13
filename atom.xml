@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-07-08T12:28:01.087Z</updated>
+  <updated>2019-08-13T02:15:53.760Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>秒杀项目笔记</title>
+    <link href="http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/"/>
+    <id>http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/</id>
+    <published>2019-08-13T02:05:24.000Z</published>
+    <updated>2019-08-13T02:15:53.760Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;项目概览：&quot;&gt;&lt;a href=&quot;#项目概览：&quot; class=&quot;headerlink&quot; title=&quot;项目概览：&quot;&gt;&lt;/a&gt;项目概览：&lt;/h4&gt;&lt;h5 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h5&gt;&lt;p&gt;本系统是使用SpringBoot开发的高并发限时抢购秒杀系统，除了实现基本的登陆、查看商品列表、秒杀、下单等功能，还针对高并发访问情况实现了系统缓存、降级和限流。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="项目" scheme="http://blog.wujinxing.top/categories/%E9%A1%B9%E7%9B%AE/"/>
+    
+    
+      <category term="springboot" scheme="http://blog.wujinxing.top/tags/springboot/"/>
+    
+      <category term="redis" scheme="http://blog.wujinxing.top/tags/redis/"/>
+    
+      <category term="rabbitMQ" scheme="http://blog.wujinxing.top/tags/rabbitMQ/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>简评《三体3：死神永生》</title>
+    <link href="http://blog.wujinxing.top/2019/07/19/jian-ping-san-ti-3-si-shen-yong-sheng/"/>
+    <id>http://blog.wujinxing.top/2019/07/19/jian-ping-san-ti-3-si-shen-yong-sheng/</id>
+    <published>2019-07-19T11:03:42.000Z</published>
+    <updated>2019-07-28T05:50:18.951Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;囫囵吞枣似的总算看完了三体3，故事从云天明送给程心一个星星，到战争后对“青铜世纪”号的审判，地球文明与三体文明的对立威慑，执剑人的交接，再到威慑失败，三体控制地球要求全部人类迁徙到澳大利亚，再到“万有引力”号向宇宙发射三体文明的位置，三体星系被摧毁，再轮到地球文明的毁灭，然后新的开始，宇宙的轮回。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="读书笔记" scheme="http://blog.wujinxing.top/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="读书笔记" scheme="http://blog.wujinxing.top/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="三体" scheme="http://blog.wujinxing.top/tags/%E4%B8%89%E4%BD%93/"/>
+    
+      <category term="刘慈欣" scheme="http://blog.wujinxing.top/tags/%E5%88%98%E6%85%88%E6%AC%A3/"/>
+    
+  </entry>
   
   <entry>
     <title>前端笔记</title>
