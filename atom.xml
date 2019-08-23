@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-08-13T03:02:52.928Z</updated>
+  <updated>2019-08-23T07:05:21.025Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -17,11 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>二分查找</title>
+    <link href="http://blog.wujinxing.top/2019/08/23/er-fen-cha-zhao/"/>
+    <id>http://blog.wujinxing.top/2019/08/23/er-fen-cha-zhao/</id>
+    <published>2019-08-23T06:52:22.000Z</published>
+    <updated>2019-08-23T07:05:21.025Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;1、定义&quot;&gt;&lt;a href=&quot;#1、定义&quot; class=&quot;headerlink&quot; title=&quot;1、定义&quot;&gt;&lt;/a&gt;1、定义&lt;/h4&gt;&lt;p&gt;二分查找又称&lt;strong&gt;折半&lt;/strong&gt;查找，它是一种效率较高(logn)的查找方法。&lt;/p&gt;
+&lt;p&gt;二分查找要求：查找结构是&lt;strong&gt;线性表且有序&lt;/strong&gt;，即表中结点按关键字有序，并且要用向量作为表的存储结构。不妨设有序表是递增有序的。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="算法" scheme="http://blog.wujinxing.top/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="查找" scheme="http://blog.wujinxing.top/tags/%E6%9F%A5%E6%89%BE/"/>
+    
+      <category term="二分查找" scheme="http://blog.wujinxing.top/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
+    
+      <category term="算法" scheme="http://blog.wujinxing.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="Java" scheme="http://blog.wujinxing.top/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>秒杀项目笔记</title>
     <link href="http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/"/>
     <id>http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/</id>
     <published>2019-08-13T02:05:24.000Z</published>
-    <updated>2019-08-13T03:02:52.928Z</updated>
+    <updated>2019-08-13T03:03:37.250Z</updated>
     
     <summary type="html">
     
