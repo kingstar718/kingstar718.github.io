@@ -3,6 +3,60 @@
   
     
     <entry>
+      <title>md图片显示不出来的问题</title>
+      <link href="/kingstar718.github.io/2019/09/13/md-tu-pian-xian-shi-bu-chu-lai-de-wen-ti/"/>
+      <url>/kingstar718.github.io/2019/09/13/md-tu-pian-xian-shi-bu-chu-lai-de-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<p>之前使用Typora写博客时，更新到hexo时总是无法显示图片，找了很多博客设置，配置如下：</p><h5 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h5><ol><li><p>设置站点配置_config.yml，找到下面配置，从false改为true，这样新建md时可在同目录下自动建立一个人同名文件夹来存储图片</p><pre class=" language-xml"><code class="language-xml">post_asset_folder: true</code></pre></li><li><p>将所需要的图片放入图片文件夹</p></li><li><p><strong>注意：</strong>在使用 <code>![]()</code>插入图片时，()内的图片连接必须为相对连接，Typora自动给出的是全路径，需要改一下。</p></li></ol><a id="more"></a><h5 id="实际效果"><a href="#实际效果" class="headerlink" title="实际效果"></a>实际效果</h5><ol><li><p>注意我的文件链接如下，相对路径：</p><pre><code>![](md图片显示不出来的问题\TIM截图20190913160743.jpg)</code></pre></li><li><p>是否可以显示图片</p></li></ol><p><img src="/kingstar718.github.io/2019/09/13/md-tu-pian-xian-shi-bu-chu-lai-de-wen-ti/TIM截图20190913161827.jpg" alt=""></p><ol start="3"><li><p>更新blog即可</p><pre><code>hexo cleanhexo generatehexo deploy 或 hexo server 本地查看</code></pre></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Typora </tag>
+            
+            <tag> Hexo </tag>
+            
+            <tag> picture </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>使用VS Code的Remote SSH插件连接Linux实现远程写代码</title>
+      <link href="/kingstar718.github.io/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/"/>
+      <url>/kingstar718.github.io/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/</url>
+      
+        <content type="html"><![CDATA[<p>VS Code开发了Remote SSH来使连接远程Linux写代码更为方便，记录下如何使用Remote SSH连接到远程云服务器。</p><a id="more"></a><h5 id="1、前置条件"><a href="#1、前置条件" class="headerlink" title="1、前置条件"></a>1、前置条件</h5><ol><li>本机和服务端需要都安装了open-ssh；</li><li>在本机执行ssh-keygen命令生成秘钥，并将id_rsa上传至服务端；</li><li>本机使用 ssh IP -l 用户名 -p 端口   来验证是否能连上远程服务，一般需要输入密码；</li><li>ssh验证成功后，才可以开始VS Code 的 Remote SSH的配置。</li></ol><h5 id="2、VS-Code"><a href="#2、VS-Code" class="headerlink" title="2、VS Code"></a>2、VS Code</h5><ol><li><p>插件搜索Remote SSH，安装</p></li><li><p>按下图找到设置文件<img src="/kingstar718.github.io/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/vscode1.jpg" alt=""></p></li><li><p>配置文件如下：</p><pre><code># Read more about SSH config files: https://linux.die.net/man/5/ssh_configHost tencent    HostName 公网IP    User 用户名，一般为root</code></pre></li><li><p>最后点文件目录右边的带+号的，一般需要输密码。连接成功如下：<br><img src="/kingstar718.github.io/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/vscode2.jpg" alt=""></p></li><li><p>据说还能通过ssh设置免密码登陆，未做。</p></li></ol><h5 id="3、其他"><a href="#3、其他" class="headerlink" title="3、其他"></a>3、其他</h5><ol><li>正探寻如何较为遍历的在Linux远程写代码</li><li>待更…</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习笔记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> VS Code </tag>
+            
+            <tag> Remote SSH </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>二分查找</title>
       <link href="/kingstar718.github.io/2019/08/23/er-fen-cha-zhao/"/>
       <url>/kingstar718.github.io/2019/08/23/er-fen-cha-zhao/</url>
