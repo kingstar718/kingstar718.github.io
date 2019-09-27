@@ -13,11 +13,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[manjaro初使用]]></title>
-    <url>%2Fkingstar718.github.io%2F2019%2F09%2F16%2Fmanjaro-chu-shi-yong%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[md图片显示不出来的问题]]></title>
     <url>%2Fkingstar718.github.io%2F2019%2F09%2F13%2Fmd-tu-pian-xian-shi-bu-chu-lai-de-wen-ti%2F</url>
     <content type="text"><![CDATA[之前使用Typora写博客时，更新到hexo时总是无法显示图片，找了很多博客设置，配置如下： 安装步骤 设置站点配置_config.yml，找到下面配置，从false改为true，这样新建md时可在同目录下自动建立一个人同名文件夹来存储图片 post_asset_folder: true 将所需要的图片放入图片文件夹 注意：在使用 ![]()插入图片时，()内的图片连接必须为相对连接，Typora自动给出的是全路径，需要改一下。 实际效果 注意我的文件链接如下，相对路径： ![](md图片显示不出来的问题\TIM截图20190913160743.jpg) 是否可以显示图片 更新blog即可 hexo clean hexo generate hexo deploy 或 hexo server 本地查看]]></content>
