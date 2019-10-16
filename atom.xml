@@ -6,7 +6,7 @@
   <link href="/kingstar718.github.io/atom.xml" rel="self"/>
   
   <link href="http://blog.wujinxing.top/"/>
-  <updated>2019-09-23T14:08:08.069Z</updated>
+  <updated>2019-10-16T13:00:38.780Z</updated>
   <id>http://blog.wujinxing.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>QGIS管网水力模型inp文件制图初探</title>
+    <link href="http://blog.wujinxing.top/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/"/>
+    <id>http://blog.wujinxing.top/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/</id>
+    <published>2019-10-16T11:20:03.000Z</published>
+    <updated>2019-10-16T13:00:38.780Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。&lt;/p&gt;
+&lt;p&gt;我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。&lt;/p&gt;
+&lt;p&gt;核心是：inp文件+QGIS+插件+节点筛选+制图&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="学习笔记" scheme="http://blog.wujinxing.top/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="水力模型" scheme="http://blog.wujinxing.top/tags/%E6%B0%B4%E5%8A%9B%E6%A8%A1%E5%9E%8B/"/>
+    
+      <category term="水质模拟" scheme="http://blog.wujinxing.top/tags/%E6%B0%B4%E8%B4%A8%E6%A8%A1%E6%8B%9F/"/>
+    
+      <category term="QGIS" scheme="http://blog.wujinxing.top/tags/QGIS/"/>
+    
+      <category term="制图" scheme="http://blog.wujinxing.top/tags/%E5%88%B6%E5%9B%BE/"/>
+    
+  </entry>
   
   <entry>
     <title>Java基础知识（一）</title>
@@ -43,7 +71,7 @@
     <link href="http://blog.wujinxing.top/2019/09/13/md-tu-pian-xian-shi-bu-chu-lai-de-wen-ti/"/>
     <id>http://blog.wujinxing.top/2019/09/13/md-tu-pian-xian-shi-bu-chu-lai-de-wen-ti/</id>
     <published>2019-09-13T08:07:32.000Z</published>
-    <updated>2019-09-13T08:26:33.360Z</updated>
+    <updated>2019-09-13T08:26:33.000Z</updated>
     
     <summary type="html">
     
@@ -77,7 +105,7 @@
     <link href="http://blog.wujinxing.top/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/"/>
     <id>http://blog.wujinxing.top/2019/09/13/shi-yong-vs-code-de-remote-ssh-cha-jian-lian-jie-linux-shi-xian-yuan-cheng-xie-dai-ma/</id>
     <published>2019-09-13T07:07:32.000Z</published>
-    <updated>2019-09-13T08:27:08.249Z</updated>
+    <updated>2019-09-27T08:37:39.000Z</updated>
     
     <summary type="html">
     
@@ -101,7 +129,7 @@
     <link href="http://blog.wujinxing.top/2019/08/23/er-fen-cha-zhao/"/>
     <id>http://blog.wujinxing.top/2019/08/23/er-fen-cha-zhao/</id>
     <published>2019-08-23T06:52:22.000Z</published>
-    <updated>2019-08-23T07:05:21.025Z</updated>
+    <updated>2019-08-23T07:05:17.000Z</updated>
     
     <summary type="html">
     
@@ -128,7 +156,7 @@
     <link href="http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/"/>
     <id>http://blog.wujinxing.top/2019/08/13/miao-sha-xiang-mu-bi-ji/</id>
     <published>2019-08-13T02:05:24.000Z</published>
-    <updated>2019-08-13T03:03:37.250Z</updated>
+    <updated>2019-08-13T03:02:52.000Z</updated>
     
     <summary type="html">
     
@@ -153,7 +181,7 @@
     <link href="http://blog.wujinxing.top/2019/07/19/jian-ping-san-ti-3-si-shen-yong-sheng/"/>
     <id>http://blog.wujinxing.top/2019/07/19/jian-ping-san-ti-3-si-shen-yong-sheng/</id>
     <published>2019-07-19T11:03:42.000Z</published>
-    <updated>2019-07-28T05:50:18.951Z</updated>
+    <updated>2019-07-28T05:50:18.000Z</updated>
     
     <summary type="html">
     
@@ -177,7 +205,7 @@
     <link href="http://blog.wujinxing.top/2019/07/08/qian-duan-bi-ji/"/>
     <id>http://blog.wujinxing.top/2019/07/08/qian-duan-bi-ji/</id>
     <published>2019-07-08T07:12:58.000Z</published>
-    <updated>2019-07-08T12:28:01.087Z</updated>
+    <updated>2019-07-08T12:28:01.000Z</updated>
     
     <summary type="html">
     
@@ -201,7 +229,7 @@
     <link href="http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"/>
     <id>http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/</id>
     <published>2019-07-08T06:58:58.000Z</published>
-    <updated>2019-07-08T07:14:09.453Z</updated>
+    <updated>2019-07-08T07:14:09.000Z</updated>
     
     <summary type="html">
     
@@ -232,7 +260,7 @@
     <link href="http://blog.wujinxing.top/2019/07/06/jian-ping-shang-hai-bao-lei/"/>
     <id>http://blog.wujinxing.top/2019/07/06/jian-ping-shang-hai-bao-lei/</id>
     <published>2019-07-06T14:14:10.000Z</published>
-    <updated>2019-07-06T14:17:47.086Z</updated>
+    <updated>2019-07-06T14:17:47.000Z</updated>
     
     <summary type="html">
     
@@ -256,7 +284,7 @@
     <link href="http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/"/>
     <id>http://blog.wujinxing.top/2019/03/20/python-shu-zu-chu-shi-hua-gu-ding-chang-du-qiu-he-jian-dan-wen-ben-chu-li/</id>
     <published>2019-03-20T06:45:28.000Z</published>
-    <updated>2019-07-06T13:36:07.625Z</updated>
+    <updated>2019-07-06T13:36:07.000Z</updated>
     
     <summary type="html">
     
@@ -286,7 +314,7 @@ list = [0]*10
     <link href="http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/"/>
     <id>http://blog.wujinxing.top/2019/03/05/duo-xian-cheng-ji-zhu-chu-bu/</id>
     <published>2019-03-05T03:09:28.000Z</published>
-    <updated>2019-07-06T13:36:19.784Z</updated>
+    <updated>2019-09-27T08:37:51.000Z</updated>
     
     <summary type="html">
     
@@ -313,7 +341,7 @@ list = [0]*10
     <link href="http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/"/>
     <id>http://blog.wujinxing.top/2018/11/11/hexo-github-bu-shu-ge-ren-bo-ke/</id>
     <published>2018-11-11T14:16:51.000Z</published>
-    <updated>2019-07-06T13:36:31.108Z</updated>
+    <updated>2019-07-06T13:36:31.000Z</updated>
     
     <summary type="html">
     
@@ -338,7 +366,7 @@ list = [0]*10
     <link href="http://blog.wujinxing.top/2018/11/11/hello-world/"/>
     <id>http://blog.wujinxing.top/2018/11/11/hello-world/</id>
     <published>2018-11-11T13:48:45.651Z</published>
-    <updated>2019-07-06T13:31:40.594Z</updated>
+    <updated>2019-07-06T13:31:40.000Z</updated>
     
     <summary type="html">
     

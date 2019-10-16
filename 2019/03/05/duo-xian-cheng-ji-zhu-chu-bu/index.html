@@ -484,7 +484,7 @@
 <p>多线程环境中，use和assign是多次出现的，但这一操作并不是原子性，也就是在read和load之后，如果主内存count变量发生修改之后，线程工作内存中的值由于已经加载，不会产生对应变化，也就是私有内存和公共内存中的变量不同步，所以计算出的结果会和预期不一样。即非线程安全问题。</p>
 <p><strong>volatile不保证原子性的原理</strong>：</p>
 <p>对于volatile修饰的变量，JVM虚拟机只是保证从主内存加载到线程内存的值是最新的，例如线程1和2在进行read和load的操作中，发现主内存中count的值都是5，那么都会加载这个最新值。</p>
-<p>即——volatile关键字解决的是变量读时的可见性问题，但无法保证原子性，对于多个线程访问同一个实例变量韩式需要加锁同步。</p>
+<p>即——volatile关键字解决的是变量读时的可见性问题，但无法保证原子性，对于多个线程访问同一个实例变量还是需要加锁同步。</p>
 
       
     </div>
@@ -639,7 +639,7 @@ var jiathis_config={
               
                 <a href="/kingstar718.github.io/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -661,7 +661,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/kingstar718.github.io/tags/index.html">
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
