@@ -439,7 +439,7 @@
 <p>导出步骤：选择图层，右击，导出，选择<strong>另存要素为</strong>；</p>
 <p>弹出的界面如下：<br><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/设置.png" alt="1571227107237"></p>
 <p>这里注意第三个范围，在中间的Calculate from Layer选择当前图层即可如范围那里显示的那样。</p>
-<p>这里我并没有测试后三个步骤少哪一个会对生成的csv产生具体影响，只是确认经过测试，文件中却是包含了点的坐标属性，如下图：</p>
+<p>这里我并没有测试后三个步骤少哪一个会对生成的csv产生具体影响，只是确认经过测试，文件中确实包含了点的坐标属性，如下图：</p>
 <p><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/test.png" alt="1571227316853"></p>
 <p>由于这里我在上述选择输出是，只选择了ID，Demand2(其实没用)，所以只输出的这两个属性，输出是可选择只保存ID。</p>
 <p>这样我们就可以使用Python来根据ID保留特定的行了。</p>
@@ -491,7 +491,7 @@
 <p><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/添加地图.png" alt="1571228443567"></p>
 <p>即可显示地图并进行拉伸：</p>
 <p><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/布局显示.png" alt="1571228494117"></p>
-<p>布局器的右边数图层和编辑器，可以设置图层的相关信息：</p>
+<p>布局器的右边是图层和编辑器，可以设置图层的相关信息：</p>
 <p><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/编辑器.png" alt="1571228550337"></p>
 <p>剩余的添加文本、添加指北针、添加图例、添加比例尺都可以选择相应的左边竖条的标志进行。</p>
 <p>添加指北针为添加图片，然后选中图上显示的框，在右边编辑器做选择图标，指北针的图标选择在<strong>搜索目录</strong>那里，填充颜色等修改：</p>
@@ -504,7 +504,7 @@
 <p><img src="/kingstar718.github.io/2019/10/16/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/end.png" alt="1571229598937"></p>
 <h5 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h5><p>作为一个研究非常偏的GISer，有时候遇到的问题真的难以快速找到答案。这几天我找了不少有关管网水力模型制图的资料，都没有一个比较整体的过程，探索了几天，总算是解决了。</p>
 <p>与我而言，水力模型就已经是比较偏的方向了，当初找水力水质模型的编程方法就找了很久。这次的难点主要在于，如何加载模型，这个可以通过QGIS+插件实现；如何筛选节点，主要通过图层导出csv文件，通过Python编程实现筛选，再加载回QGIS；再者是QGIS制图问题，这个解决方案应该很多，不再赘述，主要就是比例尺的问题需要注意。</p>
-<p>另感谢：麻辣GIS网站的QGIS的导入导出csv、制图等教程。网站地址：[麻辣GIS</p>
+<p>另感谢：麻辣GIS网站的QGIS的导入导出csv、制图等教程。网站地址：<a href="https://malagis.com/" target="_blank" rel="noopener">麻辣GIS</a></p>
 
       
     </div>
