@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。 我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。 核心是：inp文件+QGIS+插件+节点筛选+制图">
+<meta name="keywords" content="水力模型,水质模拟,QGIS,制图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="QGIS管网水力模型inp文件制图初探">
+<meta property="og:url" content="http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/index.html">
+<meta property="og:site_name" content="kingstar718&#39;s blog">
+<meta property="og:description" content="本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。 我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。 核心是：inp文件+QGIS+插件+节点筛选+制图">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/插件.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/文件夹.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/目录.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图层.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/设置.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/test.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/add.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图层2.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/布局.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/添加地图.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/布局显示.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/编辑器.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/指北针.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/比例尺.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/出图.png">
+<meta property="og:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/end.png">
+<meta property="og:updated_time" content="2019-10-16T15:23:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="QGIS管网水力模型inp文件制图初探">
+<meta name="twitter:description" content="本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。 我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。 核心是：inp文件+QGIS+插件+节点筛选+制图">
+<meta name="twitter:image" content="http://blog.wujinxing.top/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/插件.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/kingstar718.github.io/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/kingstar718.github.io/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/kingstar718.github.io/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>QGIS管网水力模型inp文件制图初探</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/kingstar718.github.io/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/kingstar718.github.io/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+<link rel="stylesheet" href="/kingstar718.github.io/css/prism-tomorrow.css" type="text/css"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/kingstar718.github.io/2019/11/12/suan-fa/tree/shu-de-bian-li/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/kingstar718.github.io/2019/09/23/java-ji-chu-zhi-shi-yi/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Post Anterior</span>
+      <span id="i-next" class="info" style="display:none;">Post Següent</span>
+      <span id="i-top" class="info" style="display:none;">Adalt</span>
+      <span id="i-share" class="info" style="display:none;">Compartir Post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&text=QGIS管网水力模型inp文件制图初探"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&is_video=false&description=QGIS管网水力模型inp文件制图初探"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QGIS管网水力模型inp文件制图初探&body=Check out this article: http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&name=QGIS管网水力模型inp文件制图初探&description=&lt;p&gt;本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。&lt;/p&gt;
+&lt;p&gt;我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。&lt;/p&gt;
+&lt;p&gt;核心是：inp文件+QGIS+插件+节点筛选+制图&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&t=QGIS管网水力模型inp文件制图初探"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、QGIS的安装与配置"><span class="toc-number">1.</span> <span class="toc-text">一、QGIS的安装与配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、管网的加载与显示"><span class="toc-number">2.</span> <span class="toc-text">二、管网的加载与显示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、点的筛选"><span class="toc-number">3.</span> <span class="toc-text">三、点的筛选</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四、显示与制图"><span class="toc-number">4.</span> <span class="toc-text">四、显示与制图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#五、总结"><span class="toc-number">5.</span> <span class="toc-text">五、总结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        QGIS管网水力模型inp文件制图初探
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">kingstar718's blog</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-10-16T11:20:03.000Z" itemprop="datePublished">2019-10-16</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/kingstar718.github.io/categories/学习笔记/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/kingstar718.github.io/tags/QGIS/">QGIS</a>, <a class="tag-link" href="/kingstar718.github.io/tags/制图/">制图</a>, <a class="tag-link" href="/kingstar718.github.io/tags/水力模型/">水力模型</a>, <a class="tag-link" href="/kingstar718.github.io/tags/水质模拟/">水质模拟</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。</p>
+<p>我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。</p>
+<p>核心是：inp文件+QGIS+插件+节点筛选+制图</p>
+<a id="more"></a>
+<h5 id="一、QGIS的安装与配置"><a href="#一、QGIS的安装与配置" class="headerlink" title="一、QGIS的安装与配置"></a>一、QGIS的安装与配置</h5><p>考虑到QGIS小巧的体积与丰富的插件，我们选择使用QGIS来制图。</p>
+<p>安装说明参考网上教程，需要注意的是要<strong>选择在桌面生成图标</strong>，不然就得在安装目录下找命令行了。</p>
+<p>另推荐非常好用的快速搜索软件Listary，双击Ctrl即可快速搜索，不需要点图片启动软件，最好设置为开机启动，更方便。</p>
+<p>需要使用的插件名称为：<code>ImportEpanetInpFiles</code></p>
+<p>搜索时直接搜epa即可，QEPANET也可以打开inp文件并进行模拟，功能丰富很多，但我的inp文件超过了6万个节点和管道，加载了好长一段时间才能显示，并且仍然会有bug存在，考虑到我仅使用QGIS制图，并不需要很多功能，因此使用<code>ImportEpanetInpFiles</code></p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/插件.png" alt="1571225531642"></p>
+<h5 id="二、管网的加载与显示"><a href="#二、管网的加载与显示" class="headerlink" title="二、管网的加载与显示"></a>二、管网的加载与显示</h5><p>点击 插件 -&gt; ImportEpanetInpFiles - &gt; Import Epanet Input File ；选择相应的inp文件即可，较大文件需要载入较长时间，需等待。</p>
+<p>加载成功后会在inp文件目录生成<code>_shapefiles_</code>文件夹:</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/文件夹.png" alt="1571226016447"></p>
+<p>里面对应生产的节点、管线等文件。</p>
+<p>此时QGIS直接显示图和左下角图层，如未保存QGIS文件，下次直接在QGIS的 浏览打开这个文件夹，点击相应的shp文件即可加载图层，如图所示：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/目录.png" alt="1571226194706"></p>
+<p>我们制图只需要加载junctions、pipes、pumps等即可。</p>
+<p>建议加载完后还是保存为QGIS文件，下次使用还可以直接打开。</p>
+<p>图层示意：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图层.png" alt="1571226329405"></p>
+<p>点、线的显示效果直接选择图层，右击，选择属性，选择第三个符号化即可更改图层的显示效果。</p>
+<h5 id="三、点的筛选"><a href="#三、点的筛选" class="headerlink" title="三、点的筛选"></a>三、点的筛选</h5><p>由于我做的工作是，在所有节点中选择部分节点突出显示，因此需要筛选出特定的节点集来显示。</p>
+<p>这里的步骤很重要！</p>
+<p>我的思路是，将图层输出为csv文件，此时有一个属性为ID，使用Python的pandas库即可根据该属性选择特定ID的点。</p>
+<p>但是我的点、线属性表里并没有坐标信息，不知道是这个插件的问题还是其他原因，当我输出csv文件中没有坐标信息时，再加载就不会显示。</p>
+<p><strong>怎样将输出的csv文件中携带点的坐标信息？</strong></p>
+<p>导出步骤：选择图层，右击，导出，选择<strong>另存要素为</strong>；</p>
+<p>弹出的界面如下：<br><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/设置.png" alt="1571227107237"></p>
+<p>这里注意第三个范围，在中间的Calculate from Layer选择当前图层即可如范围那里显示的那样。</p>
+<p>这里我并没有测试后三个步骤少哪一个会对生成的csv产生具体影响，只是确认经过测试，文件中确实包含了点的坐标属性，如下图：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/test.png" alt="1571227316853"></p>
+<p>由于这里我在上述选择输出是，只选择了ID，Demand2(其实没用)，所以只输出的这两个属性，输出是可选择只保存ID。</p>
+<p>这样我们就可以使用Python来根据ID保留特定的行了。</p>
+<p>代码如下：</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_node</span><span class="token punctuation">(</span>p<span class="token punctuation">,</span> l<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    简单的从csv的某一列中选取特定的值，重新整合成新的csv
+    :param p:  pd对象
+    :param l: 选取的节点list
+    :return: new csv
+    """</span>
+    l2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> l<span class="token punctuation">:</span>
+        n <span class="token operator">=</span> p<span class="token punctuation">.</span>loc<span class="token punctuation">[</span>p<span class="token punctuation">[</span><span class="token string">"ID"</span><span class="token punctuation">]</span> <span class="token operator">==</span> i<span class="token punctuation">]</span>  <span class="token comment" spellcheck="true"># 选取的方式</span>
+        l2<span class="token punctuation">.</span>append<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+    result <span class="token operator">=</span> pd<span class="token punctuation">.</span>concat<span class="token punctuation">(</span>l2<span class="token punctuation">,</span> axis<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># 0为横向整合</span>
+    result <span class="token operator">=</span> pd<span class="token punctuation">.</span>DataFrame<span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+    result <span class="token operator">=</span> result<span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">"X"</span><span class="token punctuation">,</span> <span class="token string">"Y"</span><span class="token punctuation">,</span> <span class="token string">"ID"</span><span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true"># 只要特定的列</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
+    result<span class="token punctuation">.</span>to_csv<span class="token punctuation">(</span><span class="token string">"F:\\AWorkSpace\\QGISData\\node_select.csv"</span><span class="token punctuation">,</span> index<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    node_select <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">154</span> <span class="token punctuation">,</span> <span class="token number">1152</span> <span class="token punctuation">,</span> <span class="token number">1535</span><span class="token punctuation">,</span>  <span class="token number">1841</span> <span class="token punctuation">,</span> <span class="token number">2388</span><span class="token punctuation">,</span>  <span class="token number">2642</span> <span class="token punctuation">,</span> <span class="token number">3272</span>  <span class="token punctuation">,</span><span class="token number">3883</span> <span class="token punctuation">,</span> <span class="token number">4492</span> <span class="token punctuation">,</span> <span class="token number">4759</span> <span class="token punctuation">,</span> <span class="token number">5904</span><span class="token punctuation">,</span>  <span class="token number">6132</span><span class="token punctuation">,</span><span class="token number">6341</span> <span class="token punctuation">,</span> <span class="token number">6368</span><span class="token punctuation">,</span>  <span class="token number">6558</span>  <span class="token punctuation">,</span><span class="token number">7254</span> <span class="token punctuation">,</span> <span class="token number">7723</span><span class="token punctuation">,</span>  <span class="token number">7932</span> <span class="token punctuation">,</span> <span class="token number">8098</span> <span class="token punctuation">,</span> <span class="token number">8937</span><span class="token punctuation">,</span>  <span class="token number">9034</span> <span class="token punctuation">,</span><span class="token number">11287</span><span class="token punctuation">,</span> <span class="token number">11328</span> <span class="token punctuation">,</span><span class="token number">11782</span><span class="token punctuation">,</span><span class="token number">12302</span> <span class="token punctuation">,</span><span class="token number">13327</span><span class="token punctuation">,</span> <span class="token number">13648</span><span class="token punctuation">,</span> <span class="token number">15415</span><span class="token punctuation">,</span> <span class="token number">15789</span> <span class="token punctuation">,</span><span class="token number">16880</span><span class="token punctuation">,</span> <span class="token number">17827</span> <span class="token punctuation">,</span><span class="token number">18064</span><span class="token punctuation">,</span> <span class="token number">18338</span> <span class="token punctuation">,</span><span class="token number">18691</span><span class="token punctuation">,</span> <span class="token number">20016</span><span class="token punctuation">,</span> <span class="token number">20295</span><span class="token punctuation">,</span> <span class="token number">20462</span> <span class="token punctuation">,</span><span class="token number">20474</span><span class="token punctuation">,</span> <span class="token number">21853</span><span class="token punctuation">,</span> <span class="token number">21896</span> <span class="token punctuation">,</span><span class="token number">26064</span> <span class="token punctuation">,</span><span class="token number">26571</span> <span class="token punctuation">,</span><span class="token number">26771</span> <span class="token punctuation">,</span><span class="token number">26848</span><span class="token punctuation">,</span> <span class="token number">28649</span><span class="token punctuation">,</span> <span class="token number">28778</span> <span class="token punctuation">,</span><span class="token number">28861</span><span class="token punctuation">,</span> <span class="token number">29549</span><span class="token punctuation">,</span> <span class="token number">30281</span><span class="token punctuation">,</span> <span class="token number">30284</span> <span class="token punctuation">,</span><span class="token number">30339</span> <span class="token punctuation">,</span><span class="token number">32603</span><span class="token punctuation">,</span> <span class="token number">34152</span><span class="token punctuation">,</span> <span class="token number">34660</span> <span class="token punctuation">,</span><span class="token number">35693</span> <span class="token punctuation">,</span><span class="token number">36537</span> <span class="token punctuation">,</span><span class="token number">36568</span><span class="token punctuation">,</span> <span class="token number">37515</span> <span class="token punctuation">,</span><span class="token number">38147</span><span class="token punctuation">,</span> <span class="token number">38397</span><span class="token punctuation">,</span> <span class="token number">38522</span><span class="token punctuation">,</span> <span class="token number">38752</span> <span class="token punctuation">,</span><span class="token number">39835</span><span class="token punctuation">,</span> <span class="token number">41099</span><span class="token punctuation">,</span> <span class="token number">41702</span> <span class="token punctuation">,</span><span class="token number">42144</span> <span class="token punctuation">,</span><span class="token number">43894</span><span class="token punctuation">,</span> <span class="token number">44791</span><span class="token punctuation">,</span> <span class="token number">44873</span> <span class="token punctuation">,</span><span class="token number">45763</span><span class="token punctuation">,</span> <span class="token number">46000</span> <span class="token punctuation">,</span><span class="token number">46091</span><span class="token punctuation">,</span> <span class="token number">46277</span><span class="token punctuation">,</span> <span class="token number">48594</span> <span class="token punctuation">,</span><span class="token number">48994</span><span class="token punctuation">,</span> <span class="token number">49583</span><span class="token punctuation">,</span> <span class="token number">50633</span> <span class="token punctuation">,</span><span class="token number">51139</span> <span class="token punctuation">,</span><span class="token number">51565</span> <span class="token punctuation">,</span><span class="token number">51645</span><span class="token punctuation">,</span> <span class="token number">52374</span> <span class="token punctuation">,</span><span class="token number">53767</span><span class="token punctuation">,</span> <span class="token number">54322</span> <span class="token punctuation">,</span><span class="token number">56166</span><span class="token punctuation">,</span> <span class="token number">56501</span><span class="token punctuation">,</span> <span class="token number">57093</span> <span class="token punctuation">,</span><span class="token number">57629</span> <span class="token punctuation">,</span><span class="token number">59420</span> <span class="token punctuation">,</span><span class="token number">59600</span><span class="token punctuation">,</span> <span class="token number">59704</span><span class="token punctuation">,</span> <span class="token number">60962</span> <span class="token punctuation">,</span><span class="token number">61383</span><span class="token punctuation">,</span> <span class="token number">61629</span><span class="token punctuation">,</span> <span class="token number">62127</span> <span class="token punctuation">,</span><span class="token number">63016</span><span class="token punctuation">,</span> <span class="token number">63020</span><span class="token punctuation">,</span> <span class="token number">63133</span> <span class="token punctuation">,</span><span class="token number">63402</span><span class="token punctuation">,</span> <span class="token number">64833</span><span class="token punctuation">,</span> <span class="token number">65191</span><span class="token punctuation">]</span>
+    node_select_str <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token comment" spellcheck="true"># 只是为了将int改成str</span>
+    <span class="token keyword">for</span> i <span class="token keyword">in</span> node_select<span class="token punctuation">:</span>
+        node_select_str<span class="token punctuation">.</span>append<span class="token punctuation">(</span>str<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    p <span class="token operator">=</span> pd<span class="token punctuation">.</span>read_csv<span class="token punctuation">(</span><span class="token string">"F:\\AWorkSpace\\QGISData\\node.csv"</span><span class="token punctuation">)</span>
+    get_node<span class="token punctuation">(</span>p<span class="token punctuation">,</span> node_select_str<span class="token punctuation">)</span>
+</code></pre>
+<p>代码本身很简单，就是通过ID这一列的数来选取特定的行，注意点如下：</p>
+<ol>
+<li><code>n = p.loc[p[&quot;ID&quot;] == i]  # 选取的方式</code>，这是pandas选取的方式，i为ID具体的值</li>
+<li>选出来后这个n为一个Data Frame对象，我们使用list存储，并使用<code>pd.concat(l2, axis=0) # 0为横向整合</code> 来整合，最后选取特定的列再存为csv即可</li>
+<li>我的节点集为int类型，但csv文件为str类型，先转换，再调函数</li>
+</ol>
+<h5 id="四、显示与制图"><a href="#四、显示与制图" class="headerlink" title="四、显示与制图"></a>四、显示与制图</h5><p>将输出的经过筛选的csv节点集加载到QGIS的方式如下：</p>
+<p>图层 -&gt; 添加图层 -&gt; Add Delimited Text Layer</p>
+<p>有的版本这个英文可能是中文，为分格文本文件。界面如下，注意设置X， Y即可：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/add.png" alt="1571228139412"></p>
+<p>加载后的图层与显示管线图如下：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图层2.png" alt="1571228203881"></p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/图.png" alt="1571228234659"></p>
+<p>当你设定好点、线的样式之后，就可以制图了。</p>
+<p>选择 项目 -&gt; 新建打印布局；输入布局名称，进入如下界面：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/布局.png" alt="1571228345138"></p>
+<p>点击左边竖排的添加地图，点击确定：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/添加地图.png" alt="1571228443567"></p>
+<p>即可显示地图并进行拉伸：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/布局显示.png" alt="1571228494117"></p>
+<p>布局器的右边是图层和编辑器，可以设置图层的相关信息：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/编辑器.png" alt="1571228550337"></p>
+<p>剩余的添加文本、添加指北针、添加图例、添加比例尺都可以选择相应的左边竖条的标志进行。</p>
+<p>添加指北针为添加图片，然后选中图上显示的框，在右边编辑器做选择图标，指北针的图标选择在<strong>搜索目录</strong>那里，填充颜色等修改：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/指北针.png" alt="1571228779988"></p>
+<p>比例尺这里，选择添加是似乎是默认的比例尺，不是根据地图改变的，要注意，在比例尺单位那选择<strong>地图单位</strong>，后面参数根据地图实际的参数进行修改，才能得到正确的比例尺。</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/比例尺.png" alt="1571229024528"></p>
+<p>最后出图时，选择这三个，建议选择导出成位图，直接是png格式文件，粘贴到word、ppt非常方便，导出到PDF时我出现过一次卡退，就没有再使用导出到PDF的方式了。</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/出图.png" alt="1571229159003"></p>
+<p>最终的效果图：</p>
+<p><img src="/kingstar718.github.io/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/end.png" alt="1571229598937"></p>
+<h5 id="五、总结"><a href="#五、总结" class="headerlink" title="五、总结"></a>五、总结</h5><p>作为一个研究非常偏的GISer，有时候遇到的问题真的难以快速找到答案。这几天我找了不少有关管网水力模型制图的资料，都没有一个比较整体的过程，探索了几天，总算是解决了。</p>
+<p>与我而言，水力模型就已经是比较偏的方向了，当初找水力水质模型的编程方法就找了很久。这次的难点主要在于，如何加载模型，这个可以通过QGIS+插件实现；如何筛选节点，主要通过图层导出csv文件，通过Python编程实现筛选，再加载回QGIS；再者是QGIS制图问题，这个解决方案应该很多，不再赘述，主要就是比例尺的问题需要注意。</p>
+<p>另感谢：麻辣GIS网站的QGIS的导入导出csv、制图等教程。网站地址：<a href="https://malagis.com/" target="_blank" rel="noopener">麻辣GIS</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#一、QGIS的安装与配置"><span class="toc-number">1.</span> <span class="toc-text">一、QGIS的安装与配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#二、管网的加载与显示"><span class="toc-number">2.</span> <span class="toc-text">二、管网的加载与显示</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#三、点的筛选"><span class="toc-number">3.</span> <span class="toc-text">三、点的筛选</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#四、显示与制图"><span class="toc-number">4.</span> <span class="toc-text">四、显示与制图</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#五、总结"><span class="toc-number">5.</span> <span class="toc-text">五、总结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&text=QGIS管网水力模型inp文件制图初探"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&is_video=false&description=QGIS管网水力模型inp文件制图初探"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=QGIS管网水力模型inp文件制图初探&body=Check out this article: http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&title=QGIS管网水力模型inp文件制图初探"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&name=QGIS管网水力模型inp文件制图初探&description=&lt;p&gt;本文主要讲述了如何使用QGIS加载管网水力模型，并进行节点筛选，再制图显示的过程。&lt;/p&gt;
+&lt;p&gt;我所接触的供水管网水力模型文件格式为inp，使用EPANET软件打开，然而它的制图形式不太美观，因此我查找了一些资料，也摸索了一段时间，考虑到教程较少，于是记录下供水管网inp文件如何制图的方法。&lt;/p&gt;
+&lt;p&gt;核心是：inp文件+QGIS+插件+节点筛选+制图&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://blog.wujinxing.top/2019/10/16/xue-xi-ji-lu/qgis-guan-wang-shui-li-mo-xing-inp-wen-jian-zhi-tu-chu-tan/&t=QGIS管网水力模型inp文件制图初探"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menú</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Compartir</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Cap amunt</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 kingstar718
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/kingstar718.github.io/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/kingstar718.github.io/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/kingstar718.github.io/lib/jquery/jquery.min.js"></script>
+<script src="/kingstar718.github.io/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/kingstar718.github.io/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/kingstar718.github.io/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

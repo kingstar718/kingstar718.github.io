@@ -1,416 +1,170 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html lang=zh>
 <head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="theme-color" content="#222">
-
-
-
-
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-  <meta name="google-site-verification" content="O8H4oasCMHUoZG7kIDFOlVidKZNs9FSDHt9xa0plWKY">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link href="/kingstar718.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/kingstar718.github.io/css/main.css?v=6.0.0" rel="stylesheet" type="text/css">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/kingstar718.github.io/images/apple-touch-icon-next.png?v=6.0.0">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/kingstar718.github.io/images/favicon-32x32-next.png?v=6.0.0">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/kingstar718.github.io/images/favicon-16x16-next.png?v=6.0.0">
-
-
-  <link rel="mask-icon" href="/kingstar718.github.io/images/logo.svg?v=6.0.0" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="Hexo, NexT">
-
-
-
-
-  
-
-
-  <link rel="alternate" href="/kingstar718.github.io/atom.xml" title="kingstar718's blog" type="application/atom+xml">
-
-
-
-
-
-
-<meta name="description" content="生如逆旅,一苇以航">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://blog.wujinxing.top/categories/index.html">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="一丶创建服务 -&amp;gt;打开ArcMap -&amp;gt;目录-&amp;gt;GIS服务器 -&amp;gt;添加ArcGIS Server -&amp;gt;管理GIS服务器 -&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码)  -&amp;gt;在目录中找到创建好的服务器,新建文件夹 -&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务 -&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连">
+<meta name="keywords" content="ArcGIS Server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ArcGIS Server 笔记">
+<meta property="og:url" content="http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/index.html">
 <meta property="og:site_name" content="kingstar718&#39;s blog">
-<meta property="og:description" content="生如逆旅,一苇以航">
+<meta property="og:description" content="一丶创建服务 -&amp;gt;打开ArcMap -&amp;gt;目录-&amp;gt;GIS服务器 -&amp;gt;添加ArcGIS Server -&amp;gt;管理GIS服务器 -&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码)  -&amp;gt;在目录中找到创建好的服务器,新建文件夹 -&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务 -&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-11T16:19:58.037Z">
+<meta property="og:updated_time" content="2019-07-08T07:14:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="生如逆旅,一苇以航">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/kingstar718.github.io/',
-    scheme: 'Mist',
-    version: '6.0.0',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: false,
-    fastclick: false,
-    lazyload: false,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://blog.wujinxing.top/categories/">
-
-
-
-
-
-  <title>ArcGIS Server 笔记 | kingstar718's blog</title>
-  
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?391c58f8d37853833d78725118c31834";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
-
+<meta name="twitter:title" content="ArcGIS Server 笔记">
+<meta name="twitter:description" content="一丶创建服务 -&amp;gt;打开ArcMap -&amp;gt;目录-&amp;gt;GIS服务器 -&amp;gt;添加ArcGIS Server -&amp;gt;管理GIS服务器 -&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码)  -&amp;gt;在目录中找到创建好的服务器,新建文件夹 -&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务 -&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/kingstar718.github.io/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/kingstar718.github.io/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/kingstar718.github.io/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>ArcGIS Server 笔记</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/kingstar718.github.io/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/kingstar718.github.io/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
 <link rel="stylesheet" href="/kingstar718.github.io/css/prism-tomorrow.css" type="text/css"></head>
 
-<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
-
-  
-  
+<body class="max-width mx-auto px3 ltr">
     
-  
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/kingstar718.github.io/2019/07/08/qian-duan-bi-ji/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/kingstar718.github.io/2019/07/06/jian-ping-shang-hai-bao-lei/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Post Anterior</span>
+      <span id="i-next" class="info" style="display:none;">Post Següent</span>
+      <span id="i-top" class="info" style="display:none;">Adalt</span>
+      <span id="i-share" class="info" style="display:none;">Compartir Post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&text=ArcGIS Server 笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&is_video=false&description=ArcGIS Server 笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ArcGIS Server 笔记&body=Check out this article: http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&name=ArcGIS Server 笔记&description=&lt;h3 id=&#34;一丶创建服务&#34;&gt;&lt;a href=&#34;#一丶创建服务&#34; class=&#34;headerlink&#34; title=&#34;一丶创建服务&#34;&gt;&lt;/a&gt;&lt;strong&gt;一丶创建服务&lt;/strong&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;-&amp;gt;打开ArcMap&lt;/li&gt;
+&lt;li&gt;-&amp;gt;目录-&amp;gt;GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;添加ArcGIS Server&lt;/li&gt;
+&lt;li&gt;-&amp;gt;管理GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码) &lt;/li&gt;
+&lt;li&gt;-&amp;gt;在目录中找到创建好的服务器,新建文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务&lt;/li&gt;
+&lt;li&gt;-&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连接&lt;/li&gt;
+&lt;li&gt;-&amp;gt;将服务发布至文件夹选择刚才新建的文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;进入服务编辑器,进行相应选择-&amp;gt;发布服务&lt;/li&gt;
+&lt;/ol&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&t=ArcGIS Server 笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-  <div class="container sidebar-position-left page-post-detail">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"> <div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/kingstar718.github.io/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">kingstar718's blog</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
     </div>
-      
-        <p class="site-subtitle">kingstar718</p>
-      
-  </div>
-
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一丶创建服务"><span class="toc-number">1.</span> <span class="toc-text">一丶创建服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、问题解决"><span class="toc-number">2.</span> <span class="toc-text">二、问题解决</span></a></li></ol>
+    </div>
+  </span>
 </div>
 
-<nav class="site-nav">
-  
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope="" itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ArcGIS Server 笔记
+    </h1>
 
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/kingstar718.github.io/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/kingstar718.github.io/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/kingstar718.github.io/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/kingstar718.github.io/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/kingstar718.github.io/about/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
 
-      
-        <li class="menu-item menu-item-search">
-          
-            <a href="javascript:;" class="popup-trigger">
-          
-            
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
-            
-            搜索
-          </a>
-        </li>
-      
-    </ul>
-  
 
-  
-    <div class="site-search">
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+        <span itemprop="name">kingstar718's blog</span>
+      </span>
       
-  <div class="popup search-popup local-search-popup">
-  <div class="local-search-header clearfix">
-    <span class="search-icon">
-      <i class="fa fa-search"></i>
-    </span>
-    <span class="popup-btn-close">
-      <i class="fa fa-times-circle"></i>
-    </span>
-    <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    <div class="postdate">
+      
+        <time datetime="2019-07-08T06:58:58.000Z" itemprop="datePublished">2019-07-08</time>
+        
+      
     </div>
-  </div>
-  <div id="local-search-result"></div>
-</div>
 
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/kingstar718.github.io/categories/学习笔记/">学习笔记</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/kingstar718.github.io/tags/ArcGIS-Server/">ArcGIS Server</a>
+    </div>
 
 
     </div>
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
+  </header>
   
 
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://blog.wujinxing.top/kingstar718.github.io/2019/07/08/arcgis-server-bi-ji/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="kingstar718">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/kingstar718.github.io/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="kingstar718's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">ArcGIS Server 笔记</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-08T14:58:58+08:00">2019-07-08</time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/kingstar718.github.io/categories/学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">学习笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/kingstar718.github.io/2019/07/08/arcgis-server-bi-ji/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/kingstar718.github.io/2019/07/08/arcgis-server-bi-ji/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv">本文阅读总量
-            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h3 id="一丶创建服务"><a href="#一丶创建服务" class="headerlink" title="一丶创建服务"></a><strong>一丶创建服务</strong></h3><ol>
+  <div class="content" itemprop="articleBody">
+    <h3 id="一丶创建服务"><a href="#一丶创建服务" class="headerlink" title="一丶创建服务"></a><strong>一丶创建服务</strong></h3><ol>
 <li>-&gt;打开ArcMap</li>
 <li>-&gt;目录-&gt;GIS服务器</li>
 <li>-&gt;添加ArcGIS Server</li>
@@ -426,784 +180,133 @@
 <h3 id="二、问题解决"><a href="#二、问题解决" class="headerlink" title="二、问题解决"></a><strong>二、问题解决</strong></h3><p><strong>问题1:</strong>  如果显示发布失败,检查服务器工具之类的,打开ArcMap的服务页面(../manager)，点击System,选择PublishingTools，并点击保存并重新发布,如果发布失败，显示端口4000被占用，打开<a href="http://localhost:6080/arcgis/admin/machines/这里是您的机器名/edit，选择把4000端口改为4006或4005,重启PublishingTools，再回到ArcMap发布服务" target="_blank" rel="noopener">http://localhost:6080/arcgis/admin/machines/这里是您的机器名/edit，选择把4000端口改为4006或4005,重启PublishingTools，再回到ArcMap发布服务</a></p>
 <p><strong>问题2:</strong>  解决ArcGIS Service中的服务在内网环境下无法进行javascript预览问题。<br>在使用ArcGIS for Service时经常会遇到一个问题，那就是我们需要对已经发布的服务进行预览，预览时点击对应服务，选择View in中的ArcGIS JavaScript就可在浏览器中实现对地图的预览工作。<br>原因：Service中配置的JavaScript API地址为在线服务地址，内网会导致网络不通。<br>解决:登陆后台管理： <a href="http://localhost:6080/arcgis/admin/login" target="_blank" rel="noopener">http://localhost:6080/arcgis/admin/login</a><br>后台管理中找到以下路径：<a href="http://localhost:6080/arcgis/admin/system/handlers/rest" target="_blank" rel="noopener">http://localhost:6080/arcgis/admin/system/handlers/rest</a><br> 点击servicesdirectory-&gt;点击edit,修改API URL和CSS URL以及CSS2 URL<br><a href="http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/init.js" target="_blank" rel="noopener">http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/init.js</a><br><a href="http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/dijit/themes/tundra/tundra.css" target="_blank" rel="noopener">http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/dijit/themes/tundra/tundra.css</a><br><a href="http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/esri/css/esri.css" target="_blank" rel="noopener">http://123.207.94.127:8080/api319/arcgis_js_api/library/3.19/3.19/esri/css/esri.css</a></p>
 
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/kingstar718.github.io/tags/ArcGIS-Server/" rel="tag"># ArcGIS Server</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/kingstar718.github.io/2019/07/06/jian-ping-shang-hai-bao-lei/" rel="next" title="简评《上海堡垒》">
-                <i class="fa fa-chevron-left"></i> 简评《上海堡垒》
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/kingstar718.github.io/2019/07/08/qian-duan-bi-ji/" rel="prev" title="前端笔记">
-                前端笔记 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
+</article>
 
-
-
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
-
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript">
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
-
-
-          </div>
-          
-
-
-          
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-            
-              <img class="site-author-image" itemprop="image" src="/kingstar718.github.io/uploads/avatar.png" alt="kingstar718">
-            
-              <p class="site-author-name" itemprop="name">kingstar718</p>
-              <p class="site-description motion-element" itemprop="description">生如逆旅,一苇以航</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/kingstar718.github.io/archives/">
-              
-                  <span class="site-state-item-count">14</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/kingstar718.github.io/categories/index.html">
-                  <span class="site-state-item-count">8</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/kingstar718.github.io/tags/index.html">
-                  <span class="site-state-item-count">34</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-            <div class="feed-link motion-element">
-              <a href="/kingstar718.github.io/atom.xml" rel="alternate">
-                <i class="fa fa-rss"></i>
-                RSS
-              </a>
-            </div>
-          
-
-          
-            <div class="links-of-author motion-element">
-                
-                  <span class="links-of-author-item">
-                    <a href="https://github.com/kingstar718" target="_blank" title="GitHub">
-                      
-                        <i class="fa fa-fw fa-github"></i>GitHub</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="mailto:kingstar718@foxmail.com" target="_blank" title="E-Mail">
-                      
-                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
-                  </span>
-                
-            </div>
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一丶创建服务"><span class="nav-number">1.</span> <span class="nav-text">一丶创建服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、问题解决"><span class="nav-number">2.</span> <span class="nav-text">二、问题解决</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
 
 
         
-      </div>
-    </main>
+          <div id="footer-post-container">
+  <div id="footer-post">
 
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">kingstar718</span>
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </div>
 
-  
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一丶创建服务"><span class="toc-number">1.</span> <span class="toc-text">一丶创建服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、问题解决"><span class="toc-number">2.</span> <span class="toc-text">二、问题解决</span></a></li></ol>
+    </div>
 
-  
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&text=ArcGIS Server 笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&is_video=false&description=ArcGIS Server 笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ArcGIS Server 笔记&body=Check out this article: http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&title=ArcGIS Server 笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&name=ArcGIS Server 笔记&description=&lt;h3 id=&#34;一丶创建服务&#34;&gt;&lt;a href=&#34;#一丶创建服务&#34; class=&#34;headerlink&#34; title=&#34;一丶创建服务&#34;&gt;&lt;/a&gt;&lt;strong&gt;一丶创建服务&lt;/strong&gt;&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;-&amp;gt;打开ArcMap&lt;/li&gt;
+&lt;li&gt;-&amp;gt;目录-&amp;gt;GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;添加ArcGIS Server&lt;/li&gt;
+&lt;li&gt;-&amp;gt;管理GIS服务器&lt;/li&gt;
+&lt;li&gt;-&amp;gt;输入服务器URL丶用户名密码(即ArcGIS Server登录名密码) &lt;/li&gt;
+&lt;li&gt;-&amp;gt;在目录中找到创建好的服务器,新建文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;点击ArcMap的’文件’-&amp;gt;共享为-&amp;gt;服务&lt;/li&gt;
+&lt;li&gt;-&amp;gt;选择发布服务-&amp;gt;选择刚才建好的连接&lt;/li&gt;
+&lt;li&gt;-&amp;gt;将服务发布至文件夹选择刚才新建的文件夹&lt;/li&gt;
+&lt;li&gt;-&amp;gt;进入服务编辑器,进行相应选择-&amp;gt;发布服务&lt;/li&gt;
+&lt;/ol&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=http://blog.wujinxing.top/2019/07/08/arcgis-server-bi-ji/&t=ArcGIS Server 笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menú</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Compartir</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Cap amunt</a>
+    </div>
+
+  </div>
 </div>
 
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.0</div>
-
-
-
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-  
-    <span class="site-uv">
-      本站访客数
-      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      人次
-    </span>
-  
-
-  
-    <span class="site-pv">
-      本站总访问量
-      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
-      次
-    </span>
-  
-</div>
-
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 kingstar718
   </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/kingstar718.github.io/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/kingstar718.github.io/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/kingstar718.github.io/js/src/utils.js?v=6.0.0"></script>
-
-  <script type="text/javascript" src="/kingstar718.github.io/js/src/motion.js?v=6.0.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/kingstar718.github.io/js/src/scrollspy.js?v=6.0.0"></script>
-<script type="text/javascript" src="/kingstar718.github.io/js/src/post-details.js?v=6.0.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/kingstar718.github.io/js/src/bootstrap.js?v=6.0.0"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/kingstar718.github.io/">Inici</a></li>
+         
+          <li><a href="/kingstar718.github.io/about/">Qui som</a></li>
+         
+          <li><a href="/kingstar718.github.io/archives/">Articles</a></li>
+         
+          <li><a href="/kingstar718.github.io/projects_url">Projectes</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/kingstar718.github.io/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/kingstar718.github.io/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/kingstar718.github.io/lib/jquery/jquery.min.js"></script>
+<script src="/kingstar718.github.io/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/kingstar718.github.io/lib/clipboard/clipboard.min.js"></script>
   <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'VJam5Rijjmd9ASb6PvCwr251-gzGzoHsz',
-        appKey: 'uExQOMiWLNyuQf7FvTwWszyn',
-        placeholder: '如有疑问，欢迎评论',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
-
-
-
-  
-
-  <script type="text/javascript">
-    // Popup Window;
-    var isfetched = false;
-    var isXml = true;
-    // Search DB path;
-    var search_path = "search.xml";
-    if (search_path.length === 0) {
-      search_path = "search.xml";
-    } else if (/json$/i.test(search_path)) {
-      isXml = false;
-    }
-    var path = "/kingstar718.github.io/" + search_path;
-    // monitor main search box;
-
-    var onPopupClose = function (e) {
-      $('.popup').hide();
-      $('#local-search-input').val('');
-      $('.search-result-list').remove();
-      $('#no-result').remove();
-      $(".local-search-pop-overlay").remove();
-      $('body').css('overflow', '');
-    }
-
-    function proceedsearch() {
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-        .css('overflow', 'hidden');
-      $('.search-popup-overlay').click(onPopupClose);
-      $('.popup').toggle();
-      var $localSearchInput = $('#local-search-input');
-      $localSearchInput.attr("autocapitalize", "none");
-      $localSearchInput.attr("autocorrect", "off");
-      $localSearchInput.focus();
-    }
-
-    // search function;
-    var searchFunc = function(path, search_id, content_id) {
-      'use strict';
-
-      // start loading animation
-      $("body")
-        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-          '<div id="search-loading-icon">' +
-          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-          '</div>' +
-          '</div>')
-        .css('overflow', 'hidden');
-      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-
-      $.ajax({
-        url: path,
-        dataType: isXml ? "xml" : "json",
-        async: true,
-        success: function(res) {
-          // get the contents from search data
-          isfetched = true;
-          $('.popup').detach().appendTo('.header-inner');
-          var datas = isXml ? $("entry", res).map(function() {
-            return {
-              title: $("title", this).text(),
-              content: $("content",this).text(),
-              url: $("url" , this).text()
-            };
-          }).get() : res;
-          var input = document.getElementById(search_id);
-          var resultContent = document.getElementById(content_id);
-          var inputEventFunction = function() {
-            var searchText = input.value.trim().toLowerCase();
-            var keywords = searchText.split(/[\s\-]+/);
-            if (keywords.length > 1) {
-              keywords.push(searchText);
-            }
-            var resultItems = [];
-            if (searchText.length > 0) {
-              // perform local searching
-              datas.forEach(function(data) {
-                var isMatch = false;
-                var hitCount = 0;
-                var searchTextCount = 0;
-                var title = data.title.trim();
-                var titleInLowerCase = title.toLowerCase();
-                var content = data.content.trim().replace(/<[^>]+>/g,"");
-                var contentInLowerCase = content.toLowerCase();
-                var articleUrl = decodeURIComponent(data.url);
-                var indexOfTitle = [];
-                var indexOfContent = [];
-                // only match articles with not empty titles
-                if(title != '') {
-                  keywords.forEach(function(keyword) {
-                    function getIndexByWord(word, text, caseSensitive) {
-                      var wordLen = word.length;
-                      if (wordLen === 0) {
-                        return [];
-                      }
-                      var startPosition = 0, position = [], index = [];
-                      if (!caseSensitive) {
-                        text = text.toLowerCase();
-                        word = word.toLowerCase();
-                      }
-                      while ((position = text.indexOf(word, startPosition)) > -1) {
-                        index.push({position: position, word: word});
-                        startPosition = position + wordLen;
-                      }
-                      return index;
-                    }
-
-                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
-                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
-                  });
-                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
-                    isMatch = true;
-                    hitCount = indexOfTitle.length + indexOfContent.length;
-                  }
-                }
-
-                // show search results
-
-                if (isMatch) {
-                  // sort index by position of keyword
-
-                  [indexOfTitle, indexOfContent].forEach(function (index) {
-                    index.sort(function (itemLeft, itemRight) {
-                      if (itemRight.position !== itemLeft.position) {
-                        return itemRight.position - itemLeft.position;
-                      } else {
-                        return itemLeft.word.length - itemRight.word.length;
-                      }
-                    });
-                  });
-
-                  // merge hits into slices
-
-                  function mergeIntoSlice(text, start, end, index) {
-                    var item = index[index.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    var hits = [];
-                    var searchTextCountInSlice = 0;
-                    while (position + word.length <= end && index.length != 0) {
-                      if (word === searchText) {
-                        searchTextCountInSlice++;
-                      }
-                      hits.push({position: position, length: word.length});
-                      var wordEnd = position + word.length;
-
-                      // move to next position of hit
-
-                      index.pop();
-                      while (index.length != 0) {
-                        item = index[index.length - 1];
-                        position = item.position;
-                        word = item.word;
-                        if (wordEnd > position) {
-                          index.pop();
-                        } else {
-                          break;
-                        }
-                      }
-                    }
-                    searchTextCount += searchTextCountInSlice;
-                    return {
-                      hits: hits,
-                      start: start,
-                      end: end,
-                      searchTextCount: searchTextCountInSlice
-                    };
-                  }
-
-                  var slicesOfTitle = [];
-                  if (indexOfTitle.length != 0) {
-                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
-                  }
-
-                  var slicesOfContent = [];
-                  while (indexOfContent.length != 0) {
-                    var item = indexOfContent[indexOfContent.length - 1];
-                    var position = item.position;
-                    var word = item.word;
-                    // cut out 100 characters
-                    var start = position - 20;
-                    var end = position + 80;
-                    if(start < 0){
-                      start = 0;
-                    }
-                    if (end < position + word.length) {
-                      end = position + word.length;
-                    }
-                    if(end > content.length){
-                      end = content.length;
-                    }
-                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
-                  }
-
-                  // sort slices in content by search text's count and hits' count
-
-                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
-                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
-                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
-                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
-                      return sliceRight.hits.length - sliceLeft.hits.length;
-                    } else {
-                      return sliceLeft.start - sliceRight.start;
-                    }
-                  });
-
-                  // select top N slices in content
-
-                  var upperBound = parseInt('1');
-                  if (upperBound >= 0) {
-                    slicesOfContent = slicesOfContent.slice(0, upperBound);
-                  }
-
-                  // highlight title and content
-
-                  function highlightKeyword(text, slice) {
-                    var result = '';
-                    var prevEnd = slice.start;
-                    slice.hits.forEach(function (hit) {
-                      result += text.substring(prevEnd, hit.position);
-                      var end = hit.position + hit.length;
-                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
-                      prevEnd = end;
-                    });
-                    result += text.substring(prevEnd, slice.end);
-                    return result;
-                  }
-
-                  var resultItem = '';
-
-                  if (slicesOfTitle.length != 0) {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
-                  } else {
-                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
-                  }
-
-                  slicesOfContent.forEach(function (slice) {
-                    resultItem += "<a href='" + articleUrl + "'>" +
-                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
-                      "...</p>" + "</a>";
-                  });
-
-                  resultItem += "</li>";
-                  resultItems.push({
-                    item: resultItem,
-                    searchTextCount: searchTextCount,
-                    hitCount: hitCount,
-                    id: resultItems.length
-                  });
-                }
-              })
-            };
-            if (keywords.length === 1 && keywords[0] === "") {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
-            } else if (resultItems.length === 0) {
-              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
-            } else {
-              resultItems.sort(function (resultLeft, resultRight) {
-                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
-                  return resultRight.searchTextCount - resultLeft.searchTextCount;
-                } else if (resultLeft.hitCount !== resultRight.hitCount) {
-                  return resultRight.hitCount - resultLeft.hitCount;
-                } else {
-                  return resultRight.id - resultLeft.id;
-                }
-              });
-              var searchResultList = '<ul class=\"search-result-list\">';
-              resultItems.forEach(function (result) {
-                searchResultList += result.item;
-              })
-              searchResultList += "</ul>";
-              resultContent.innerHTML = searchResultList;
-            }
-          }
-
-          if ('auto' === 'auto') {
-            input.addEventListener('input', inputEventFunction);
-          } else {
-            $('.search-icon').click(inputEventFunction);
-            input.addEventListener('keypress', function (event) {
-              if (event.keyCode === 13) {
-                inputEventFunction();
-              }
-            });
-          }
-
-          // remove loading animation
-          $(".local-search-pop-overlay").remove();
-          $('body').css('overflow', '');
-
-          proceedsearch();
-        }
-      });
-    }
-
-    // handle and trigger popup window;
-    $('.popup-trigger').click(function(e) {
-      e.stopPropagation();
-      if (isfetched === false) {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      } else {
-        proceedsearch();
-      };
-    });
-
-    $('.popup-btn-close').click(onPopupClose);
-    $('.popup').click(function(e){
-      e.stopPropagation();
-    });
-    $(document).on('keyup', function (event) {
-      var shouldDismissSearchPopup = event.which === 27 &&
-        $('.search-popup').is(':visible');
-      if (shouldDismissSearchPopup) {
-        onPopupClose();
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
       }
     });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
   </script>
 
+<script src="/kingstar718.github.io/js/main.js"></script>
+<!-- search -->
 
+<!-- Google Analytics -->
 
+<!-- Baidu Analytics -->
 
+<!-- Disqus Comments -->
 
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
 
 </body>
 </html>
