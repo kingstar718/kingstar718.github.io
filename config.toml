@@ -1,4 +1,4 @@
-title = "Flat theme"
+title = "陆上江南"
 theme = "hugo-theme-flat"
 # 注释掉hugo.toml后，这里要设置为themes，详情见：https://cloud.tencent.com/developer/ask/sof/1120405
 #themesDir = "../.."
