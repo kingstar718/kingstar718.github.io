@@ -6,7 +6,7 @@
     <description>Recent content on 陆上江南</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Tue, 24 Jan 2023 20:04:07 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Add Picture In Blog</title>
       <link>/essays/add-picture-in-post/</link>
@@ -41,6 +41,25 @@ $$
 \pi=\int_{-\infty}^\infty\frac{dx}{1+x^2}
 $$
 &lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>blog-test</title>
+      <link>/posts/blog-test/</link>
+      <pubDate>Thu, 21 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>/posts/blog-test/</guid>
+      <description>&lt;p&gt;blog-test&lt;/p&gt;
+&lt;h2 id=&#34;你好世界&#34;&gt;你好世界 &lt;a href=&#34;#%e4%bd%a0%e5%a5%bd%e4%b8%96%e7%95%8c&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;科学&lt;/li&gt;
+&lt;li&gt;发展&lt;/li&gt;
+&lt;li&gt;拼单&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是一个引用。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;wode&#34;&gt;wode &lt;a href=&#34;#wode&#34; class=&#34;anchor&#34;&gt;🔗&lt;/a&gt;&lt;/h2&gt;</description>
     </item>
     
     <item>
