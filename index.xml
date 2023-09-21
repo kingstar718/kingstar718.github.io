@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>https://kingstar718.github.io/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 24 Jan 2023 20:04:07 +0800</lastBuildDate><atom:link href="https://kingstar718.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Add Picture In Blog</title>
+      <link>https://kingstar718.github.io/essays/add-picture-in-post/</link>
+      <pubDate>Tue, 24 Jan 2023 20:04:07 +0800</pubDate>
+      
+      <guid>https://kingstar718.github.io/essays/add-picture-in-post/</guid>
+      <description>&lt;p&gt;In this essay, we will talk about how to add a picture in blog.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Latex Support</title>
+      <link>https://kingstar718.github.io/posts/latex-support/</link>
+      <pubDate>Tue, 20 Sep 2022 09:36:26 +0800</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/latex-support/</guid>
+      <description>&lt;p&gt;This article contians some test for latex support. Currently the lib used for rendering LaTeX is &lt;a href=&#34;https://katex.org/&#34;&gt;\(\KaTeX\)&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>What Is Hugo</title>
+      <link>https://kingstar718.github.io/essays/what-is-hugo/</link>
+      <pubDate>Mon, 16 May 2022 21:57:50 +0800</pubDate>
+      
+      <guid>https://kingstar718.github.io/essays/what-is-hugo/</guid>
+      <description>&lt;p&gt;Hugo is a static site generator written in Go. Originally created by Steve Francia in 2013, Hugo has seen a great increase in both features and performance thanks to current lead developer Bjørn Erik Pedersen (since v0.14 in 2015[4]) and other contributors. Hugo is an open source project licensed under the Apache License 2.0.[5]&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About</title>
+      <link>https://kingstar718.github.io/about/</link>
+      <pubDate>Wed, 27 Apr 2022 21:01:43 +0800</pubDate>
+      
+      <guid>https://kingstar718.github.io/about/</guid>
+      <description>About this demo site This is the about page of this theme. The content of this demo site is come from hugo-theme-mini, whose license is MIT
+This site is built by hugo, which is a fast static site generator writen in go. You can go to its offical site to get more information.
+CJK supported This hugo theme support CJK language, but some right to left language may not act as expected.</description>
+    </item>
+    
+    <item>
+      <title>Markdown Syntax Guide</title>
+      <link>https://kingstar718.github.io/posts/markdown-syntax/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/markdown-syntax/</guid>
+      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Placeholder Text</title>
+      <link>https://kingstar718.github.io/posts/placeholder-text/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/placeholder-text/</guid>
+      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Math Typesetting</title>
+      <link>https://kingstar718.github.io/posts/math-typesetting/</link>
+      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/math-typesetting/</guid>
+      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Emoji Support</title>
+      <link>https://kingstar718.github.io/posts/emoji-support/</link>
+      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/emoji-support/</guid>
+      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
