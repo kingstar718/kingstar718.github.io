@@ -1,4 +1,3 @@
 User-agent: *
-Allow: *
-
-Sitemap: sitemap.xml
+Disallow:
+Sitemap: https://kingstar718.github.io/sitemap.xml
