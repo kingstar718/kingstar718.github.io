@@ -158,7 +158,7 @@ params:
 #          url: "index.xml"
 
     editPost:
-        URL: "https://github.com/kingstar718/kingstar718.github.io//content"
+        URL: "https://github.com/kingstar718/kingstar718.github.io/blob/main/content"
         Text: "Suggest Changes" # edit text
         appendFilePath: true # to append file path to Edit link
 
