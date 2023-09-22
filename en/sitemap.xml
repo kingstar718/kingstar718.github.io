@@ -33,17 +33,20 @@
     <loc>https://kingstar718.github.io/essays/</loc>
     <lastmod>2022-05-18T11:19:08+08:00</lastmod>
   </url><url>
-    <loc>https://kingstar718.github.io/posts/blog-test/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+    <loc>https://kingstar718.github.io/tags/bug/</loc>
+    <lastmod>2023-09-22T03:33:54+00:00</lastmod>
   </url><url>
-    <loc>https://kingstar718.github.io/tags/emoji/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+    <loc>https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/</loc>
+    <lastmod>2023-09-22T03:33:54+00:00</lastmod>
+  </url><url>
+    <loc>https://kingstar718.github.io/tags/java/</loc>
+    <lastmod>2023-09-22T03:33:54+00:00</lastmod>
   </url><url>
     <loc>https://kingstar718.github.io/tags/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-22T03:33:54+00:00</lastmod>
   </url><url>
     <loc>https://kingstar718.github.io/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+    <lastmod>2023-09-22T03:33:54+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
@@ -54,6 +57,12 @@
                 hreflang="en"
                 href="https://kingstar718.github.io/"
                 />
+  </url><url>
+    <loc>https://kingstar718.github.io/posts/blog-test/</loc>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://kingstar718.github.io/tags/emoji/</loc>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://kingstar718.github.io/essays/what-is-hugo/</loc>
     <lastmod>2022-05-16T21:57:50+08:00</lastmod>

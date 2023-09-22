@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>commons-io版本变动在windows环境下引发的NTFS ADS separator问题 | 陆上江南</title>
+<meta name="keywords" content="java, bug">
+<meta name="description" content="起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
+org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
+随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：
+String extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。
+由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。
+分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：
+public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &#34;&#34;; } else { return filename.substring(index &#43; 1); } } 关注下indexOfExtension的实现：">
+<meta name="author" content="Theme PaperMod">
+<link rel="canonical" href="https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.1b82bbed8b13f853704558d527b681efaea938ce91e6ae8903e8b19e73b1b0f8.css" integrity="sha256-G4K77YsT&#43;FNwRVjVJ7aB766pOM6R5q6JA&#43;ixnnOxsPg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://kingstar718.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://kingstar718.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://kingstar718.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://kingstar718.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://kingstar718.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="commons-io版本变动在windows环境下引发的NTFS ADS separator问题" />
+<meta property="og:description" content="起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
+org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
+随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：
+String extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。
+由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。
+分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：
+public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &#34;&#34;; } else { return filename.substring(index &#43; 1); } } 关注下indexOfExtension的实现：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/" /><meta property="og:image" content="https://kingstar718.github.io/papermod-cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-09-22T03:33:54+00:00" />
+<meta property="article:modified_time" content="2023-09-22T03:33:54+00:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://kingstar718.github.io/papermod-cover.png"/>
+
+<meta name="twitter:title" content="commons-io版本变动在windows环境下引发的NTFS ADS separator问题"/>
+<meta name="twitter:description" content="起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
+org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
+随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：
+String extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。
+由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。
+分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：
+public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &#34;&#34;; } else { return filename.substring(index &#43; 1); } } 关注下indexOfExtension的实现："/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Posts",
+      "item": "https://kingstar718.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "commons-io版本变动在windows环境下引发的NTFS ADS separator问题",
+      "item": "https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "commons-io版本变动在windows环境下引发的NTFS ADS separator问题",
+  "name": "commons-io版本变动在windows环境下引发的NTFS ADS separator问题",
+  "description": "起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：\norg.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property \u0026#39;locations\u0026#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (\u0026#39;:\u0026#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。\n随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：\nString extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。\n由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。\n分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：\npublic static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return \u0026#34;\u0026#34;; } else { return filename.substring(index + 1); } } 关注下indexOfExtension的实现：",
+  "keywords": [
+    "java", "bug"
+  ],
+  "articleBody": "起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：\norg.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property 'locations' threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (':') in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。\n随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：\nString extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。\n由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。\n分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：\npublic static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return \"\"; } else { return filename.substring(index + 1); } } 关注下indexOfExtension的实现：\npublic static int indexOfExtension(final String filename) { if (filename == null) { return NOT_FOUND; } final int extensionPos = filename.lastIndexOf(EXTENSION_SEPARATOR); final int lastSeparator = indexOfLastSeparator(filename); return lastSeparator \u003e extensionPos ? NOT_FOUND : extensionPos; } 而2.8.0的commons-io的实现如下：\npublic static String getExtension(final String fileName) throws IllegalArgumentException { if (fileName == null) { return null; } final int index = indexOfExtension(fileName); if (index == NOT_FOUND) { return EMPTY_STRING; } return fileName.substring(index + 1); } public static int indexOfExtension(final String fileName) throws IllegalArgumentException { if (fileName == null) { return NOT_FOUND; } if (isSystemWindows()) { // Special handling for NTFS ADS: Don't accept colon in the fileName. final int offset = fileName.indexOf(':', getAdsCriticalOffset(fileName)); if (offset != -1) { throw new IllegalArgumentException(\"NTFS ADS separator (':') in file name is forbidden.\"); } } final int extensionPos = fileName.lastIndexOf(EXTENSION_SEPARATOR); final int lastSeparator = indexOfLastSeparator(fileName); return lastSeparator \u003e extensionPos ? NOT_FOUND : extensionPos; } 问题就出在这里，方法多了一个IllegalArgumentException异常，并且是特定在windows环境下才抛出NTFS ADS separator (':') in file name is forbidden.，这也就解释了为什么服务打包后在Linux环境下没有问题。\n该方法的注释上也写了为什么会做这个改变：\nNote: This method used to have a hidden problem for names like “foo.exe:bar.txt”. In this case, the name wouldn’t be the name of a file, but the identifier of an alternate data stream (bar.txt) on the file foo.exe. The method used to return “.txt” here, which would be misleading. Commons IO 2.7, and later versions, are throwing an {@link IllegalArgumentException} for names like this.\n翻译过来就是，在windows上类似foo.exe:bar.txt的文件，bar.txt不是文件的名称，而是文件foo.exe上的备用数据流bar.txt的标识符。\nNTFS中的备用数据流（Alternate Data Stream，ADS）允许将一些元数据嵌入文件或是目录，而不需要修改其原始功能或内容。\n这个改动刚好是commons-io的2.7版本，命中了项目因为引入业务jar包导致的2.5-\u003e2.8.0的升级迭代。\n解决 后续决定还是在业务jar中移除commons-io的2.8.0版本，沿用之前项目中的2.5版本。\n总结 项目使用disconf来监听配置文件的变更，实际上传入的是类似classpath:log4j2.xml这样的fileName，导致的问题。\n项目初步启动时，直接报错的堆栈中并没有关于commons-io的堆栈信息，只知道是disconf的bean无法启动，可以先从这个bean入手，逐步定位到是com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean成员变量locations的问题，进而从setLocations这个方法定位到使用了FilenameUtils中的getExtension，从而得知是哪里的异常。\n进而直接使用Dependency Analyzer，看到业务jar包引入了更新版本的commons-io，并通过对比两个版本的FilenameUtils的getExtension方法的区别，了解本次异常的原因。\n这是一次较为常见的组件变动引起的启动异常，但是实际上问题的表征并不能直接定位原因，合理利用debug，在项目启动时，添加断点，逐步分析，是开发者需要掌握的技能。\n这个问题直接搜索是不太能得到答案的，但是分析问题的过程，是初学者逐步向熟练者进阶的必备技能，特此记录，以作参考。\n参考 NTFS ADS（备用数据流） ",
+  "wordCount" : "310",
+  "inLanguage": "en",
+  "datePublished": "2023-09-22T03:33:54Z",
+  "dateModified": "2023-09-22T03:33:54Z",
+  "author":{
+    "@type": "Person",
+    "name": "Theme PaperMod"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "陆上江南",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kingstar718.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://kingstar718.github.io" accesskey="h" title="陆上江南 (Alt + H)">陆上江南</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+                <ul class="lang-switch"><li>|</li>
+                    <li>
+                        <a href="https://kingstar718.github.io/fr/" title="French"
+                            aria-label=":fr:">🇫🇷</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://kingstar718.github.io/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kingstar718.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kingstar718.github.io/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://kingstar718.github.io/about" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://kingstar718.github.io">Home</a>&nbsp;»&nbsp;<a href="https://kingstar718.github.io/posts/">Posts</a></div>
+    <h1 class="post-title">
+      commons-io版本变动在windows环境下引发的NTFS ADS separator问题
+    </h1>
+    <div class="post-meta"><span title='2023-09-22 03:33:54 +0000 UTC'>September 22, 2023</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Theme PaperMod&nbsp;|&nbsp;<a href="https://github.com/kingstar718/kingstar718.github.io/blob/main/content/posts/commons-io-version-in-windows-bug.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%b5%b7%e5%9b%a0" aria-label="起因">起因</a></li>
+                <li>
+                    <a href="#%e5%88%86%e6%9e%90" aria-label="分析">分析</a></li>
+                <li>
+                    <a href="#%e8%a7%a3%e5%86%b3" aria-label="解决">解决</a></li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a></li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83" aria-label="参考">参考</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><h2 id="起因">起因<a hidden class="anchor" aria-hidden="true" href="#起因">#</a></h2>
+<p>因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：</p>
+<pre tabindex="0"><code>org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
+PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden.
+</code></pre><p>尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。</p>
+<p>随即进入debug分析，定位异常位置，发现是在使用<code>disconf</code>的jar中会调用到<code>commons-io</code>的<code>FilenameUtils</code>的<code>getExtension</code>方法，来获取一个文件的后缀，具体调用如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">FilenameUtils</span><span class="o">.</span><span class="na">getExtension</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+</span></span></code></pre></div><p>比如<code>fileName</code>为log4j2.xml，方法返回的就是<code>xml</code>。</p>
+<p>由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。</p>
+<h2 id="分析">分析<a hidden class="anchor" aria-hidden="true" href="#分析">#</a></h2>
+<p>disconf使用的是<code>org.apache.commons.io</code>下的<code>FilenameUtils</code>，我们先看下2.5版本的实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getExtension</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">filename</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">indexOfExtension</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">NOT_FOUND</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">filename</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>关注下indexOfExtension的实现：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">indexOfExtension</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">filename</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">NOT_FOUND</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">extensionPos</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="n">EXTENSION_SEPARATOR</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">lastSeparator</span> <span class="o">=</span> <span class="n">indexOfLastSeparator</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lastSeparator</span> <span class="o">&gt;</span> <span class="n">extensionPos</span> <span class="o">?</span> <span class="n">NOT_FOUND</span> <span class="o">:</span> <span class="n">extensionPos</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>而2.8.0的commons-io的实现如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getExtension</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalArgumentException</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">fileName</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">indexOfExtension</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">NOT_FOUND</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">EMPTY_STRING</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">fileName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">index</span> <span class="o">+</span> <span class="n">1</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">indexOfExtension</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IllegalArgumentException</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">fileName</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">NOT_FOUND</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">isSystemWindows</span><span class="o">())</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">        <span class="c1">// Special handling for NTFS ADS: Don&#39;t accept colon in the fileName.  
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kd">final</span> <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="na">indexOf</span><span class="o">(</span><span class="sc">&#39;:&#39;</span><span class="o">,</span> <span class="n">getAdsCriticalOffset</span><span class="o">(</span><span class="n">fileName</span><span class="o">));</span>  
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">offset</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">&#34;NTFS ADS separator (&#39;:&#39;) in file name is forbidden.&#34;</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">extensionPos</span> <span class="o">=</span> <span class="n">fileName</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="n">EXTENSION_SEPARATOR</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">final</span> <span class="kt">int</span> <span class="n">lastSeparator</span> <span class="o">=</span> <span class="n">indexOfLastSeparator</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lastSeparator</span> <span class="o">&gt;</span> <span class="n">extensionPos</span> <span class="o">?</span> <span class="n">NOT_FOUND</span> <span class="o">:</span> <span class="n">extensionPos</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>问题就出在这里，方法多了一个<code>IllegalArgumentException</code>异常，并且是特定在windows环境下才抛出<code>NTFS ADS separator (':') in file name is forbidden.</code>，这也就解释了为什么服务打包后在Linux环境下没有问题。</p>
+<p>该方法的注释上也写了为什么会做这个改变：</p>
+<blockquote>
+<p><b>Note:</b> This method used to have a hidden problem for names like &ldquo;foo.exe:bar.txt&rdquo;.  In this case, the name wouldn&rsquo;t be the name of a file, but the identifier of an  alternate data stream (bar.txt) on the file foo.exe. The method used to return  &ldquo;.txt&rdquo; here, which would be misleading. Commons IO 2.7, and later versions, are throwing  an {@link IllegalArgumentException} for names like this.</p>
+</blockquote>
+<p>翻译过来就是，在windows上类似<code>foo.exe:bar.txt</code>的文件，<code>bar.txt</code>不是文件的名称，而是文件<code>foo.exe</code>上的备用数据流<code>bar.txt</code>的标识符。</p>
+<blockquote>
+<p>NTFS中的备用数据流（Alternate Data Stream，ADS）允许将一些元数据嵌入文件或是目录，而不需要修改其原始功能或内容。</p>
+</blockquote>
+<p>这个改动刚好是<code>commons-io</code>的2.7版本，命中了项目因为引入业务jar包导致的2.5-&gt;2.8.0的升级迭代。</p>
+<h2 id="解决">解决<a hidden class="anchor" aria-hidden="true" href="#解决">#</a></h2>
+<p>后续决定还是在业务jar中移除commons-io的2.8.0版本，沿用之前项目中的2.5版本。</p>
+<h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>项目使用<code>disconf</code>来监听配置文件的变更，实际上传入的是类似<code>classpath:log4j2.xml</code>这样的fileName，导致的问题。</p>
+<p>项目初步启动时，直接报错的堆栈中并没有关于<code>commons-io</code>的堆栈信息，只知道是<code>disconf</code>的bean无法启动，可以先从这个bean入手，逐步定位到是<code>com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean</code>成员变量<code>locations</code>的问题，进而从<code>setLocations</code>这个方法定位到使用了<code>FilenameUtils</code>中的<code>getExtension</code>，从而得知是哪里的异常。</p>
+<p>进而直接使用<code>Dependency Analyzer</code>，看到业务jar包引入了更新版本的<code>commons-io</code>，并通过对比两个版本的<code>FilenameUtils</code>的<code>getExtension</code>方法的区别，了解本次异常的原因。</p>
+<p>这是一次较为常见的组件变动引起的启动异常，但是实际上问题的表征并不能直接定位原因，合理利用debug，在项目启动时，添加断点，逐步分析，是开发者需要掌握的技能。</p>
+<p>这个问题直接搜索是不太能得到答案的，但是分析问题的过程，是初学者逐步向熟练者进阶的必备技能，特此记录，以作参考。</p>
+<h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
+<ol>
+<li><a href="https://www.cnblogs.com/zUotTe0/p/13455971.html">NTFS ADS（备用数据流）</a></li>
+</ol>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://kingstar718.github.io/tags/java/">java</a></li>
+      <li><a href="https://kingstar718.github.io/tags/bug/">bug</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://kingstar718.github.io/posts/latex-support/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Latex Support</span>
+  </a>
+  <a class="next" href="https://kingstar718.github.io/posts/blog-test/">
+    <span class="title">Next »</span>
+    <br>
+    <span>blog-test</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2023 <a href="https://kingstar718.github.io">陆上江南</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
