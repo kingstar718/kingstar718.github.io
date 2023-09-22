@@ -1,5 +1,5 @@
 baseURL: "https://kingstar718.github.io" # if your site is in 'https', then make sure your base url isn't written using 'http' otherwise your sitemap would contain http (as opposeed to https) URLs. This would affect Google indexing of your URLs.
-title: PaperMod
+title: 陆上江南
 paginate: 5
 theme: PaperMod
 
@@ -79,22 +79,22 @@ languages:
                 - name: NullLink
                   url: "#"
 
-    fa:
-        languagedirection: rtl
-        weight: 3
-        title: PaperMod RTL
-        homeInfoParams:
-            Title: "Hi there \U0001F44B"
-            Content: Welcome to RTL layout
-        taxonomies:
-          category: FAcategories
-          tag: FAtags
-          series: FAseries
-        menu:
-            main:
-                - name: FATags
-                  url: fatags
-                  weight: 10
+#    fa:
+#        languagedirection: rtl
+#        weight: 3
+#        title: PaperMod RTL
+#        homeInfoParams:
+#            Title: "Hi there \U0001F44B"
+#            Content: Welcome to RTL layout
+#        taxonomies:
+#          category: FAcategories
+#          tag: FAtags
+#          series: FAseries
+#        menu:
+#            main:
+#                - name: FATags
+#                  url: fatags
+#                  weight: 10
 
 outputs:
     home:
@@ -146,13 +146,13 @@ params:
 
             - PaperMod is based on theme [Paper](https://github.com/nanxiaobei/hugo-paper).
 
-    socialIcons:
-        - name: github
-          url: "https://github.com/adityatelange/hugo-PaperMod"
-        - name: KoFi
-          url: "https://ko-fi.com/adityatelange"
-        - name: Rss
-          url: "index.xml"
+#    socialIcons:
+#        - name: github
+#          url: "https://github.com/adityatelange/hugo-PaperMod"
+#        - name: KoFi
+#          url: "https://ko-fi.com/adityatelange"
+#        - name: Rss
+#          url: "index.xml"
 
     editPost:
         URL: "https://github.com/adityatelange/hugo-PaperMod/tree/exampleSite/content"
