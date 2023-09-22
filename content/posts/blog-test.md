@@ -1,4 +1,4 @@
-+++
+---
 author = "kingstar718"
 title = "blog-test"
 date = "2023-09-21"
@@ -6,8 +6,8 @@ description = "Guide to emoji usage in Hugo"
 tags = [
     "emoji",
 ]
-
-+++
+disableShare: true
+---
 
 blog-test
 
