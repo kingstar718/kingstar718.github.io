@@ -1,3 +1,6 @@
 [submodule "themes/hugo-theme-flat"]
 	path = themes/hugo-theme-flat
 	url = https://github.com/kingstar718/hugo-theme-flat
+[submodule "themes/PaperMod"]
+	path = themes/PaperMod
+	url = https://github.com/kingstar718/hugo-PaperMod.git
