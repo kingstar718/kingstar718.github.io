@@ -124,6 +124,7 @@ params:
     ShowToc: true
     # comments: false
     images: ["papermod-cover.png"]
+    disableShare: false
 
     profileMode:
         enabled: false
