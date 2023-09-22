@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Posts on PaperMod</title>
+    <title>Posts on 陆上江南</title>
     <link>https://kingstar718.github.io/posts/</link>
-    <description>Recent content in Posts on PaperMod</description>
+    <description>Recent content in Posts on 陆上江南</description>
     <image>
-      <title>PaperMod</title>
+      <title>陆上江南</title>
       <url>https://kingstar718.github.io/papermod-cover.png</url>
       <link>https://kingstar718.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Wed, 18 May 2022 11:22:44 +0800</lastBuildDate><atom:link href="https://kingstar718.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Markdown Syntax Guide For RTL</title>
+      <link>https://kingstar718.github.io/posts/markdown-syntax.fa/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/markdown-syntax.fa/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
     <item>
       <title>Latex Support</title>
       <link>https://kingstar718.github.io/posts/latex-support/</link>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>PaperMod</title>
+    <title>陆上江南</title>
     <link>https://kingstar718.github.io/</link>
-    <description>Recent content on PaperMod</description>
+    <description>Recent content on 陆上江南</description>
     <image>
-      <title>PaperMod</title>
+      <title>陆上江南</title>
       <url>https://kingstar718.github.io/papermod-cover.png</url>
       <link>https://kingstar718.github.io/papermod-cover.png</link>
     </image>
@@ -28,6 +28,15 @@
       
       <guid>https://kingstar718.github.io/posts/papermod/papermod-features/</guid>
       <description>Learn About All Features in PaperMod</description>
+    </item>
+    
+    <item>
+      <title>Markdown Syntax Guide For RTL</title>
+      <link>https://kingstar718.github.io/posts/markdown-syntax.fa/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/markdown-syntax.fa/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
     </item>
     
     <item>

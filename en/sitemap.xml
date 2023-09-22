@@ -8,17 +8,15 @@
     <loc>https://kingstar718.github.io/posts/papermod/papermod-features/</loc>
     <lastmod>2021-01-20T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://kingstar718.github.io/posts/markdown-syntax.fa/</loc>
+    <lastmod>2019-03-11T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://kingstar718.github.io/posts/</loc>
     <lastmod>2022-05-18T11:22:44+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="fr"
                 href="https://kingstar718.github.io/fr/posts/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fa"
-                href="https://kingstar718.github.io/fa/posts/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -41,6 +39,9 @@
     <loc>https://kingstar718.github.io/tags/emoji/</loc>
     <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://kingstar718.github.io/tags/</loc>
+    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://kingstar718.github.io/</loc>
     <lastmod>2023-09-21T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -50,17 +51,9 @@
                 />
     <xhtml:link
                 rel="alternate"
-                hreflang="fa"
-                href="https://kingstar718.github.io/fa/"
-                />
-    <xhtml:link
-                rel="alternate"
                 hreflang="en"
                 href="https://kingstar718.github.io/"
                 />
-  </url><url>
-    <loc>https://kingstar718.github.io/tags/</loc>
-    <lastmod>2023-09-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://kingstar718.github.io/essays/what-is-hugo/</loc>
     <lastmod>2022-05-16T21:57:50+08:00</lastmod>
@@ -98,11 +91,6 @@
                 rel="alternate"
                 hreflang="fr"
                 href="https://kingstar718.github.io/fr/posts/markdown-syntax/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="fa"
-                href="https://kingstar718.github.io/fa/posts/markdown-syntax/"
                 />
     <xhtml:link
                 rel="alternate"
