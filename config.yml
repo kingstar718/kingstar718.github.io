@@ -113,7 +113,7 @@ params:
 
     defaultTheme: auto
     # disableThemeToggle: true
-    ShowShareButtons: true
+    ShowShareButtons: false
     ShowReadingTime: true
     # disableSpecial1stPost: true
     displayFullLangName: true
@@ -124,7 +124,6 @@ params:
     ShowToc: true
     # comments: false
     images: ["papermod-cover.png"]
-    disableShare: false
 
     profileMode:
         enabled: false
