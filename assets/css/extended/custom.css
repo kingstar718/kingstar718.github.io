@@ -1,0 +1,40 @@
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-lite-webfont@1.1.0/style.css');
+
+/* 源文件post-single.css */
+.post-title {
+    margin-bottom: 2px;
+    font-size: 30px;
+}
+
+/* 标题格式整理 */
+.post-content h1 {
+    margin: 20px auto 22px;
+    font-size: 28px;
+}
+
+.post-content h2 {
+    margin: 12px auto 14px;
+    font-size: 24px;
+}
+
+.post-content h3 {
+    font-size: 20px;
+}
+
+.post-content h4 {
+    font-size: 16px;
+}
+
+.post-content h5 {
+    font-size: 14px;
+}
+
+.post-content h6 {
+    font-size: 12px;
+}
+
+/* 正文字体 */
+.post-content p {
+    font-size: 16px;
+    font-family: "LXGW WenKai Lite", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+}
