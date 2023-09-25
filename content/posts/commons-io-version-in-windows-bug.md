@@ -1,6 +1,6 @@
 ---
 author: "kingstar718"
-title: 'commons-io版本变动在windows环境下引发的NTFS ADS separator问题'
+title: 'win下commons-io升级导致NTFS ADS separator问题'
 date: 2023-09-22T03:33:54Z
 tags: ["java","bug"]
 draft: false
@@ -10,8 +10,13 @@ draft: false
 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
 
 ```
-org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are:
-PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property 'locations' threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (':') in file name is forbidden.
+org.springframework.beans.PropertyBatchUpdateException; 
+nested PropertyAccessExceptions (1) are:
+PropertyAccessException 1: 
+org.springframework.beans.MethodInvocationException: 
+Property 'locations' threw exception; 
+nested exception is java.lang.IllegalArgumentException: 
+NTFS ADS separator (':') in file name is forbidden.
 ```
 
 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
