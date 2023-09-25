@@ -96,9 +96,7 @@ public static String getExtension(final String filename) { if (filename == null)
       <pubDate>Wed, 27 Apr 2022 21:01:43 +0800</pubDate>
       
       <guid>https://kingstar718.github.io/about/</guid>
-      <description>About this demo site This is the about page of this theme. The content of this demo site is come from hugo-theme-mini, whose license is MIT
-This site is built by hugo, which is a fast static site generator writen in go. You can go to its offical site to get more information.
-CJK supported This hugo theme support CJK language, but some right to left language may not act as expected.</description>
+      <description>这里是陆上江南的个人博客 </description>
     </item>
     
     <item>
