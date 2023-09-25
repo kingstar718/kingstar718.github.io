@@ -24,17 +24,18 @@ languages:
       category: categories
       tag: tags
       series: series
-    profileMode:
-      enabled: true
-      title: 陆上江南的个人博客
-      # imageUrl: "https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f317.svg"
-      #imageTitle: ProfileMode image
-      # imageWidth: 120
-      # imageHeight: 120
-      # subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
-      buttons:
-        - name: 文章
-          url: archives
+    params:
+      profileMode:
+        enabled: true
+        title: 陆上江南的个人博客
+        # imageUrl: "https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f317.svg"
+        #imageTitle: ProfileMode image
+        # imageWidth: 120
+        # imageHeight: 120
+        # subtitle: "☄️ Fast | ☁️ Fluent | 🌙 Smooth | 📱 Responsive"
+        buttons:
+          - name: 文章
+            url: archives
     menu:
       main:
         - name: 文章
@@ -136,18 +137,18 @@ params:
   comments: true
   images: ["papermod-cover.png"]
 
-  profileMode:
-    enabled: false
-    title: PaperMod
-    imageUrl: "#"
-    imageTitle: my image
-    # imageWidth: 120
-    # imageHeight: 120
-    buttons:
-      - name: Archives
-        url: archives
-      - name: Tags
-        url: tags
+  #  profileMode:
+  #    enabled: true
+  #    title: PaperMod
+  #    imageUrl: "#"
+  #    imageTitle: my image
+  #   # imageWidth: 120
+  #    # imageHeight: 120
+  #    buttons:
+  #      - name: Archives
+  #        url: archives
+  #      - name: Tags
+  #        url: tags
 
   #  homeInfoParams:
   #    Title: "PaperMod"
