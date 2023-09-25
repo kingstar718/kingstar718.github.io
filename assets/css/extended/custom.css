@@ -34,7 +34,8 @@
 }
 
 /* 正文字体 */
-.post-content p {
-    font-size: 16px;
-    font-family: "LXGW WenKai Lite", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+body {
+    font-size: 18px;
+    /* font-family: "LXGW WenKai Lite", "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif; */
+    font-family: 'Optima', 'Times New Roman', 'STSong', 'Noto Serif SC', 'Microsoft YaHei', serif;
 }
