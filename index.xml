@@ -31,6 +31,15 @@
     </item>
     
     <item>
+      <title>Markdown Syntax Guide For L2</title>
+      <link>https://kingstar718.github.io/posts/markdown-syntax.fr/</link>
+      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/markdown-syntax.fr/</guid>
+      <description>Sample article showcasing basic Markdown syntax and formatting for HTML elements.</description>
+    </item>
+    
+    <item>
       <title>Markdown Syntax Guide For RTL</title>
       <link>https://kingstar718.github.io/posts/markdown-syntax.fa/</link>
       <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate>
@@ -58,18 +67,18 @@
     </item>
     
     <item>
-      <title>commons-io版本变动在windows环境下引发的NTFS ADS separator问题</title>
+      <title>win下commons-io升级导致NTFS ADS separator问题</title>
       <link>https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/</link>
       <pubDate>Fri, 22 Sep 2023 03:33:54 +0000</pubDate>
       
       <guid>https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/</guid>
       <description>起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
 org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &amp;#39;locations&amp;#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&amp;#39;:&amp;#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
-随即进入debug分析，定位异常位置，发现是在使用disconf的jar中会调用到commons-io的FilenameUtils的getExtension方法，来获取一个文件的后缀，具体调用如下：
-String extension = FilenameUtils.getExtension(fileName); 比如fileName为log4j2.xml，方法返回的就是xml。
+随即进入debug分析，定位异常位置，发现是在使用 disconf的jar中会调用到 commons-io的 FilenameUtils的 getExtension方法，来获取一个文件的后缀，具体调用如下：
+String extension = FilenameUtils.getExtension(fileName); 比如 fileName为log4j2.xml，方法返回的就是 xml。
 由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。
-分析 disconf使用的是org.apache.commons.io下的FilenameUtils，我们先看下2.5版本的实现：
-public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &amp;#34;&amp;#34;; } else { return filename.substring(index + 1); } } 关注下indexOfExtension的实现：</description>
+分析 disconf使用的是 org.apache.commons.io下的 FilenameUtils，我们先看下2.5版本的实现：
+public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &amp;#34;&amp;#34;; } else { return filename.</description>
     </item>
     
     <item>
@@ -143,6 +152,8 @@ public static String getExtension(final String filename) { if (filename == null)
       <guid>https://kingstar718.github.io/posts/emoji-support/</guid>
       <description>Guide to emoji usage in Hugo</description>
     </item>
+    
+    
     
     
     

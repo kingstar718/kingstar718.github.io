@@ -11,7 +11,7 @@
 <meta name="description" content="Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod">
 <meta name="author" content="Theme PaperMod">
 <link rel="canonical" href="https://kingstar718.github.io/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.228991b20049f80d542640228f6657408b3a582ad8559b4ed36b5b5fa0670b22.css" integrity="sha256-IomRsgBJ&#43;A1UJkAij2ZXQIs6WCrYVZtO02tbX6BnCyI=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.692b2a42003d90885ac0cd840a222f632dc13466eb29b383e3685769944dc7d5.css" integrity="sha256-aSsqQgA9kIhawM2ECiIvYy3BNGbrKbOD42hXaZRNx9U=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://kingstar718.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://kingstar718.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://kingstar718.github.io/favicon-32x32.png">
@@ -21,8 +21,6 @@
 <meta name="msapplication-TileColor" content="#2e2e33">
 <link rel="alternate" type="application/rss+xml" href="https://kingstar718.github.io/index.xml">
 <link rel="alternate" type="application/json" href="https://kingstar718.github.io/index.json">
-<link rel="alternate" hreflang="en" href="https://kingstar718.github.io/">
-<link rel="alternate" hreflang="fr" href="https://kingstar718.github.io/fr/">
 <noscript>
     <style>
         #theme-toggle,
@@ -122,39 +120,51 @@
                         <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
                     </svg>
                 </button>
-                <ul class="lang-switch"><li>|</li>
-                    <li>
-                        <a href="https://kingstar718.github.io/fr/" title="French"
-                            aria-label=":fr:">🇫🇷</a>
-                    </li>
-                </ul>
             </div>
         </div>
         <ul id="menu">
             <li>
-                <a href="https://kingstar718.github.io/archives" title="Archive">
-                    <span>Archive</span>
+                <a href="https://kingstar718.github.io/archives" title="文章">
+                    <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="https://kingstar718.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
-                    <span>Search</span>
+                <a href="https://kingstar718.github.io/search/" title="搜索">
+                    <span>搜索</span>
                 </a>
             </li>
             <li>
-                <a href="https://kingstar718.github.io/tags/" title="Tags">
-                    <span>Tags</span>
+                <a href="https://kingstar718.github.io/tags/" title="标签">
+                    <span>标签</span>
                 </a>
             </li>
             <li>
-                <a href="https://kingstar718.github.io/about" title="About">
-                    <span>About</span>
+                <a href="https://kingstar718.github.io/about" title="关于">
+                    <span>关于</span>
                 </a>
             </li>
         </ul>
     </nav>
 </header>
 <main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>win下commons-io升级导致NTFS ADS separator问题
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
+org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
+随即进入debug分析，定位异常位置，发现是在使用 disconf的jar中会调用到 commons-io的 FilenameUtils的 getExtension方法，来获取一个文件的后缀，具体调用如下：
+String extension = FilenameUtils.getExtension(fileName); 比如 fileName为log4j2.xml，方法返回的就是 xml。
+由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。
+分析 disconf使用的是 org.apache.commons.io下的 FilenameUtils，我们先看下2.5版本的实现：
+public static String getExtension(final String filename) { if (filename == null) { return null; } final int index = indexOfExtension(filename); if (index == NOT_FOUND) { return &#34;&#34;; } else { return filename....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-09-22 03:33:54 +0000 UTC'>2023-09-22</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;kingstar718</footer>
+  <a class="entry-link" aria-label="post link to win下commons-io升级导致NTFS ADS separator问题" href="https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/"></a>
+</article>
 
 <article class="post-entry"> 
   <header class="entry-header">
@@ -166,7 +176,7 @@
 你好世界 科学 发展 拼单 这是一个引用。
 wode </p>
   </div>
-  <footer class="entry-footer"><span title='2023-09-21 00:00:00 +0000 UTC'>September 21, 2023</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;kingstar718</footer>
+  <footer class="entry-footer"><span title='2023-09-21 00:00:00 +0000 UTC'>2023-09-21</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;kingstar718</footer>
   <a class="entry-link" aria-label="post link to blog-test" href="https://kingstar718.github.io/posts/blog-test/"></a>
 </article>
 
@@ -179,7 +189,7 @@ wode </p>
     <p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2019-03-11 00:00:00 +0000 UTC'>March 11, 2019</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Hugo Authors</footer>
+  <footer class="entry-footer"><span title='2019-03-11 00:00:00 +0000 UTC'>2019-03-11</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Hugo Authors</footer>
   <a class="entry-link" aria-label="post link to Markdown Syntax Guide" href="https://kingstar718.github.io/posts/markdown-syntax/"></a>
 </article>
 
@@ -192,7 +202,7 @@ wode </p>
     <p>Hugo ships with several Built-in Shortcodes for rich content, along with a Privacy Config and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2019-03-10 00:00:00 +0000 UTC'>March 10, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Hugo Authors</footer>
+  <footer class="entry-footer"><span title='2019-03-10 00:00:00 +0000 UTC'>2019-03-10</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Hugo Authors</footer>
   <a class="entry-link" aria-label="post link to Rich Content" href="https://kingstar718.github.io/posts/rich-content/"></a>
 </article>
 
@@ -206,19 +216,6 @@ wode </p>
 ...</p>
   </div>
   <a class="entry-link" aria-label="post link to Placeholder Text" href="https://kingstar718.github.io/posts/placeholder-text/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2>Math Typesetting
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2019-03-08 00:00:00 +0000 UTC'>March 8, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Hugo Authors</footer>
-  <a class="entry-link" aria-label="post link to Math Typesetting" href="https://kingstar718.github.io/posts/math-typesetting/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
