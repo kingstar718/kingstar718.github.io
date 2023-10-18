@@ -11,7 +11,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 22 Sep 2023 03:33:54 +0000</lastBuildDate><atom:link href="https://kingstar718.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://kingstar718.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Installation | Update</title>
       <link>https://kingstar718.github.io/posts/papermod/papermod-installation/</link>
@@ -64,6 +64,33 @@
       
       <guid>https://kingstar718.github.io/posts/latex-support/</guid>
       <description>&lt;p&gt;This article contians some test for latex support. Currently the lib used for rendering LaTeX is &lt;a href=&#34;https://katex.org/&#34;&gt;\(\KaTeX\)&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch Java API GEO操作（REST命令版）</title>
+      <link>https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/</link>
+      <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/</guid>
+      <description>前言 ElasticSearch支持地理空间数据查询、搜索，提供 geo_point、geo_shape两种地理数据类型。
+geo_point用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。
+geo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。
+新增索引 PUT /my_locations { &amp;#34;mappings&amp;#34;: { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; } } } } PUT后边紧跟的就是需要创建的索引名：my_locations。mappings中设置了一个属性 name，为 text类型。
+更新geo类型的mappings 新增两个字段，location字段类型为 geo_point，polygon字段类型为 geo_shape。
+PUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。
+PUT /my_locations/_mapping { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; }, &amp;#34;location&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;geo_point&amp;#34; }, &amp;#34;polygon&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;geo_shape&amp;#34; } } } 查询修改后的索引 GET my_locations/_mapping { &amp;#34;my_locations&amp;#34;: &amp;#34;mappings&amp;#34;: &amp;#34;properties&amp;#34;: &amp;#34;location&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;geo_point&amp;#34; }, &amp;#34;name&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; }, &amp;#34;polygon&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;geo_shape&amp;#34; } } } } } 注意不要在请求体里的 body里填 {}，会报错。</description>
+    </item>
+    
+    <item>
+      <title>ElasticSearch Java API 基本操作</title>
+      <link>https://kingstar718.github.io/posts/elasticsearch-java-api-base-code/</link>
+      <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/elasticsearch-java-api-base-code/</guid>
+      <description>前言 ElasticSearch Java API是ES官方在8.x版本推出的新java api，也可以适用于7.17.x版本的es。
+本文主要参考了相关博文，自己手动编写了下相关操作代码，包括更新mappings等操作的java代码。
+代码示例已上传github。
+版本 elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本： &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;co.elastic.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;elasticsearch-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.17.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.12.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&amp;#34;{}&amp;#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log.</description>
     </item>
     
     <item>

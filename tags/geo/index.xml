@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>geo on 陆上江南</title>
+    <link>https://kingstar718.github.io/tags/geo/</link>
+    <description>Recent content in geo on 陆上江南</description>
+    <image>
+      <title>陆上江南</title>
+      <url>https://kingstar718.github.io/papermod-cover.png</url>
+      <link>https://kingstar718.github.io/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://kingstar718.github.io/tags/geo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ElasticSearch Java API GEO操作（REST命令版）</title>
+      <link>https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/</link>
+      <pubDate>Wed, 18 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/</guid>
+      <description>前言 ElasticSearch支持地理空间数据查询、搜索，提供 geo_point、geo_shape两种地理数据类型。
+geo_point用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。
+geo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。
+新增索引 PUT /my_locations { &amp;#34;mappings&amp;#34;: { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; } } } } PUT后边紧跟的就是需要创建的索引名：my_locations。mappings中设置了一个属性 name，为 text类型。
+更新geo类型的mappings 新增两个字段，location字段类型为 geo_point，polygon字段类型为 geo_shape。
+PUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。
+PUT /my_locations/_mapping { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; }, &amp;#34;location&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;geo_point&amp;#34; }, &amp;#34;polygon&amp;#34;: { &amp;#34;type&amp;#34;: &amp;#34;geo_shape&amp;#34; } } } 查询修改后的索引 GET my_locations/_mapping { &amp;#34;my_locations&amp;#34;: &amp;#34;mappings&amp;#34;: &amp;#34;properties&amp;#34;: &amp;#34;location&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;geo_point&amp;#34; }, &amp;#34;name&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;text&amp;#34; }, &amp;#34;polygon&amp;#34;: &amp;#34;type&amp;#34;: &amp;#34;geo_shape&amp;#34; } } } } } 注意不要在请求体里的 body里填 {}，会报错。</description>
+    </item>
+    
+  </channel>
+</rss>

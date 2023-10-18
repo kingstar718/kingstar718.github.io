@@ -148,6 +148,39 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2>ElasticSearch Java API GEO操作（REST命令版）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 ElasticSearch支持地理空间数据查询、搜索，提供 geo_point、geo_shape两种地理数据类型。
+geo_point用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。
+geo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。
+新增索引 PUT /my_locations { &#34;mappings&#34;: { &#34;properties&#34;: { &#34;name&#34;: { &#34;type&#34;: &#34;text&#34; } } } } PUT后边紧跟的就是需要创建的索引名：my_locations。mappings中设置了一个属性 name，为 text类型。
+更新geo类型的mappings 新增两个字段，location字段类型为 geo_point，polygon字段类型为 geo_shape。
+PUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。
+PUT /my_locations/_mapping { &#34;properties&#34;: { &#34;name&#34;: { &#34;type&#34;: &#34;text&#34; }, &#34;location&#34;: { &#34;type&#34;: &#34;geo_point&#34; }, &#34;polygon&#34;: { &#34;type&#34;: &#34;geo_shape&#34; } } } 查询修改后的索引 GET my_locations/_mapping { &#34;my_locations&#34;: &#34;mappings&#34;: &#34;properties&#34;: &#34;location&#34;: &#34;type&#34;: &#34;geo_point&#34; }, &#34;name&#34;: &#34;type&#34;: &#34;text&#34; }, &#34;polygon&#34;: &#34;type&#34;: &#34;geo_shape&#34; } } } } } 注意不要在请求体里的 body里填 {}，会报错。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-18 00:00:00 +0000 UTC'>2023-10-18</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;kingstar718</footer>
+  <a class="entry-link" aria-label="post link to ElasticSearch Java API GEO操作（REST命令版）" href="https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>ElasticSearch Java API 基本操作
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 ElasticSearch Java API是ES官方在8.x版本推出的新java api，也可以适用于7.17.x版本的es。
+本文主要参考了相关博文，自己手动编写了下相关操作代码，包括更新mappings等操作的java代码。
+代码示例已上传github。
+版本 elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本： &lt;dependency&gt; &lt;groupId&gt;co.elastic.clients&lt;/groupId&gt; &lt;artifactId&gt;elasticsearch-java&lt;/artifactId&gt; &lt;version&gt;7.17.9&lt;/version&gt; &lt;/dependency&gt; &lt;dependency&gt; &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt; &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt; &lt;version&gt;2.12.3&lt;/version&gt; &lt;/dependency&gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&#34;{}&#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log....</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-18 00:00:00 +0000 UTC'>2023-10-18</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;kingstar718</footer>
+  <a class="entry-link" aria-label="post link to ElasticSearch Java API 基本操作" href="https://kingstar718.github.io/posts/elasticsearch-java-api-base-code/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2>win下commons-io升级导致NTFS ADS separator问题
     </h2>
   </header>
