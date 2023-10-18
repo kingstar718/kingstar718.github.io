@@ -1,11 +1,10 @@
 ---
 author: "kingstar718"
 title: 'ElasticSearch Java API 基本操作'
-date: 2023-10-18T16:43:24Z
+date: 2023-10-18
 tags: ["java","elasticsearch"]
 draft: false
 ---
-
 ## 前言
 
 ElasticSearch Java API是ES官方在8.x版本推出的新java api，也可以适用于7.17.x版本的es。
