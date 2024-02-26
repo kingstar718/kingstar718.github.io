@@ -10,7 +10,6 @@
       <link>https://kingstar718.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
     <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://kingstar718.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>elasticsearch</title>
@@ -42,7 +41,7 @@
     <item>
       <title>bug</title>
       <link>https://kingstar718.github.io/tags/bug/</link>
-      <pubDate>Fri, 22 Sep 2023 03:33:54 +0000</pubDate>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://kingstar718.github.io/tags/bug/</guid>
       <description></description>

@@ -10,7 +10,6 @@
       <link>https://kingstar718.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
     <lastBuildDate>Wed, 18 May 2022 11:22:44 +0800</lastBuildDate><atom:link href="https://kingstar718.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Markdown Syntax Guide For L2</title>
@@ -63,17 +62,17 @@ PUT /my_locations/_mapping { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#
       <description>前言 ElasticSearch Java API是ES官方在8.x版本推出的新java api，也可以适用于7.17.x版本的es。
 本文主要参考了相关博文，自己手动编写了下相关操作代码，包括更新mappings等操作的java代码。
 代码示例已上传github。
-版本 elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本： &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;co.elastic.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;elasticsearch-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.17.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.12.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&amp;#34;{}&amp;#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log.</description>
+版本  elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本：  &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;co.elastic.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;elasticsearch-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.17.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.12.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&amp;#34;{}&amp;#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log.</description>
     </item>
     
     <item>
       <title>win下commons-io升级导致NTFS ADS separator问题</title>
       <link>https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/</link>
-      <pubDate>Fri, 22 Sep 2023 03:33:54 +0000</pubDate>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 +0000</pubDate>
       
       <guid>https://kingstar718.github.io/posts/commons-io-version-in-windows-bug/</guid>
       <description>起因 因业务需求，项目中引入了一个对方的业务jar包，但是发现代码却启动不起来了，报错：
-org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &amp;#39;locations&amp;#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&amp;#39;:&amp;#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
+org.springframework.beans.PropertyBatchUpdateException; nested PropertyAccessExceptions (1) are: PropertyAccessException 1: org.springframework.beans.MethodInvocationException: Property &#39;locations&#39; threw exception; nested exception is java.lang.IllegalArgumentException: NTFS ADS separator (&#39;:&#39;) in file name is forbidden. 尽管本地环境（windows）启动不起来，但是打包后放入Linux容器中是正常运行的。
 随即进入debug分析，定位异常位置，发现是在使用 disconf的jar中会调用到 commons-io的 FilenameUtils的 getExtension方法，来获取一个文件的后缀，具体调用如下：
 String extension = FilenameUtils.getExtension(fileName); 比如 fileName为log4j2.xml，方法返回的就是 xml。
 由于业务方引入的jar包中包含的commons-io的2.8.0的新包，IDEA启动时默认会使用该包，实际上原项目commons-io使用的是2.5版本。

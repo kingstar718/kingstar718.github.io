@@ -10,7 +10,6 @@
       <link>https://kingstar718.github.io/papermod-cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en</language>
     <lastBuildDate>Wed, 18 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://kingstar718.github.io/tags/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>ElasticSearch Java API GEO操作（REST命令版）</title>
@@ -36,7 +35,7 @@ PUT /my_locations/_mapping { &amp;#34;properties&amp;#34;: { &amp;#34;name&amp;#
       <description>前言 ElasticSearch Java API是ES官方在8.x版本推出的新java api，也可以适用于7.17.x版本的es。
 本文主要参考了相关博文，自己手动编写了下相关操作代码，包括更新mappings等操作的java代码。
 代码示例已上传github。
-版本 elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本： &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;co.elastic.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;elasticsearch-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.17.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.12.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&amp;#34;{}&amp;#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log.</description>
+版本  elasticsearch版本：7.17.9，修改 /elasticsearch-7.17.9/config/elasticsearch.yml，新增一行配置：xpack.security.enabled: false，避免提示 cerebro版本：0.8.5（浏览器连接es工具） jdk版本：11 elasticsearch-java版本：  &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;co.elastic.clients&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;elasticsearch-java&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;7.17.9&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.12.3&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; 连接 public static ElasticsearchClient getEsClient(String serverUrl) throws IOException { RestClient restClient = RestClient.builder(HttpHost.create(serverUrl)).build(); ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper()); ElasticsearchClient esClient = new ElasticsearchClient(transport); log.info(&amp;#34;{}&amp;#34;, esClient.info()); return esClient; } 索引 创建索引 public static void createIndex(ElasticsearchClient esClient, String indexName) throws IOException { if (existsIndex(esClient, indexName)) { log.</description>
     </item>
     
   </channel>

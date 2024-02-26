@@ -160,7 +160,7 @@ geo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式�
 PUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。
 PUT /my_locations/_mapping { &#34;properties&#34;: { &#34;name&#34;: { &#34;type&#34;: &#34;text&#34; }, &#34;location&#34;: { &#34;type&#34;: &#34;geo_point&#34; }, &#34;polygon&#34;: { &#34;type&#34;: &#34;geo_shape&#34; } } } 查询修改后的索引 GET my_locations/_mapping { &#34;my_locations&#34;: &#34;mappings&#34;: &#34;properties&#34;: &#34;location&#34;: &#34;type&#34;: &#34;geo_point&#34; }, &#34;name&#34;: &#34;type&#34;: &#34;text&#34; }, &#34;polygon&#34;: &#34;type&#34;: &#34;geo_shape&#34; } } } } } 注意不要在请求体里的 body里填 {}，会报错。...</p>
   </div>
-  <footer class="entry-footer">&lt;span title=&#39;2023-10-18 00:00:00 &#43;0000 UTC&#39;&gt;2023-10-18&lt;/span&gt;&amp;nbsp;·&amp;nbsp;3 min&amp;nbsp;·&amp;nbsp;kingstar718</footer>
+  <footer class="entry-footer"><span title='2023-10-18 00:00:00 +0000 UTC'>2023-10-18</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;kingstar718</footer>
   <a class="entry-link" aria-label="post link to ElasticSearch Java API GEO操作（REST命令版）" href="https://kingstar718.github.io/posts/elasticsearch-java-api-rest-geo/"></a>
 </article>
     </main>

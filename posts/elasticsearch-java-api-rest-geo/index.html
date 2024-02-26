@@ -116,7 +116,7 @@ PUT /my_locations/_mapping { &#34;properties&#34;: { &#34;name&#34;: { &#34;type
   "keywords": [
     "java", "elasticsearch", "geo"
   ],
-  "articleBody": "前言 ElasticSearch支持地理空间数据查询、搜索，提供 geo_point、geo_shape两种地理数据类型。\ngeo_point用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。\ngeo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。\n新增索引 PUT /my_locations { \"mappings\": { \"properties\": { \"name\": { \"type\": \"text\" } } } } PUT后边紧跟的就是需要创建的索引名：my_locations。mappings中设置了一个属性 name，为 text类型。\n更新geo类型的mappings 新增两个字段，location字段类型为 geo_point，polygon字段类型为 geo_shape。\nPUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。\nPUT /my_locations/_mapping { \"properties\": { \"name\": { \"type\": \"text\" }, \"location\": { \"type\": \"geo_point\" }, \"polygon\": { \"type\": \"geo_shape\" } } } 查询修改后的索引 GET my_locations/_mapping { \"my_locations\": \"mappings\": \"properties\": \"location\": \"type\": \"geo_point\" }, \"name\": \"type\": \"text\" }, \"polygon\": \"type\": \"geo_shape\" } } } } } 注意不要在请求体里的 body里填 {}，会报错。\n新增geo数据 固有格式就是 /索引名/_doc/id，表示添加数据。geo_point支持普通经纬度数组、WKT、geohash格式的地理数据。\n三种类型的经纬度格式都是经度在前，纬度在后。\n新增经纬度数组类型的地理坐标点数据：\nPOST /my_locations/_doc/1 { \"name\": \"喜茶\", \"location\": [ 113.947539, 22.530122 ] } 新增 WKT类型的地理坐标点数据：\nPOST my_locations/_doc/2 { \"name\": \"喜茶2\", \"location\": \"POINT(113.947539 22.530122)\" } 新增 geohash类型的地理坐标点数据：\nPOST my_locations/_doc/3 { \"name\": \"喜茶geohash\", \"location\": \"ws100vqp6p\" } 新增另一个地点\nPOST my_locations/_doc/4\n{ \"name\": \"平安银行\", \"location\": [ 113.945805, 22.530055 ] } 距离查询 传入一个坐标原点和相应的距离范围，来搜索范围内是否存在坐标点：\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_distance\": { \"distance\": \"500m\", \"location\": [ 113.948769,22.530063 ] } } } } } 其中距离单位参考：https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units 常见的公里为 km，米为 m，默认是米。\n聚合查询 定义一个原点和一组距离范围桶，聚合评估每个文档值与原点的距离。\nGET my_locations/_search?size=0\u0026filter_path=aggregations { \"aggs\": { \"data_around_city\": { \"geo_distance\": { \"unit\": \"m\", \"field\": \"location\", \"origin\": \"113.94823,22.530143\", \"ranges\": [ { \"to\": 100 }, { \"from\": 100, \"to\": 300 }, { \"from\": 600, \"to\": 1000 }, { \"from\": 1000 } ] } } } } 地理多边形内的点 传入一个多边形来判断多边形范围内是否有坐标点，使用 within方法表示内部。\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"location\": { \"shape\": { \"type\": \"polygon\", \"relation\": \"within\", \"coordinates\": [ [ [ 113.942373, 22.531399 ], [ 113.955111, 22.531432 ], [ 113.953261, 22.524538 ], [ 113.940451, 22.525991 ] ] ] } } } } } } } 新增面数据 es支持的另一种地理类型字段为 geo_shape，包括点、线、多线、面、多面等常见地理类型数据。支持 GeoJson和 WKT两种标准的地理数据格式。\n为第一个喜茶新增多边形的 GeoJson数据：\nPOST my_locations/_doc/1 { \"name\": \"喜茶\", \"location\": [ 113.947539, 22.530122 ], \"polygon\": { \"type\": \"envelope\", \"coordinates\": [ [ 113.947248, 22.530295 ], [ 113.94776, 22.529753 ] ] } } 为第二个喜茶新增 WKT数据\nPOST my_locations/_doc/2 { \"name\": \"喜茶2\", \"location\": \"POINT(113.947539 22.530122)\", \"polygon\": \"POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) \" } 通过点判断落面 判断传入的点落在是否被包含(contains)在相应的多边形内：\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"polygon\": { \"shape\": { \"type\": \"point\", \"coordinates\": [ 113.947305, 22.530055 ] }, \"relation\": \"contains\" } } } } } } 判断面相交 GET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"polygon\": { \"shape\": { \"type\": \"polygon\", \"relation\": \"intersects\", \"coordinates\": [ [ [ 113.947522, 22.530091 ], [ 113.948169, 22.529966 ], [ 113.948187, 22.529695 ], [ 113.94754, 22.529707 ] ] ] } } } } } } } 参考 Elasticsearch：Geo Point 和 Geo Shape 查询解释 Elasticsearch地理空间之geo_shape ES地理范围查询第一讲：Java操作地理位置信息（geo_point） Elasticsearch 之（53） Java API 基于geo_shape根据坐标查找 坐标落在店铺范围的店铺 Geo queries 百度地图坐标拾取系统 在线经纬度转geohash # 百度地图 geohash 可视化工具 ",
+  "articleBody": "前言 ElasticSearch支持地理空间数据查询、搜索，提供 geo_point、geo_shape两种地理数据类型。\ngeo_point用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。\ngeo_shape用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。\n新增索引 PUT /my_locations { \"mappings\": { \"properties\": { \"name\": { \"type\": \"text\" } } } } PUT后边紧跟的就是需要创建的索引名：my_locations。mappings中设置了一个属性 name，为 text类型。\n更新geo类型的mappings 新增两个字段，location字段类型为 geo_point，polygon字段类型为 geo_shape。\nPUT后边紧跟索引名 my_locations，加 _mapping表示在操作mappings。\nPUT /my_locations/_mapping { \"properties\": { \"name\": { \"type\": \"text\" }, \"location\": { \"type\": \"geo_point\" }, \"polygon\": { \"type\": \"geo_shape\" } } } 查询修改后的索引 GET my_locations/_mapping { \"my_locations\": \"mappings\": \"properties\": \"location\": \"type\": \"geo_point\" }, \"name\": \"type\": \"text\" }, \"polygon\": \"type\": \"geo_shape\" } } } } } 注意不要在请求体里的 body里填 {}，会报错。\n新增geo数据 固有格式就是 /索引名/_doc/id，表示添加数据。geo_point支持普通经纬度数组、WKT、geohash格式的地理数据。\n三种类型的经纬度格式都是经度在前，纬度在后。\n新增经纬度数组类型的地理坐标点数据：\nPOST /my_locations/_doc/1 { \"name\": \"喜茶\", \"location\": [ 113.947539, 22.530122 ] } 新增 WKT类型的地理坐标点数据：\nPOST my_locations/_doc/2 { \"name\": \"喜茶2\", \"location\": \"POINT(113.947539 22.530122)\" } 新增 geohash类型的地理坐标点数据：\nPOST my_locations/_doc/3 { \"name\": \"喜茶geohash\", \"location\": \"ws100vqp6p\" } 新增另一个地点\nPOST my_locations/_doc/4\n{ \"name\": \"平安银行\", \"location\": [ 113.945805, 22.530055 ] } 距离查询 传入一个坐标原点和相应的距离范围，来搜索范围内是否存在坐标点：\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_distance\": { \"distance\": \"500m\", \"location\": [ 113.948769,22.530063 ] } } } } } 其中距离单位参考：https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units 常见的公里为 km，米为 m，默认是米。\n聚合查询 定义一个原点和一组距离范围桶，聚合评估每个文档值与原点的距离。\nGET my_locations/_search?size=0\u0026filter_path=aggregations { \"aggs\": { \"data_around_city\": { \"geo_distance\": { \"unit\": \"m\", \"field\": \"location\", \"origin\": \"113.94823,22.530143\", \"ranges\": [ { \"to\": 100 }, { \"from\": 100, \"to\": 300 }, { \"from\": 600, \"to\": 1000 }, { \"from\": 1000 } ] } } } } 地理多边形内的点 传入一个多边形来判断多边形范围内是否有坐标点，使用 within方法表示内部。\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"location\": { \"shape\": { \"type\": \"polygon\", \"relation\": \"within\", \"coordinates\": [ [ [ 113.942373, 22.531399 ], [ 113.955111, 22.531432 ], [ 113.953261, 22.524538 ], [ 113.940451, 22.525991 ] ] ] } } } } } } } 新增面数据 es支持的另一种地理类型字段为 geo_shape，包括点、线、多线、面、多面等常见地理类型数据。支持 GeoJson和 WKT两种标准的地理数据格式。\n为第一个喜茶新增多边形的 GeoJson数据：\nPOST my_locations/_doc/1 { \"name\": \"喜茶\", \"location\": [ 113.947539, 22.530122 ], \"polygon\": { \"type\": \"envelope\", \"coordinates\": [ [ 113.947248, 22.530295 ], [ 113.94776, 22.529753 ] ] } } 为第二个喜茶新增 WKT数据\nPOST my_locations/_doc/2 { \"name\": \"喜茶2\", \"location\": \"POINT(113.947539 22.530122)\", \"polygon\": \"POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) \" } 通过点判断落面 判断传入的点落在是否被包含(contains)在相应的多边形内：\nGET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"polygon\": { \"shape\": { \"type\": \"point\", \"coordinates\": [ 113.947305, 22.530055 ] }, \"relation\": \"contains\" } } } } } } 判断面相交 GET my_locations/_search { \"query\": { \"bool\": { \"must\": { \"match_all\": {} }, \"filter\": { \"geo_shape\": { \"polygon\": { \"shape\": { \"type\": \"polygon\", \"relation\": \"intersects\", \"coordinates\": [ [ [ 113.947522, 22.530091 ], [ 113.948169, 22.529966 ], [ 113.948187, 22.529695 ], [ 113.94754, 22.529707 ] ] ] } } } } } } } 参考  Elasticsearch：Geo Point 和 Geo Shape 查询解释 Elasticsearch地理空间之geo_shape ES地理范围查询第一讲：Java操作地理位置信息（geo_point） Elasticsearch 之（53） Java API 基于geo_shape根据坐标查找 坐标落在店铺范围的店铺 Geo queries 百度地图坐标拾取系统 在线经纬度转geohash # 百度地图 geohash 可视化工具  ",
   "wordCount" : "432",
   "inLanguage": "en",
   "datePublished": "2023-10-18T00:00:00Z",
@@ -212,7 +212,7 @@ PUT /my_locations/_mapping { &#34;properties&#34;: { &#34;name&#34;: { &#34;type
     <h1 class="post-title">
       ElasticSearch Java API GEO操作（REST命令版）
     </h1>
-    <div class="post-meta">&lt;span title=&#39;2023-10-18 00:00:00 &#43;0000 UTC&#39;&gt;2023-10-18&lt;/span&gt;&amp;nbsp;·&amp;nbsp;3 min&amp;nbsp;·&amp;nbsp;kingstar718&nbsp;|&nbsp;<a href="https://github.com/kingstar718/kingstar718.github.io/blob/main/content/posts/elasticsearch-java-api-rest-geo.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
+    <div class="post-meta"><span title='2023-10-18 00:00:00 +0000 UTC'>2023-10-18</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;kingstar718&nbsp;|&nbsp;<a href="https://github.com/kingstar718/kingstar718.github.io/blob/main/content/posts/elasticsearch-java-api-rest-geo.md" rel="noopener noreferrer" target="_blank">Suggest Changes</a>
 
 </div>
   </header> <div class="toc">
@@ -257,280 +257,280 @@ PUT /my_locations/_mapping { &#34;properties&#34;: { &#34;name&#34;: { &#34;type
 <p><code>geo_point</code>用于描述一个或多个地理坐标点，主要用于周边位置查询、边界内搜索点、聚合多个范围内的点等功能。</p>
 <p><code>geo_shape</code>用于描述点线面等多种地理数据，使用GeoJson标准格式描述，可以对这些地理数据做相交、不相交、包含等等地理关系的判断与计算。</p>
 <h2 id="新增索引">新增索引<a hidden class="anchor" aria-hidden="true" href="#新增索引">#</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">/my_locations</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>PUT后边紧跟的就是需要创建的索引名：<code>my_locations</code>。<code>mappings</code>中设置了一个属性 <code>name</code>，为 <code>text</code>类型。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">/my_locations</span>
+<span class="p">{</span>
+  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>PUT后边紧跟的就是需要创建的索引名：<code>my_locations</code>。<code>mappings</code>中设置了一个属性 <code>name</code>，为 <code>text</code>类型。</p>
 <h2 id="更新geo类型的mappings">更新geo类型的mappings<a hidden class="anchor" aria-hidden="true" href="#更新geo类型的mappings">#</a></h2>
 <p>新增两个字段，<code>location</code>字段类型为 <code>geo_point</code>，<code>polygon</code>字段类型为 <code>geo_shape</code>。</p>
 <p><code>PUT</code>后边紧跟索引名 <code>my_locations</code>，加 <code>_mapping</code>表示在操作mappings。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">/my_locations/_mapping</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_point&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_shape&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="查询修改后的索引">查询修改后的索引<a hidden class="anchor" aria-hidden="true" href="#查询修改后的索引">#</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_mapping</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;my_locations&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;mappings&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">      <span class="s2">&#34;properties&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;location&#34;</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_point&#34;</span>  
-</span></span><span class="line"><span class="cl">        <span class="p">}</span><span class="err">,</span>  
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;name&#34;</span><span class="err">:</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;type&#34;</span><span class="err">:</span> <span class="s2">&#34;text&#34;</span>  
-</span></span><span class="line"><span class="cl">        <span class="err">},</span>  
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;polygon&#34;</span><span class="err">:</span>
-</span></span><span class="line"><span class="cl">          <span class="s2">&#34;type&#34;</span><span class="err">:</span> <span class="s2">&#34;geo_shape&#34;</span>  
-</span></span><span class="line"><span class="cl">        <span class="err">}</span>  
-</span></span><span class="line"><span class="cl">      <span class="err">}</span>  
-</span></span><span class="line"><span class="cl">    <span class="err">}</span>  
-</span></span><span class="line"><span class="cl">  <span class="err">}</span>  
-</span></span><span class="line"><span class="cl"><span class="err">}</span>
-</span></span></code></pre></div><p>注意不要在请求体里的 <code>body</code>里填 <code>{}</code>，会报错。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">/my_locations/_mapping</span>
+<span class="p">{</span>
+  <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_point&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_shape&#34;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="查询修改后的索引">查询修改后的索引<a hidden class="anchor" aria-hidden="true" href="#查询修改后的索引">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_mapping</span>
+<span class="p">{</span>
+  <span class="nt">&#34;my_locations&#34;</span><span class="p">:</span>
+    <span class="s2">&#34;mappings&#34;</span><span class="p">:</span>
+      <span class="s2">&#34;properties&#34;</span><span class="p">:</span>
+        <span class="s2">&#34;location&#34;</span><span class="p">:</span>
+          <span class="s2">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;geo_point&#34;</span>  
+        <span class="p">}</span><span class="err">,</span>  
+        <span class="s2">&#34;name&#34;</span><span class="err">:</span>
+          <span class="s2">&#34;type&#34;</span><span class="err">:</span> <span class="s2">&#34;text&#34;</span>  
+        <span class="err">},</span>  
+        <span class="s2">&#34;polygon&#34;</span><span class="err">:</span>
+          <span class="s2">&#34;type&#34;</span><span class="err">:</span> <span class="s2">&#34;geo_shape&#34;</span>  
+        <span class="err">}</span>  
+      <span class="err">}</span>  
+    <span class="err">}</span>  
+  <span class="err">}</span>  
+<span class="err">}</span>
+</code></pre></div><p>注意不要在请求体里的 <code>body</code>里填 <code>{}</code>，会报错。</p>
 <h2 id="新增geo数据">新增geo数据<a hidden class="anchor" aria-hidden="true" href="#新增geo数据">#</a></h2>
 <p>固有格式就是 <code>/索引名/_doc/id</code>，表示添加数据。<code>geo_point</code>支持普通经纬度数组、<code>WKT</code>、<code>geohash</code>格式的地理数据。</p>
 <p>三种类型的经纬度格式都是经度在前，纬度在后。</p>
 <p>新增经纬度数组类型的地理坐标点数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">/my_locations/_doc/</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="mf">113.947539</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="mf">22.530122</span>
-</span></span><span class="line"><span class="cl">  <span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>新增 <code>WKT</code>类型的地理坐标点数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶2&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;POINT(113.947539 22.530122)&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>新增 <code>geohash</code>类型的地理坐标点数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">3</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶geohash&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;ws100vqp6p&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>新增另一个地点</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">/my_locations/_doc/</span><span class="mi">1</span>
+<span class="p">{</span>
+  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="mf">113.947539</span><span class="p">,</span>
+    <span class="mf">22.530122</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><p>新增 <code>WKT</code>类型的地理坐标点数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">2</span>
+<span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶2&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;POINT(113.947539 22.530122)&#34;</span>
+<span class="p">}</span>
+</code></pre></div><p>新增 <code>geohash</code>类型的地理坐标点数据：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">3</span>
+<span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶geohash&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;ws100vqp6p&#34;</span>
+<span class="p">}</span>
+</code></pre></div><p>新增另一个地点</p>
 <p><code>POST my_locations/_doc/4</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;平安银行&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">		<span class="mf">113.945805</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="mf">22.530055</span>
-</span></span><span class="line"><span class="cl">	<span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="距离查询">距离查询<a hidden class="anchor" aria-hidden="true" href="#距离查询">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;平安银行&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
+		<span class="mf">113.945805</span><span class="p">,</span>
+		<span class="mf">22.530055</span>
+	<span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="距离查询">距离查询<a hidden class="anchor" aria-hidden="true" href="#距离查询">#</a></h2>
 <p>传入一个坐标原点和相应的距离范围，来搜索范围内是否存在坐标点：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_search</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">            <span class="p">},</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nt">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;distance&#34;</span><span class="p">:</span> <span class="s2">&#34;500m&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                        <span class="mf">113.948769</span><span class="p">,</span><span class="mf">22.530063</span>
-</span></span><span class="line"><span class="cl">                    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">                <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>其中距离单位参考：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units">https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units</a>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_search</span>
+<span class="p">{</span>
+    <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;distance&#34;</span><span class="p">:</span> <span class="s2">&#34;500m&#34;</span><span class="p">,</span>
+                    <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="mf">113.948769</span><span class="p">,</span><span class="mf">22.530063</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>其中距离单位参考：<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units">https://www.elastic.co/guide/en/elasticsearch/reference/current/api-conventions.html#distance-units</a>
 常见的公里为 <code>km</code>，米为 <code>m</code>，默认是米。</p>
 <h2 id="聚合查询">聚合查询<a hidden class="anchor" aria-hidden="true" href="#聚合查询">#</a></h2>
 <p>定义一个原点和一组距离范围桶，聚合评估每个文档值与原点的距离。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_search?size=</span><span class="mi">0</span><span class="err">&amp;filter_path=aggregations</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggs&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;data_around_city&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;unit&#34;</span><span class="p">:</span> <span class="s2">&#34;m&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;location&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;origin&#34;</span><span class="p">:</span> <span class="s2">&#34;113.94823,22.530143&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;ranges&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">          <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">100</span>
-</span></span><span class="line"><span class="cl">          <span class="p">},</span>
-</span></span><span class="line"><span class="cl">          <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">300</span>
-</span></span><span class="line"><span class="cl">          <span class="p">},</span>
-</span></span><span class="line"><span class="cl">          <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">1000</span>
-</span></span><span class="line"><span class="cl">          <span class="p">},</span>
-</span></span><span class="line"><span class="cl">          <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">1000</span>
-</span></span><span class="line"><span class="cl">          <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">]</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="地理多边形内的点">地理多边形内的点<a hidden class="anchor" aria-hidden="true" href="#地理多边形内的点">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_search?size=</span><span class="mi">0</span><span class="err">&amp;filter_path=aggregations</span>
+<span class="p">{</span>
+  <span class="nt">&#34;aggs&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;data_around_city&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;geo_distance&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;unit&#34;</span><span class="p">:</span> <span class="s2">&#34;m&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;location&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;origin&#34;</span><span class="p">:</span> <span class="s2">&#34;113.94823,22.530143&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;ranges&#34;</span><span class="p">:</span> <span class="p">[</span>
+          <span class="p">{</span>
+            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">100</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">300</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>
+            <span class="nt">&#34;to&#34;</span><span class="p">:</span> <span class="mi">1000</span>
+          <span class="p">},</span>
+          <span class="p">{</span>
+            <span class="nt">&#34;from&#34;</span><span class="p">:</span> <span class="mi">1000</span>
+          <span class="p">}</span>
+        <span class="p">]</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="地理多边形内的点">地理多边形内的点<a hidden class="anchor" aria-hidden="true" href="#地理多边形内的点">#</a></h2>
 <p>传入一个多边形来判断多边形范围内是否有坐标点，使用 <code>within</code>方法表示内部。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_search</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">      <span class="p">},</span>
-</span></span><span class="line"><span class="cl">      <span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">          <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;polygon&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;within&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">              <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">113.942373</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">22.531399</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">113.955111</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">22.531432</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">113.953261</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">22.524538</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">],</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">[</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">113.940451</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">                    <span class="mf">22.525991</span>
-</span></span><span class="line"><span class="cl">                  <span class="p">]</span>
-</span></span><span class="line"><span class="cl">                <span class="p">]</span>
-</span></span><span class="line"><span class="cl">              <span class="p">]</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">          <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">      <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">  <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="新增面数据">新增面数据<a hidden class="anchor" aria-hidden="true" href="#新增面数据">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_search</span>
+<span class="p">{</span>
+  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;polygon&#34;</span><span class="p">,</span>
+              <span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;within&#34;</span><span class="p">,</span>
+              <span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">[</span>
+                  <span class="p">[</span>
+                    <span class="mf">113.942373</span><span class="p">,</span>
+                    <span class="mf">22.531399</span>
+                  <span class="p">],</span>
+                  <span class="p">[</span>
+                    <span class="mf">113.955111</span><span class="p">,</span>
+                    <span class="mf">22.531432</span>
+                  <span class="p">],</span>
+                  <span class="p">[</span>
+                    <span class="mf">113.953261</span><span class="p">,</span>
+                    <span class="mf">22.524538</span>
+                  <span class="p">],</span>
+                  <span class="p">[</span>
+                    <span class="mf">113.940451</span><span class="p">,</span>
+                    <span class="mf">22.525991</span>
+                  <span class="p">]</span>
+                <span class="p">]</span>
+              <span class="p">]</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="新增面数据">新增面数据<a hidden class="anchor" aria-hidden="true" href="#新增面数据">#</a></h2>
 <p>es支持的另一种地理类型字段为 <code>geo_shape</code>，包括点、线、多线、面、多面等常见地理类型数据。支持 <code>GeoJson</code>和 <code>WKT</code>两种标准的地理数据格式。</p>
 <p>为第一个喜茶新增多边形的 <code>GeoJson</code>数据：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">		<span class="mf">113.947539</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="mf">22.530122</span>
-</span></span><span class="line"><span class="cl">	<span class="p">],</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;envelope&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">			<span class="p">[</span>
-</span></span><span class="line"><span class="cl">				<span class="mf">113.947248</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">				<span class="mf">22.530295</span>
-</span></span><span class="line"><span class="cl">			<span class="p">],</span>
-</span></span><span class="line"><span class="cl">			<span class="p">[</span>
-</span></span><span class="line"><span class="cl">				<span class="mf">113.94776</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">				<span class="mf">22.529753</span>
-</span></span><span class="line"><span class="cl">			<span class="p">]</span>
-</span></span><span class="line"><span class="cl">		<span class="p">]</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>为第二个喜茶新增 <code>WKT</code>数据</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">2</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶2&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;POINT(113.947539 22.530122)&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="s2">&#34;POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) &#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="通过点判断落面">通过点判断落面<a hidden class="anchor" aria-hidden="true" href="#通过点判断落面">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">1</span>
+<span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="p">[</span>
+		<span class="mf">113.947539</span><span class="p">,</span>
+		<span class="mf">22.530122</span>
+	<span class="p">],</span>
+	<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;envelope&#34;</span><span class="p">,</span>
+		<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
+			<span class="p">[</span>
+				<span class="mf">113.947248</span><span class="p">,</span>
+				<span class="mf">22.530295</span>
+			<span class="p">],</span>
+			<span class="p">[</span>
+				<span class="mf">113.94776</span><span class="p">,</span>
+				<span class="mf">22.529753</span>
+			<span class="p">]</span>
+		<span class="p">]</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><p>为第二个喜茶新增 <code>WKT</code>数据</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">my_locations/_doc/</span><span class="mi">2</span>
+<span class="p">{</span>
+	<span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;喜茶2&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;location&#34;</span><span class="p">:</span> <span class="s2">&#34;POINT(113.947539 22.530122)&#34;</span><span class="p">,</span>
+	<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="s2">&#34;POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) &#34;</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="通过点判断落面">通过点判断落面<a hidden class="anchor" aria-hidden="true" href="#通过点判断落面">#</a></h2>
 <p>判断传入的点落在是否被包含(<code>contains</code>)在相应的多边形内：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_search</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">			<span class="p">},</span>
-</span></span><span class="line"><span class="cl">			<span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">					<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">						<span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">							<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;point&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">							<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">								<span class="mf">113.947305</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">								<span class="mf">22.530055</span>
-</span></span><span class="line"><span class="cl">							<span class="p">]</span>
-</span></span><span class="line"><span class="cl">						<span class="p">},</span>
-</span></span><span class="line"><span class="cl">						<span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;contains&#34;</span>
-</span></span><span class="line"><span class="cl">					<span class="p">}</span>
-</span></span><span class="line"><span class="cl">				<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="判断面相交">判断面相交<a hidden class="anchor" aria-hidden="true" href="#判断面相交">#</a></h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_locations/_search</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-</span></span><span class="line"><span class="cl">			<span class="p">},</span>
-</span></span><span class="line"><span class="cl">			<span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">					<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">						<span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">							<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;polygon&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">							<span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;intersects&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">							<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">								<span class="p">[</span>
-</span></span><span class="line"><span class="cl">									<span class="p">[</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">113.947522</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">22.530091</span>
-</span></span><span class="line"><span class="cl">									<span class="p">],</span>
-</span></span><span class="line"><span class="cl">									<span class="p">[</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">113.948169</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">22.529966</span>
-</span></span><span class="line"><span class="cl">									<span class="p">],</span>
-</span></span><span class="line"><span class="cl">									<span class="p">[</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">113.948187</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">22.529695</span>
-</span></span><span class="line"><span class="cl">									<span class="p">],</span>
-</span></span><span class="line"><span class="cl">									<span class="p">[</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">113.94754</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">										<span class="mf">22.529707</span>
-</span></span><span class="line"><span class="cl">									<span class="p">]</span>
-</span></span><span class="line"><span class="cl">								<span class="p">]</span>
-</span></span><span class="line"><span class="cl">							<span class="p">]</span>
-</span></span><span class="line"><span class="cl">						<span class="p">}</span>
-</span></span><span class="line"><span class="cl">					<span class="p">}</span>
-</span></span><span class="line"><span class="cl">				<span class="p">}</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_search</span>
+<span class="p">{</span>
+	<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+			<span class="p">},</span>
+			<span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
+						<span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+							<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;point&#34;</span><span class="p">,</span>
+							<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
+								<span class="mf">113.947305</span><span class="p">,</span>
+								<span class="mf">22.530055</span>
+							<span class="p">]</span>
+						<span class="p">},</span>
+						<span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;contains&#34;</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="判断面相交">判断面相交<a hidden class="anchor" aria-hidden="true" href="#判断面相交">#</a></h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">my_locations/_search</span>
+<span class="p">{</span>
+	<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+		<span class="nt">&#34;bool&#34;</span><span class="p">:</span> <span class="p">{</span>
+			<span class="nt">&#34;must&#34;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+			<span class="p">},</span>
+			<span class="nt">&#34;filter&#34;</span><span class="p">:</span> <span class="p">{</span>
+				<span class="nt">&#34;geo_shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="nt">&#34;polygon&#34;</span><span class="p">:</span> <span class="p">{</span>
+						<span class="nt">&#34;shape&#34;</span><span class="p">:</span> <span class="p">{</span>
+							<span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;polygon&#34;</span><span class="p">,</span>
+							<span class="nt">&#34;relation&#34;</span><span class="p">:</span> <span class="s2">&#34;intersects&#34;</span><span class="p">,</span>
+							<span class="nt">&#34;coordinates&#34;</span><span class="p">:</span> <span class="p">[</span>
+								<span class="p">[</span>
+									<span class="p">[</span>
+										<span class="mf">113.947522</span><span class="p">,</span>
+										<span class="mf">22.530091</span>
+									<span class="p">],</span>
+									<span class="p">[</span>
+										<span class="mf">113.948169</span><span class="p">,</span>
+										<span class="mf">22.529966</span>
+									<span class="p">],</span>
+									<span class="p">[</span>
+										<span class="mf">113.948187</span><span class="p">,</span>
+										<span class="mf">22.529695</span>
+									<span class="p">],</span>
+									<span class="p">[</span>
+										<span class="mf">113.94754</span><span class="p">,</span>
+										<span class="mf">22.529707</span>
+									<span class="p">]</span>
+								<span class="p">]</span>
+							<span class="p">]</span>
+						<span class="p">}</span>
+					<span class="p">}</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div><h2 id="参考">参考<a hidden class="anchor" aria-hidden="true" href="#参考">#</a></h2>
 <ol>
 <li><a href="https://juejin.cn/post/7213296062084415544#heading-9">Elasticsearch：Geo Point 和 Geo Shape 查询解释</a></li>
 <li><a href="https://blog.csdn.net/lc_2014c/article/details/123131377">Elasticsearch地理空间之geo_shape</a></li>
