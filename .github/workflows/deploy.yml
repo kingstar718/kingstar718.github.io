@@ -7,6 +7,9 @@ on:
     # Runs everyday at 8:00 AM
     - cron: "0 0 * * *"
 
+permissions:
+    contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
