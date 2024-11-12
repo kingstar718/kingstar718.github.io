@@ -32,7 +32,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          EXTERNAL_REPOSITORY: kingstar718/kingstar718.github.io
+          # EXTERNAL_REPOSITORY: kingstar718/kingstar718.github.io
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./public
           commit_message: ${{ github.event.head_commit.message }}
