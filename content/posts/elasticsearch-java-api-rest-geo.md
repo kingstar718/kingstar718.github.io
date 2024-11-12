@@ -59,21 +59,21 @@ PUT /my_locations/_mapping
 ```json
 GET my_locations/_mapping
 {
-  "my_locations":
-    "mappings":
-      "properties":
-        "location":
-          "type": "geo_point"  
-        },  
-        "name":
-          "type": "text"  
-        },  
-        "polygon":
-          "type": "geo_shape"  
-        }  
-      }  
-    }  
-  }  
+  "my_locations": {
+    "mappings": {
+      "properties": {
+        "location": {
+          "type": "geo_point"
+        },
+        "name": {
+          "type": "text"
+        },
+        "polygon": {
+          "type": "geo_shape"
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -103,8 +103,8 @@ POST /my_locations/_doc/1
 ```json
 POST my_locations/_doc/2
 {
-	"name": "喜茶2",
-	"location": "POINT(113.947539 22.530122)"
+  "name": "喜茶2",
+  "location": "POINT(113.947539 22.530122)"
 }
 ```
 
@@ -113,8 +113,8 @@ POST my_locations/_doc/2
 ```json
 POST my_locations/_doc/3
 {
-	"name": "喜茶geohash",
-	"location": "ws100vqp6p"
+  "name": "喜茶geohash",
+  "location": "ws100vqp6p"
 }
 ```
 
@@ -124,11 +124,11 @@ POST my_locations/_doc/3
 
 ```json
 {
-	"name": "平安银行",
-	"location": [
-		113.945805,
-		22.530055
-	]
+  "name": "平安银行",
+  "location": [
+    113.94580499999999,
+    22.530055
+  ]
 }
 ```
 
@@ -139,21 +139,22 @@ POST my_locations/_doc/3
 ```json
 GET my_locations/_search
 {
-    "query": {
-        "bool": {
-            "must": {
-                "match_all": {}
-            },
-            "filter": {
-                "geo_distance": {
-                    "distance": "500m",
-                    "location": [
-                        113.948769,22.530063
-                    ]
-                }
-            }
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_distance": {
+          "distance": "500m",
+          "location": [
+            113.948769,
+            22.530063
+          ]
         }
+      }
     }
+  }
 }
 ```
 
@@ -251,24 +252,24 @@ es支持的另一种地理类型字段为 `geo_shape`，包括点、线、多线
 ```json
 POST my_locations/_doc/1
 {
-	"name": "喜茶",
-	"location": [
-		113.947539,
-		22.530122
-	],
-	"polygon": {
-		"type": "envelope",
-		"coordinates": [
-			[
-				113.947248,
-				22.530295
-			],
-			[
-				113.94776,
-				22.529753
-			]
-		]
-	}
+  "name": "喜茶",
+  "location": [
+    113.947539,
+    22.530122
+  ],
+  "polygon": {
+    "type": "envelope",
+    "coordinates": [
+      [
+        113.947248,
+        22.530295
+      ],
+      [
+        113.94776,
+        22.529753
+      ]
+    ]
+  }
 }
 ```
 
@@ -277,9 +278,9 @@ POST my_locations/_doc/1
 ```json
 POST my_locations/_doc/2
 {
-	"name": "喜茶2",
-	"location": "POINT(113.947539 22.530122)",
-	"polygon": "POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) "
+  "name": "喜茶2",
+  "location": "POINT(113.947539 22.530122)",
+  "polygon": "POLYGON ((113.947305 22.530055, 113.947682 22.530047, 113.947718 22.529788, 113.947341 22.529842, 113.947305 22.530055)) "
 }
 ```
 
@@ -290,27 +291,27 @@ POST my_locations/_doc/2
 ```json
 GET my_locations/_search
 {
-	"query": {
-		"bool": {
-			"must": {
-				"match_all": {}
-			},
-			"filter": {
-				"geo_shape": {
-					"polygon": {
-						"shape": {
-							"type": "point",
-							"coordinates": [
-								113.947305,
-								22.530055
-							]
-						},
-						"relation": "contains"
-					}
-				}
-			}
-		}
-	}
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "polygon": {
+            "shape": {
+              "type": "point",
+              "coordinates": [
+                113.947305,
+                22.530055
+              ]
+            },
+            "relation": "contains"
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -319,43 +320,43 @@ GET my_locations/_search
 ```json
 GET my_locations/_search
 {
-	"query": {
-		"bool": {
-			"must": {
-				"match_all": {}
-			},
-			"filter": {
-				"geo_shape": {
-					"polygon": {
-						"shape": {
-							"type": "polygon",
-							"relation": "intersects",
-							"coordinates": [
-								[
-									[
-										113.947522,
-										22.530091
-									],
-									[
-										113.948169,
-										22.529966
-									],
-									[
-										113.948187,
-										22.529695
-									],
-									[
-										113.94754,
-										22.529707
-									]
-								]
-							]
-						}
-					}
-				}
-			}
-		}
-	}
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_shape": {
+          "polygon": {
+            "shape": {
+              "type": "polygon",
+              "relation": "intersects",
+              "coordinates": [
+                [
+                  [
+                    113.947522,
+                    22.530091
+                  ],
+                  [
+                    113.948169,
+                    22.529966
+                  ],
+                  [
+                    113.948187,
+                    22.529695
+                  ],
+                  [
+                    113.94754,
+                    22.529707
+                  ]
+                ]
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
 }
 ```
 
@@ -364,8 +365,8 @@ GET my_locations/_search
 1. [Elasticsearch：Geo Point 和 Geo Shape 查询解释](https://juejin.cn/post/7213296062084415544#heading-9)
 2. [Elasticsearch地理空间之geo_shape](https://blog.csdn.net/lc_2014c/article/details/123131377)
 3. [ES地理范围查询第一讲：Java操作地理位置信息（geo_point）](https://blog.csdn.net/z69183787/article/details/105559022)
-4. [Elasticsearch 之（53） Java API 基于geo_shape根据坐标查找 坐标落在店铺范围的店铺](https://blog.csdn.net/wuzhiwei549/article/details/80570644)
+4. [Elasticsearch之（53）Java API 基于geo_shape根据坐标查找 坐标落在店铺范围的店铺](https://blog.csdn.net/wuzhiwei549/article/details/80570644)
 5. [Geo queries](https://www.elastic.co/guide/en/elasticsearch/reference/current/geo-queries.html)
 6. [百度地图坐标拾取系统](https://api.map.baidu.com/lbsapi/getpoint/)
 7. [在线经纬度转geohash](https://zhannicholas.github.io/baidumap_geohash_explorer.html)
-8. [# 百度地图 geohash 可视化工具](https://blog.csdn.net/nicholas1328/article/details/128164853)
+8. [百度地图geohash可视化工具](https://blog.csdn.net/nicholas1328/article/details/128164853)
